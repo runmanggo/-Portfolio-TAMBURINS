@@ -9,7 +9,7 @@ import classes from "../style/home.module.css";
 const Home = () => {
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
-  // 창 켰을때 메인이미지만 보이게
+  //창 켰을때 메인이미지만 보이게
   useEffect(() => {
     const handleResize = () => {
       setWindowHeight(window.innerHeight);
