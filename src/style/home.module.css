@@ -102,11 +102,4 @@ img {
   .mainPage__content.fixed {
     position: fixed;
   }
-
-  .mainPage__content {
-    position: absolute;
-    bottom: 0;
-    padding-bottom: 30px;
-    z-index: 5;
-  }
 }
