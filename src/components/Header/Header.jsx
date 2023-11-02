@@ -3,6 +3,7 @@ import classes from "./header.module.css";
 import { NavLink, useNavigate, Link } from "react-router-dom";
 
 import Cart from "../../assets/image/cart.svg";
+import menu from "../../assets/image/menu.svg";
 
 const left_link = [
   {
@@ -52,6 +53,11 @@ const Header = () => {
             <li>
               <img src={Cart} alt="" />
               <span className={classes.badge}>1</span>
+            </li>
+            <li>
+              <span className={classes.mobile__menu}>
+                <img src={menu} alt="" />
+              </span>
             </li>
           </ul>
         </div>

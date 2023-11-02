@@ -58,3 +58,7 @@
   font-weight: 600;
   z-index: 10;
 }
+
+.mobile__menu {
+  display: none;
+}
