@@ -5,20 +5,39 @@ import rightImg from "../assets/image/pc_mainHero_right.jpg";
 
 import classes from "../style/home.module.css";
 
+import Footer from "../components/Footer/Footer";
+
 const Home = () => {
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [isFixed, setIsFixed] = useState(false);
 
-  //창 켰을때 메인이미지만 보이게
   useEffect(() => {
     const handleResize = () => {
       setWindowHeight(window.innerHeight);
+      setWindowWidth(window.innerWidth);
     };
-    window.addEventListener("resize", handleResize);
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (windowWidth < 1204 && window.scrollY > windowHeight) {
+        setIsFixed(false);
+      } else {
+        setIsFixed(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [windowHeight, windowWidth]);
 
   return (
     <div className={classes.mainPage} style={{ height: `${windowHeight}px` }}>
@@ -34,7 +53,13 @@ const Home = () => {
             <img src={rightImg} alt="" />
           </div>
         </div>
-        <div className={classes.mainPage__content}>
+        <div
+          className={
+            isFixed
+              ? `${classes.mainPage__content} ${classes.fixed}`
+              : classes.mainPage__content
+          }
+        >
           <div className={classes.mainPage__title}>TOILET FRAGRANCE</div>
           <button href="/shop/:category" className={classes.mainPage__btn}>
             신제품보기
