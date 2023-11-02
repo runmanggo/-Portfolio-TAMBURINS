@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import classes from "./header.module.css";
 import { NavLink, useLocation } from "react-router-dom";
 
+//이미지
 import Cart from "../../assets/image/cart.svg";
 import menu from "../../assets/image/menu.svg";
 import CartWhite from "../../assets/image/cart_white.svg";
 import MenuWhite from "../../assets/image/menu_white.svg";
+
+//컴포넌트
+import Sidebar from "./Sidebar/Sidebar";
 
 const left_link = [
   {
@@ -42,6 +46,8 @@ const Header = () => {
     ? `${classes.header} ${classes.transparent}`
     : classes.header;
 
+  const isWindowSizeLessThan1024 = window.innerWidth < 1024;
+
   return (
     <header className={navClass}>
       <nav>
@@ -76,6 +82,7 @@ const Header = () => {
             </li>
           </ul>
         </div>
+        {isWindowSizeLessThan1024 && <Sidebar />}
       </nav>
     </header>
   );
