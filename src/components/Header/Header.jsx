@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./header.module.css";
-import { NavLink, useNavigate, Link } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 import Cart from "../../assets/image/cart.svg";
 import menu from "../../assets/image/menu.svg";
+import CartWhite from "../../assets/image/cart_white.svg";
+import MenuWhite from "../../assets/image/menu_white.svg";
 
 const left_link = [
   {
@@ -29,8 +31,19 @@ const left_link = [
 ];
 
 const Header = () => {
+  const location = useLocation();
+  const [isTransparent, setIsTransparent] = useState(false);
+
+  useEffect(() => {
+    setIsTransparent(location.pathname === "/home");
+  }, [location]);
+
+  const navClass = isTransparent
+    ? `${classes.header} ${classes.transparent}`
+    : classes.header;
+
   return (
-    <header className={classes.header}>
+    <header className={navClass}>
       <nav>
         <div>
           <ul className={classes.left}>
@@ -51,13 +64,15 @@ const Header = () => {
               <NavLink to="/login">로그인</NavLink>
             </li>
             <li>
-              <img src={Cart} alt="" />
+              <img src={isTransparent ? CartWhite : Cart} alt="" />
               <span className={classes.badge}>1</span>
             </li>
             <li>
-              <span className={classes.mobile__menu}>
-                <img src={menu} alt="" />
-              </span>
+              <img
+                src={isTransparent ? MenuWhite : menu}
+                alt=""
+                className={classes.mobile__menu}
+              />
             </li>
           </ul>
         </div>

@@ -7,6 +7,13 @@
   background: var(--white);
   color: var(--black);
   height: 4.375rem;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.transparent {
+  background: rgba(255, 255, 255, 0.25);
+  font-weight: 350;
+  color: var(--white);
 }
 
 .header nav {
@@ -23,12 +30,12 @@
   align-items: center;
   gap: 1.3rem;
   font-size: 0.75rem;
-  font-weight: 400;
+  font-weight: 350;
 }
 
 .left li:nth-child(1) {
   font-size: 1.5625rem;
-  font-weight: 600;
+  font-family: "BookkMyungjo-Bd";
 }
 
 .right {
@@ -37,7 +44,7 @@
   align-items: center;
   gap: 1.3rem;
   font-size: 0.75rem;
-  font-weight: 400;
+  font-weight: 350;
 }
 
 .right img {
