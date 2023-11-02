@@ -5,13 +5,12 @@ import rightImg from "../assets/image/pc_mainHero_right.jpg";
 
 import classes from "../style/home.module.css";
 
-import Footer from "../components/Footer/Footer";
-
 const Home = () => {
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isFixed, setIsFixed] = useState(false);
 
+  // 사용자 창 사이즈와 메인 이미지와 동일하게 나오는 로직
   useEffect(() => {
     const handleResize = () => {
       setWindowHeight(window.innerHeight);
@@ -24,6 +23,7 @@ const Home = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // 메인 화면 모바일 버전 스크롤 이벤트
   useEffect(() => {
     const handleScroll = () => {
       if (windowWidth < 1204 && window.scrollY > windowHeight) {
