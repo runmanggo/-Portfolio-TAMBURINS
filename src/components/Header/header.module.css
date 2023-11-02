@@ -1,0 +1,60 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background: var(--white);
+  color: var(--black);
+  height: 4.375rem;
+}
+
+.header nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2.75rem;
+  height: 4.375rem;
+  align-items: center;
+}
+
+.left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.3rem;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+.left li:nth-child(1) {
+  font-size: 1.5625rem;
+  font-weight: 600;
+}
+
+.right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.3rem;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+.right img {
+  width: 1.1rem;
+}
+
+.badge {
+  position: absolute;
+  bottom: 53%;
+  width: 2.0625rem;
+  height: 15px;
+  content: "";
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  font-weight: 600;
+  z-index: 10;
+}

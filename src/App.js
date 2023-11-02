@@ -1,11 +1,18 @@
 import { Fragment } from "react";
-import { Reset } from "styled-reset";
+import Header from "./components/Header/Header";
+import Routers from "./routers/Routers";
+import Footer from "./components/Footer/Footer";
+
+import "./App.css";
 
 function App() {
   return (
     <Fragment>
-      <Reset />
-      <div>Hello, world</div>
+      <Header />
+      <div>
+        <Routers />
+      </div>
+      <Footer />
     </Fragment>
   );
 }
