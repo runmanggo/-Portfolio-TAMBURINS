@@ -69,3 +69,15 @@
 .mobile__menu {
   display: none;
 }
+
+@media (max-width: 1024px) {
+  .left li:not(:first-child) {
+    display: none;
+  }
+  .right li:not(:nth-child(4)):not(:last-child) {
+    display: none;
+  }
+  .mobile__menu {
+    display: block;
+  }
+}
