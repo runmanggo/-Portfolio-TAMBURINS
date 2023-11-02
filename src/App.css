@@ -14,6 +14,7 @@
 :root {
   --black: #333;
   --white: #fff;
+  --gray: #535353;
 }
 
 * {
