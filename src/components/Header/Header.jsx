@@ -82,7 +82,7 @@ const Header = () => {
             </li>
           </ul>
         </div>
-        {isWindowSizeLessThan1024 && <Sidebar />}
+        {/* {isWindowSizeLessThan1024 && <Sidebar />} */}
       </nav>
     </header>
   );

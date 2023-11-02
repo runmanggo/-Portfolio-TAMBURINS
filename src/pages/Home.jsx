@@ -24,7 +24,10 @@ const Home = () => {
     <div className={classes.mainPage} style={{ height: `${windowHeight}px` }}>
       <div className={classes.mainPage__inner}>
         <div className={classes.mainPage__visual}>
-          <div className={classes.left__img}>
+          <div
+            className={classes.left__img}
+            style={{ height: `${windowHeight}px` }}
+          >
             <img src={leftImg} alt="" />
           </div>
           <div className={classes.right__img}>

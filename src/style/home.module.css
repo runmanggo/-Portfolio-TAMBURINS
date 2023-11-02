@@ -31,7 +31,6 @@
 }
 
 img {
-  width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
@@ -69,4 +68,30 @@ img {
   font-size: 13px;
   text-align: center;
   color: var(--black);
+}
+
+@media (max-width: 1203px) {
+  .mainPage {
+    height: auto !important;
+  }
+  .mainPage__visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .left__img,
+  .right__img {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    height: auto;
+  }
+
+  .left__img img,
+  .right__img img {
+    width: 100%;
+    height: 100%;
+  }
 }
