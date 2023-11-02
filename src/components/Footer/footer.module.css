@@ -1,5 +1,10 @@
 .footer {
-  padding: 50px 0 30px;
+  width: 100%;
+  /* position: absolute; */
+  bottom: 0;
+  left: 50%;
+  /* transform: translateX(-50%); */
+  padding: 50px 0 35px;
   color: var(--gray);
   text-align: center;
   font-family: "Noto Sans KR", sans-serif;

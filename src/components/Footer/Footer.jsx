@@ -35,14 +35,14 @@ const Footer = () => {
           className="n-footer__underline"
         >
           &nbsp;개인정보처리방침 |&nbsp;
-          <Link
-            href="https://www.tamburins.com/legals/terms-and-conditions.php"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="n-footer__underline"
-          >
-            &nbsp;이용약관
-          </Link>
+        </Link>
+        <Link
+          href="https://www.tamburins.com/legals/terms-and-conditions.php"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="n-footer__underline"
+        >
+          &nbsp;이용약관
         </Link>
       </div>
       <div className={classes.footer__info}>
