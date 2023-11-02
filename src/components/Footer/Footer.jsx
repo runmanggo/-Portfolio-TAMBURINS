@@ -12,18 +12,17 @@ const Footer = () => {
     <footer className={classes.footer}>
       <div className={classes.footer__info}>
         주)아이아이컴바인드 | 사업자등록번호: 119-86-38589 | 대표자: 김한국 |
-        <Link href="#" onClick={handleEmailClick}>
+        <Link to={() => false} onClick={handleEmailClick}>
           cs@tamburins.com
         </Link>
       </div>
+
       <div className={classes.footer__info}>
         개인정보 보호 책임자: 정태호 | 호스팅 서비스 사업자: Aws |
         통신판매업신고: 제 2014-서울마포-1050 호 (
         <Link
-          href="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=1198638589"
+          to="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=1198638589"
           target="_blank"
-          rel="noopener noreferrer"
-          className="n-footer__underline"
         >
           사업자정보확인&nbsp;
         </Link>
@@ -31,18 +30,14 @@ const Footer = () => {
         <Link
           to="https://www.tamburins.com/legals/privacy-policy.php"
           target="_blank"
-          rel="noopener noreferrer"
-          className="n-footer__underline"
         >
           &nbsp;개인정보처리방침 |&nbsp;
-          <Link
-            href="https://www.tamburins.com/legals/terms-and-conditions.php"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="n-footer__underline"
-          >
-            &nbsp;이용약관
-          </Link>
+        </Link>
+        <Link
+          to="https://www.tamburins.com/legals/terms-and-conditions.php"
+          target="_blank"
+        >
+          &nbsp;이용약관
         </Link>
       </div>
       <div className={classes.footer__info}>
