@@ -65,12 +65,6 @@ const Header = () => {
     }
   };
 
-  useEffect(() => {
-    if (windowWidth < 1204) {
-      setShowSidebar(false);
-    }
-  }, [windowWidth]);
-
   const onClose = () => setShowSidebar(false);
 
   return (
@@ -103,10 +97,7 @@ const Header = () => {
                 src={isTransparent ? MenuWhite : menu}
                 alt=""
                 className={classes.mobile__menu}
-                onClick={(e) => {
-                  e.preventDefault();
-                  toggleSidebar();
-                }}
+                onClick={toggleSidebar}
               />
             </li>
           </ul>
