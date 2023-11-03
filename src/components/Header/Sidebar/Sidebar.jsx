@@ -6,17 +6,21 @@ import Close from "../../../assets/image/close.svg";
 
 import Overlay from "../../UI/Overlay";
 
-const Sidebar = ({ showSidebar, onClose }) => {
+const Sidebar = (props) => {
   const [close, setClose] = useState(false);
+
+  const handleLinkClick = () => {
+    props.onClose();
+  };
 
   return (
     <Fragment>
-      {showSidebar && <Overlay onClick={onClose} />}
-      {showSidebar && (
+      {props.showSidebar && <Overlay onClick={props.onClose} />}
+      {props.showSidebar && (
         <aside className={`${classes.aside} ${close ? classes.closed : ""}`}>
           <div className={classes.aside__inner}>
             <div className={classes.aside__close}>
-              <img src={Close} alt="" onClick={onClose} />
+              <img src={Close} alt="" onClick={props.onClose} />
             </div>
 
             <div className={classes.aside__display}>
@@ -29,13 +33,19 @@ const Sidebar = ({ showSidebar, onClose }) => {
                 <div className={classes.aside__content}>
                   <ul>
                     <li>
-                      <NavLink to="/shop/:category">베스트셀러</NavLink>
+                      <NavLink to="/shop/:category" onClick={handleLinkClick}>
+                        베스트셀러
+                      </NavLink>
                     </li>
                     <li>
-                      <NavLink to="/shop/:category">선물 추천</NavLink>
+                      <NavLink to="/shop/:category" onClick={handleLinkClick}>
+                        선물 추천
+                      </NavLink>
                     </li>
                     <li>
-                      <NavLink to="/store">매장 보기</NavLink>
+                      <NavLink to="/store" onClick={handleLinkClick}>
+                        매장 보기
+                      </NavLink>
                     </li>
                   </ul>
                 </div>
@@ -43,15 +53,21 @@ const Sidebar = ({ showSidebar, onClose }) => {
                 <div className={classes.aside__footer}>
                   <ul>
                     <li>
-                      <NavLink to="/login">로그인</NavLink>
+                      <NavLink to="/login" onClick={handleLinkClick}>
+                        로그인
+                      </NavLink>
                     </li>
 
                     <li>
-                      <NavLink to="/mypage">문의하기</NavLink>
+                      <NavLink to="/mypage" onClick={handleLinkClick}>
+                        문의하기
+                      </NavLink>
                     </li>
 
                     <li>
-                      <NavLink to="/mypage">마이페이지</NavLink>
+                      <NavLink to="/mypage" onClick={handleLinkClick}>
+                        마이페이지
+                      </NavLink>
                     </li>
 
                     <li>
