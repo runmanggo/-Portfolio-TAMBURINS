@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import classes from "./header.module.css";
 import { NavLink, useLocation } from "react-router-dom";
 
@@ -35,21 +35,46 @@ const left_link = [
 ];
 
 const Header = () => {
-  const location = useLocation();
   const [isTransparent, setIsTransparent] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const location = useLocation();
 
   useEffect(() => {
     setIsTransparent(location.pathname === "/home");
   }, [location]);
 
-  const navClass = isTransparent
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const navIsTransparent = isTransparent
     ? `${classes.header} ${classes.transparent}`
     : classes.header;
 
-  const isWindowSizeLessThan1024 = window.innerWidth < 1024;
+  const toggleSidebar = () => {
+    if (window.innerWidth < 1024) {
+      setShowSidebar((prevShowSidebar) => !prevShowSidebar);
+    }
+  };
+
+  useEffect(() => {
+    if (windowWidth < 1204) {
+      setShowSidebar(false);
+    }
+  }, [windowWidth]);
+
+  const onClose = () => setShowSidebar(false);
 
   return (
-    <header className={navClass}>
+    <header className={navIsTransparent}>
       <nav>
         <div>
           <ul className={classes.left}>
@@ -78,11 +103,15 @@ const Header = () => {
                 src={isTransparent ? MenuWhite : menu}
                 alt=""
                 className={classes.mobile__menu}
+                onClick={(e) => {
+                  e.preventDefault();
+                  toggleSidebar();
+                }}
               />
             </li>
           </ul>
         </div>
-        {/* {isWindowSizeLessThan1024 && <Sidebar />} */}
+        {showSidebar && <Sidebar showSidebar={showSidebar} onClose={onClose} />}
       </nav>
     </header>
   );

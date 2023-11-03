@@ -4,6 +4,7 @@ import leftImg from "../assets/image/pc_mainHero_left.jpg";
 import rightImg from "../assets/image/pc_mainHero_right.jpg";
 
 import classes from "../style/home.module.css";
+import { NavLink } from "react-router-dom";
 
 const Home = () => {
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
@@ -61,8 +62,8 @@ const Home = () => {
           }
         >
           <div className={classes.mainPage__title}>TOILET FRAGRANCE</div>
-          <button href="/shop/:category" className={classes.mainPage__btn}>
-            신제품보기
+          <button className={classes.mainPage__btn}>
+            <NavLink to="/shop/:category">신제품보기</NavLink>
           </button>
         </div>
       </div>
