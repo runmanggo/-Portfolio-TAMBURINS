@@ -1,54 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
-import "./slider.css";
-
-import bestsellerImage from "../../assets/image/swiper_menu/category_bestseller.png";
-import chainHandImage from "../../assets/image/swiper_menu/category_chain-hand_v2.png";
-import giftsetImage from "../../assets/image/swiper_menu/category_giftset.png";
-import handWash from "../../assets/image/swiper_menu/category_handWash.png";
-import multiFragrance from "../../assets/image/swiper_menu/category_multi-fragrance.png";
-import OAcandle from "../../assets/image/swiper_menu/category_OAcandle.png";
-import sampleKit from "../../assets/image/swiper_menu/category_sample-kit.png";
-import sanitizer from "../../assets/image/swiper_menu/category_sanitizer.png";
-import shwry from "../../assets/image/swiper_menu/category_shwry.png";
-import viewall from "../../assets/image/swiper_menu/category_viewall.png";
-import balm from "../../assets/image/swiper_menu/ctgry_balm.png";
-import bloomingcandle from "../../assets/image/swiper_menu/ctgry_bloomingcandle.png";
-import harvestsoap3 from "../../assets/image/swiper_menu/ctgry_harvestsoap3.png";
-import perfume from "../../assets/image/swiper_menu/ctgry_perfume.png";
-import shellX from "../../assets/image/swiper_menu/ctgry_shellX.png";
-import toiletFragranceV2 from "../../assets/image/swiper_menu/ctgry_toiletfragrance_v2.png";
+import classes from "./slider.module.css";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { db } from "../../firebase.config";
 
 const Slider = () => {
-  const images = [
-    bestsellerImage,
-    chainHandImage,
-    giftsetImage,
-    handWash,
-    multiFragrance,
-    OAcandle,
-    sampleKit,
-    sanitizer,
-    shwry,
-    viewall,
-    balm,
-    bloomingcandle,
-    harvestsoap3,
-    perfume,
-    shellX,
-    toiletFragranceV2,
-  ];
+  const [images, setImages] = useState([]);
+  const storage = getStorage(); // Firebase Storage 초기화
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const querySnapshot = await getDocs(collection(db, "categoryList"));
+
+      // Firebase Storage에서 이미지의 다운로드 URL을 가져옵니다.
+      const imageList = await Promise.all(
+        querySnapshot.docs.map(async (doc) => {
+          const data = doc.data();
+          const imgPath = data.img;
+          const imgUrl = await getDownloadURL(ref(storage, imgPath));
+          return { url: imgUrl, title: data.title };
+        })
+      );
+
+      setImages(imageList);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Swiper
       spaceBetween={20}
       slidesPerView={"auto"}
-      className="swiper-container"
+      className={classes.swiper__container}
     >
       {images.map((image, index) => (
         <SwiperSlide key={index} style={{ width: "100px", height: "100px" }}>
-          <img src={image} alt={`Slide ${index + 1}`} />
+          <img src={image.url} alt={`Slide ${index + 1}`} />
+          <span>{image.title}</span>
         </SwiperSlide>
       ))}
     </Swiper>
