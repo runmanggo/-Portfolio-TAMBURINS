@@ -53,15 +53,9 @@ const Slider = () => {
         images.map((image) => (
           <SwiperSlide
             key={image.id}
-            style={{
-              width: "100px",
-              height: "100px",
-              borderRadius: "50%",
-              border:
-                activeImage === image.category
-                  ? "2px double #53535383"
-                  : "none",
-            }}
+            className={`${classes.swiper__slide} ${
+              activeImage === image.category ? classes.active : ""
+            }`}
           >
             <div className={classes.swiper__innerContainer}>
               <Link to={`/shop/${image.category}`}>

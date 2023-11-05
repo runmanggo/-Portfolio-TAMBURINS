@@ -6,6 +6,21 @@
   padding-right: calc((100% - 1905px) / 2);
 }
 
+.swiper__slide {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  transition: border 0.4s ease-in-out;
+}
+
+.swiper__slide.active {
+  border: 2px double var(--gray);
+}
+
+.swiper__slide:hover {
+  border: 2px double hsla(0, 0%, 33%, 0.2);
+}
+
 .swiper__innerContainer {
   display: flex;
   flex-direction: column;
@@ -15,6 +30,7 @@
 
 .swiper__innerContainer img {
   margin-bottom: 15px;
+  padding: 5px;
 }
 
 .swiper__innerContainer span {
