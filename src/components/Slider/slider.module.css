@@ -5,3 +5,19 @@
   padding-left: calc((100% - 1905px) / 2);
   padding-right: calc((100% - 1905px) / 2);
 }
+
+.swiper__innerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.swiper__innerContainer img {
+  margin-bottom: 15px;
+}
+
+.swiper__innerContainer span {
+  font-size: 11px;
+  font-weight: 400;
+}
