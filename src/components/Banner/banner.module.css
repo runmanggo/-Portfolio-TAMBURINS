@@ -1,0 +1,30 @@
+.banner__container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner__inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.banner__inner img {
+  width: 100%;
+  height: 100%;
+}
+
+.banner__title {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.banner_text {
+  overflow: hidden;
+  transition: height 0.35s ease-in;
+  font-size: 14px;
+  line-height: 1.8571;
+}

@@ -5,6 +5,22 @@
   padding-left: calc((100% - 1905px) / 2);
   padding-right: calc((100% - 1905px) / 2);
 }
+.swiper__slide {
+  width: 120px;
+  height: 120px;
+  border: none;
+  transition: border 0.3s ease-in-out;
+}
+
+.swiper__slide.active {
+  border: 2px double var(--gray);
+  border-radius: 50%;
+}
+
+.swiper__slide:hover {
+  border: 2px double rgba(83, 83, 83, 0.35);
+  border-radius: 50%;
+}
 
 .swiper__slide {
   width: 110px;
@@ -30,7 +46,11 @@
 
 .swiper__innerContainer img {
   margin-bottom: 15px;
+<<<<<<< HEAD
   padding: 5px;
+=======
+  padding: 3px;
+>>>>>>> feature
 }
 
 .swiper__innerContainer span {
