@@ -4,12 +4,12 @@ import { getStorage } from "firebase/storage";
 
 // 설정값
 const firebaseConfig = {
-  apiKey: "AIzaSyDl157V4X_7-Y8HAw27vL8ZEnrX1Bmzau4",
-  authDomain: "portfolio-tamburins.firebaseapp.com",
-  projectId: "portfolio-tamburins",
-  storageBucket: "portfolio-tamburins.appspot.com",
-  messagingSenderId: "221453486945",
-  appId: "1:221453486945:web:4dc4b844bc4d1b1324d320",
+  apiKey: "AIzaSyBr6p98Ue3GtobKnQIJuDeurxbjsWc_qk8",
+  authDomain: "my-tamburins.firebaseapp.com",
+  projectId: "my-tamburins",
+  storageBucket: "my-tamburins.appspot.com",
+  messagingSenderId: "840295078529",
+  appId: "1:840295078529:web:4d9cfc3adbd1aee1420b80",
 };
 
 //Firebase 초기화
