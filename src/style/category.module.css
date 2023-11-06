@@ -3,6 +3,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-column-gap: 0.1875rem;
+  color: var(--black);
 }
 
 .ctgLis__productBox {
