@@ -4,6 +4,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-family: "Noto Sans KR", sans-serif;
+  color: var(--black);
 }
 
 .banner__inner {
@@ -13,18 +15,32 @@
 }
 
 .banner__inner img {
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  height: auto;
+}
+.banner__inner video {
+  max-width: 100%;
+  height: auto;
+}
+
+.banenr__context {
+  max-width: 45.4375rem;
+  margin: 2.5rem auto 3.75rem;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 400;
+  padding: 0 20px;
 }
 
 .banner__title {
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 500;
 }
 
 .banner_text {
   overflow: hidden;
   transition: height 0.35s ease-in;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.8571;
+  margin-top: 1.5rem;
 }
