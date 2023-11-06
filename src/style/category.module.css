@@ -1,0 +1,45 @@
+.ctgList__inner {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 0.1875rem;
+}
+
+.ctgLis__productBox {
+  margin-bottom: 58px;
+}
+
+.ctgLis__img {
+  position: relative;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.ctgLis__info {
+  padding: 0 20px;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.ctgLis__info__itemDesc {
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.ctgLis__info__title {
+  margin: 6px 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+.ctgLis__info__price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ctgList__size {
+  display: block;
+  margin-top: 20px;
+  color: #a8a8a8;
+}
