@@ -23,6 +23,18 @@ const uri =
 
 mongoose.connect(uri);
 
+const MainCtg = new mongoose.Schema({
+  _id: mongoose.Schema.Types.ObjectId,
+  ctgId: Number,
+  category: String,
+  sliderTitle: String,
+  sliderImg: String,
+  bannerTitle: String,
+  bannerImg: String,
+  bannerVideo: String,
+  bannerContent: String,
+});
+
 //서버 실행
 app.listen(port, () => {
   console.log(`서버는 http://localhost:${port} 에서 실행중 ◝(・▿・)◜`);
