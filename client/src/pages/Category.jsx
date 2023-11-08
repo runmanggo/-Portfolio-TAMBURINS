@@ -6,28 +6,22 @@ import Banner from "../components/Banner/Banner";
 import classes from "../style/category.module.css";
 import Imggg from "../assets/image/PLP_perfume_chamo_50ml.jpg";
 
-import { db, storage } from "../firebase.config";
-import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 
+import axios from "axios";
+
 const fetchTitle = async (category) => {
-  const q = query(collection(db, "categoryList"), orderBy("id", "asc"));
-  const querySnapshot = await getDocs(q);
+  try {
+    const response = await axios.get("http://localhost:8000/categories");
+    const titles = response.data;
 
-  const titles = querySnapshot.docs.map((doc) => {
-    const data = doc.data();
+    const matchedTitle = titles.filter((title) => title.category === category);
 
-    return {
-      id: data.id,
-      category: data.category,
-      title: data.title,
-    };
-  });
-
-  const matchedTitle = titles.filter((title) => title.category === category);
-
-  return matchedTitle.length > 0 ? matchedTitle[0].title : null;
+    return matchedTitle.length > 0 ? matchedTitle[0].sliderTitle : "";
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 const Category = () => {
@@ -38,8 +32,8 @@ const Category = () => {
     error,
   } = useQuery(["title", category], () => fetchTitle(category));
 
-  if (isLoading) return console.log("loading");
-  if (error) return console.log("error.message");
+  if (isLoading) return console.log("로딩중");
+  if (error) return console.log(error.message);
 
   return (
     <div>
