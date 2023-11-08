@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -31,7 +31,7 @@ const Banner = () => {
   if (error) return console.log(error.message);
 
   return (
-    <>
+    <Fragment>
       {banners.map((item) => (
         <section key={item._id} className={classes.banner__container}>
           <div className={classes.banner__inner}>
@@ -43,13 +43,17 @@ const Banner = () => {
               </video>
             )}
           </div>
-          <div className={classes.banenr__context}>
-            <div className={classes.banner__title}>{item.bannerTitle}</div>
-            <div className={classes.banner_text}>{item.bannerContent}</div>
-          </div>
+          {item.bannerTitle && (
+            <div className={classes.banner__context}>
+              <div className={classes.banner__title}>{item.bannerTitle}</div>
+              {item.bannerContent && (
+                <div className={classes.banner_text}>{item.bannerContent}</div>
+              )}
+            </div>
+          )}
         </section>
       ))}
-    </>
+    </Fragment>
   );
 };
 

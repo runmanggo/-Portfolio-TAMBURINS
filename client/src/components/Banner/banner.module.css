@@ -23,9 +23,9 @@
   height: auto;
 }
 
-.banenr__context {
+.banner__context {
   max-width: 45.4375rem;
-  margin: 2.5rem auto 3.75rem;
+  margin: 3.75rem auto 3.75rem;
   text-align: center;
   font-size: 0.875rem;
   font-weight: 400;
@@ -33,14 +33,15 @@
 }
 
 .banner__title {
-  font-size: 1.5rem;
-  font-weight: 500;
+  font-size: 1.375rem;
+  font-weight: 400;
 }
 
 .banner_text {
   overflow: hidden;
   transition: height 0.35s ease-in;
-  font-size: 0.875rem;
+  font-size: 13px;
   line-height: 1.8571;
-  margin-top: 1.5rem;
+  margin-top: 1.875rem;
+  font-weight: 300;
 }

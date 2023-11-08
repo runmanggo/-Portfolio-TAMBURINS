@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./header.module.css";
 import { NavLink, useLocation } from "react-router-dom";
 
@@ -21,11 +21,11 @@ const left_link = [
     display: "제품보기",
   },
   {
-    path: "shop/:category",
+    path: "shop/bestSellers",
     display: "베스트셀러",
   },
   {
-    path: "shop/:category",
+    path: "shop/giftSet",
     display: "선물추천",
   },
   {

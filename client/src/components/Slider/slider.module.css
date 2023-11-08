@@ -1,6 +1,6 @@
 .swiper__container {
   margin-top: 4.375rem;
-  padding: 2.8125rem 0 3.6875rem;
+  padding: 30px 0 90px;
   display: flex;
   padding-left: calc((100% - 1905px) / 2);
   padding-right: calc((100% - 1905px) / 2);
