@@ -6,10 +6,6 @@ const MainCtgSchema = new mongoose.Schema({
   category: String,
   sliderTitle: String,
   sliderImg: String,
-  bannerTitle: String,
-  bannerImg: String,
-  bannerVideo: String,
-  bannerContent: String,
 });
 
 const MainCtg = mongoose.model("MainCtg", MainCtgSchema, "mainCategory");
