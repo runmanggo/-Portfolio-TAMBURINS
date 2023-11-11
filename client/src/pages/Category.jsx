@@ -13,7 +13,7 @@ import axios from "axios";
 
 const fetchTitle = async (category) => {
   try {
-    const response = await axios.get("http://localhost:8000/categories");
+    const response = await axios.get("http://localhost:8000/categories/items");
     const titles = response.data;
 
     const matchedTitle = titles.filter((title) => title.category === category);
