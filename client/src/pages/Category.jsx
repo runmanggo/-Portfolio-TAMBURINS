@@ -4,7 +4,6 @@ import Filter from "../components/Filter/Filter";
 import Banner from "../components/Banner/Banner";
 
 import classes from "../style/category.module.css";
-import Imggg from "../assets/image/PLP_perfume_chamo_50ml.jpg";
 
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
@@ -13,12 +12,24 @@ import axios from "axios";
 
 const fetchTitle = async (category) => {
   try {
-    const response = await axios.get("http://localhost:8000/categories/items");
+    const response = await axios.get("http://localhost:8000/categories");
     const titles = response.data;
 
     const matchedTitle = titles.filter((title) => title.category === category);
 
     return matchedTitle.length > 0 ? matchedTitle[0].sliderTitle : "";
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+const fetchItems = async (category) => {
+  try {
+    const response = await axios.get("http://localhost:8000/items");
+    const mainItems = response.data;
+    const matchedCtg = mainItems.filter((item) => item.category === category);
+
+    return matchedCtg;
   } catch (error) {
     throw new Error(error.message);
   }
@@ -32,6 +43,15 @@ const Category = () => {
     error,
   } = useQuery(["title", category], () => fetchTitle(category));
 
+  const {
+    data: mainItems,
+    isLoading: isMainItemsLoading,
+    error: mainItemsError,
+  } = useQuery(["mainItems", fetchItems], () => fetchItems(category));
+
+  if (isMainItemsLoading) return console.log("Main items 로딩중");
+  if (mainItemsError) return console.log(mainItemsError.message);
+
   if (isLoading) return console.log("로딩중");
   if (error) return console.log(error.message);
 
@@ -42,67 +62,32 @@ const Category = () => {
       <Filter title={title} />
       <div className={classes.ctgList__container}>
         <div className={classes.ctgList__inner}>
-          <div className={classes.ctgLis__productBox}>
-            <div className={classes.ctgLis__img}>
-              <img src={Imggg} alt="" />
-            </div>
-            <div className={classes.ctgLis__info}>
-              <div className={classes.ctgLis__info__itemDesc}>
-                진득한 카모마일 | 부드러운 나무결 | 머스크
+          {mainItems.map((item) => {
+            return (
+              <div className={classes.ctgLis__productBox} key={item._id}>
+                <div className={classes.ctgLis__img}>
+                  <img src={item.img} alt="" />
+                </div>
+                <div className={classes.ctgLis__info}>
+                  <div className={classes.ctgLis__info__itemDesc}>
+                    {item.desc[0]} | {item.desc[1]} | {item.desc[2]}
+                  </div>
+                  <div className={classes.ctgLis__info__title}>{item.name}</div>
+                  <div className={classes.ctgLis__info__price}>
+                    <span className={classes.ctgLis__price}>
+                      {item.price} 원
+                    </span>
+                    <span className={classes.ctgLis__capacity}>
+                      {item.capacity}
+                    </span>
+                  </div>
+                  <span className={classes.ctgList__size}>
+                    +<strong>{item.quantity}</strong> Sizes
+                  </span>
+                </div>
               </div>
-              <div className={classes.ctgLis__info__title}>퍼퓸 카모 </div>
-              <div className={classes.ctgLis__info__price}>
-                <span className={classes.ctgLis__price}>139,000 원 </span>
-                <span className={classes.ctgLis__capacity}>50mL</span>
-              </div>
-
-              <span className={classes.ctgList__size}>
-                +<strong>3</strong> Sizes
-              </span>
-            </div>
-          </div>
-
-          {/* 확인용 */}
-          <div className={classes.ctgLis__productBox}>
-            <div className={classes.ctgLis__img}>
-              <img src={Imggg} alt="" />
-            </div>
-            <div className={classes.ctgLis__info}>
-              <div className={classes.ctgLis__info__itemDesc}>
-                진득한 카모마일 | 부드러운 나무결 | 머스크
-              </div>
-              <div className={classes.ctgLis__info__title}>퍼퓸 카모 </div>
-              <div className={classes.ctgLis__info__price}>
-                <span className={classes.ctgLis__price}>139,000 원 </span>
-                <span className={classes.ctgLis__capacity}>50mL</span>
-              </div>
-
-              <span className={classes.ctgList__size}>
-                +<strong>3</strong> Sizes
-              </span>
-            </div>
-          </div>
-
-          {/* 확인용 */}
-          <div className={classes.ctgLis__productBox}>
-            <div className={classes.ctgLis__img}>
-              <img src={Imggg} alt="" />
-            </div>
-            <div className={classes.ctgLis__info}>
-              <div className={classes.ctgLis__info__itemDesc}>
-                진득한 카모마일 | 부드러운 나무결 | 머스크
-              </div>
-              <div className={classes.ctgLis__info__title}>퍼퓸 카모 </div>
-              <div className={classes.ctgLis__info__price}>
-                <span className={classes.ctgLis__price}>139,000 원 </span>
-                <span className={classes.ctgLis__capacity}>50mL</span>
-              </div>
-
-              <span className={classes.ctgList__size}>
-                +<strong>3</strong> Sizes
-              </span>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </div>
     </div>
