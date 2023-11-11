@@ -9,6 +9,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 
 const categoryRoutes = require("./routes/categoryRoutes");
+const itemRoutes = require("./routes/itemsRoutes");
 
 // body-parser 미들웨어 사용
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -24,6 +25,8 @@ mongoose.connect(uri);
 
 // categoryRoutes를 /categories 경로에 등록
 app.use("/categories", categoryRoutes);
+// itemRoutes 를 /items 경로에 등록
+app.use("/items", itemRoutes);
 
 //서버 실행
 app.listen(port, () => {
