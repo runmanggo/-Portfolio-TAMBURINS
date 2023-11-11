@@ -10,6 +10,7 @@ import { useQuery } from "react-query";
 
 import axios from "axios";
 
+//필터 컴포넌트 category에 해당되는 title 호출
 const fetchTitle = async (category) => {
   try {
     const response = await axios.get("http://localhost:8000/categories");
@@ -23,6 +24,7 @@ const fetchTitle = async (category) => {
   }
 };
 
+// 쿼리 파라미터로 'category' 값을 받아 해당 되는 데이터만 받음
 const fetchItems = async (category) => {
   try {
     const response = await axios.get(`http://localhost:8000/items/category`, {
