@@ -25,11 +25,12 @@ const fetchTitle = async (category) => {
 
 const fetchItems = async (category) => {
   try {
-    const response = await axios.get("http://localhost:8000/items");
-    const mainItems = response.data;
-    const matchedCtg = mainItems.filter((item) => item.category === category);
-
-    return matchedCtg;
+    const response = await axios.get(`http://localhost:8000/items/category`, {
+      params: {
+        category: category,
+      },
+    });
+    return response.data;
   } catch (error) {
     throw new Error(error.message);
   }
@@ -45,12 +46,12 @@ const Category = () => {
 
   const {
     data: mainItems,
-    isLoading: isMainItemsLoading,
-    error: mainItemsError,
-  } = useQuery(["mainItems", fetchItems], () => fetchItems(category));
+    isLoading: itemsIsLoading,
+    error: itemsError,
+  } = useQuery(["items", category], () => fetchItems(category));
 
-  if (isMainItemsLoading) return console.log("Main items 로딩중");
-  if (mainItemsError) return console.log(mainItemsError.message);
+  if (itemsIsLoading) return console.log("items 로딩중");
+  if (itemsError) return console.log(itemsError.message);
 
   if (isLoading) return console.log("로딩중");
   if (error) return console.log(error.message);

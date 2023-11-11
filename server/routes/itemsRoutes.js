@@ -13,6 +13,18 @@ router.get("/", async (req, res) => {
   }
 });
 
+// 카테고리에 따른 상품 필터링
+router.get("/category", async (req, res) => {
+  const { category } = req.query;
+
+  try {
+    const itemsCtg = await MainItems.find({ category: category });
+    res.json(itemsCtg);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
 router.get("/best", async (req, res) => {
   try {
     const items = await MainItems.find({ isBest: true });
