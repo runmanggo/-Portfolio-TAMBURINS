@@ -19,12 +19,12 @@ const Slider = () => {
   const { data: images, isLoading, error } = useQuery("images", fetchImages);
   const [activeImage, setActiveImage] = useState([]);
 
+  if (isLoading) return console.log("로딩중");
+  if (error) return console.log(error.message);
+
   const handleImageClick = (id) => {
     setActiveImage(id);
   };
-
-  if (isLoading) return console.log("로딩중");
-  if (error) return console.log(error.message);
 
   return (
     <Swiper
