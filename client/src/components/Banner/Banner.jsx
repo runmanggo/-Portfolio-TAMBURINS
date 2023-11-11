@@ -7,7 +7,7 @@ import classes from "./banner.module.css";
 
 const fetchBanners = async (category) => {
   try {
-    const response = await axios.get("http://localhost:8000/categories");
+    const response = await axios.get("http://localhost:8000/categories/banner");
     const banners = response.data;
     const filteredBanners = category
       ? banners.filter((item) => item.category === category)
