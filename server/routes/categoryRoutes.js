@@ -3,7 +3,10 @@ const router = express.Router();
 
 const MainCtg = require("../models/mainCtg");
 const MainItems = require("../models/mainItems");
+<<<<<<< HEAD
 const Mainbanner = require("../models/mainbanner");
+=======
+>>>>>>> 7ebd9879f68962a90210fb7ca1d548d69ef2ea3e
 
 // 카테고리 목록 조회
 router.get("/", async (req, res) => {
@@ -16,6 +19,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 router.get("/banner", async (req, res) => {
   try {
     // 모든 banner 데이터 불러오기
@@ -26,6 +30,8 @@ router.get("/banner", async (req, res) => {
   }
 });
 
+=======
+>>>>>>> 7ebd9879f68962a90210fb7ca1d548d69ef2ea3e
 router.get("/items", async (req, res) => {
   try {
     // 모든 mainItems 데이터 불러오기
