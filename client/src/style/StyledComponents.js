@@ -8,20 +8,10 @@ export const CtgLsitContainer = styled.div`
   color: var(--black);
   margin: 0 auto;
   padding: 0 2.75rem;
-
-  @media (max-width: 1024px) {
-    padding: 0;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 3px;
-  }
-`;
-
-export const BtnBox = styled.div`
-  padding: 0 20px;
 `;
 
 export const AllBtn = styled.button`
-  margin: 20px auto 150px;
+  margin: 20px auto 200px;
   display: block;
   width: 335px;
   height: 45px;
@@ -29,11 +19,5 @@ export const AllBtn = styled.button`
   text-align: center;
   border: 1px solid #a8a8a8;
   font-size: 12px;
-  font-weight: 400;
-  cursor: pointer;
-
-  @media (max-width: 1024px) {
-    width: 100%;
-    margin: 20px auto 80px;
-  }
+  font-weight: 500;
 `;
