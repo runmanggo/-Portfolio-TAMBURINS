@@ -6,7 +6,7 @@ import ItemCard from "../components/UI/ItemCard";
 
 import { CtgLsitContainer } from "../style/StyledComponents";
 
-import { useParams } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
 import { useQuery } from "react-query";
 
 import axios from "axios";
@@ -25,6 +25,7 @@ const fetchTitle = async (category) => {
   }
 };
 
+// 각 조건에 맞게 데이터 받아오기
 const fetchItems = async (category) => {
   try {
     let response;
@@ -73,7 +74,9 @@ const Category = () => {
       <Filter title={title} />
       <CtgLsitContainer>
         {mainItems.map((item) => (
-          <ItemCard key={item._id} item={item} />
+          <NavLink key={item._id} to={`/shop/${item.category}/${item.itemId}`}>
+            <ItemCard item={item} />
+          </NavLink>
         ))}
       </CtgLsitContainer>
     </div>

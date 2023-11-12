@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import classes from "./slidebar.module.css";
+import classes from "./sidebar.module.css";
 import { NavLink } from "react-router-dom";
 
 import Close from "../../../assets/image/close.svg";
@@ -33,12 +33,12 @@ const Sidebar = (props) => {
                 <div className={classes.aside__content}>
                   <ul>
                     <li>
-                      <NavLink to="/shop/:category" onClick={handleLinkClick}>
+                      <NavLink to="/shop/bestSellers" onClick={handleLinkClick}>
                         베스트셀러
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink to="/shop/:category" onClick={handleLinkClick}>
+                      <NavLink to="/shop/giftSet" onClick={handleLinkClick}>
                         선물 추천
                       </NavLink>
                     </li>
