@@ -1,0 +1,140 @@
+.detail__content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 44px;
+  align-items: flex-start;
+  gap: 44px;
+}
+
+.detail__imgs {
+  height: 100vh;
+  overflow: scroll;
+}
+
+.detail__imgs__wrapper {
+  display: initial;
+}
+
+.product__info {
+  flex: 0 0 40%;
+  padding-top: 90px;
+}
+
+.product__info__inner {
+  position: relative !important;
+}
+
+.item__ctg {
+  font-size: 12px;
+  font-weight: 300;
+  margin-bottom: 5px;
+}
+
+.item__ctg__info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.item__ctg__info__title,
+.item__ctg__info__price {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.product__sizeBox {
+  display: flex;
+  margin: 44px 0 40px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.product__size {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 3px;
+  flex-wrap: wrap;
+}
+
+.product__size li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  margin: auto;
+  border-radius: 3px;
+}
+
+.product__size li > div {
+  font-weight: 200;
+}
+
+.product__size img {
+  width: 60px;
+  height: auto;
+  border-radius: 3px;
+}
+
+.detail__info__desc {
+  margin: 20px 0 30px;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.4285;
+}
+
+.detail__info__summary {
+  word-break: normal;
+  margin-bottom: 40px;
+  font-weight: 200;
+  font-size: 0.8125rem;
+}
+
+.detail__btn {
+  margin: 0 0 40px;
+  cursor: pointer;
+  border-style: none;
+  background-color: initial;
+  border-bottom: 1px solid var(--gray);
+}
+
+.detail__info__ctg__summary {
+  margin: 30px 0 40px;
+  word-break: normal;
+  margin-bottom: 40px;
+  font-weight: 200;
+  font-size: 0.8125rem;
+}
+
+.cart__btn {
+  width: 100%;
+  height: 3rem;
+  border: 1px solid #000;
+  background: #000;
+  color: #fff;
+}
+
+.accordian__container {
+  margin-top: 40px;
+  border-bottom: 1px solid #d5d5d5;
+  line-height: 1.8571;
+}
+
+.accordian {
+  width: 100%;
+  height: 65px;
+  padding: 0 12px;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  text-align: left;
+}
+
+.recommend {
+  position: relative;
+  padding-top: 200px;
+}
