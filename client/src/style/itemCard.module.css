@@ -1,0 +1,45 @@
+.ctgList__productBox {
+  margin-bottom: 58px;
+}
+
+.ctgList__img {
+  position: relative;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.ctgList__info {
+  padding: 0 20px;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+.ctgList__info__itemDesc {
+  font-size: 10px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.ctgList__info__title {
+  margin: 6px 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.ctgList__info__price {
+  display: flex;
+  align-items: center;
+  font-size: 0.75rem;
+  justify-content: space-between;
+}
+
+.ctgList__size {
+  display: block;
+  margin-top: 20px;
+  color: #a8a8a8;
+  font-weight: 300;
+  font-size: 0.625rem;
+}
+
+.ctgList__size strong {
+  color: var(--black);
+}

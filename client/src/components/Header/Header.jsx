@@ -18,7 +18,7 @@ const left_link = [
   },
   {
     path: "shop",
-    display: "제품보기",
+    display: "전체보기",
   },
   {
     path: "shop/bestSellers",
