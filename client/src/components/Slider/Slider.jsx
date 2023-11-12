@@ -42,7 +42,7 @@ const Slider = () => {
           <div className={classes.swiper__innerContainer}>
             <Link
               to={
-                image.category === "ViewAll"
+                image.category === "viewAll"
                   ? "/shop"
                   : `/shop/${image.category}`
               }

@@ -2,8 +2,9 @@ import React from "react";
 import Slider from "../components/Slider/Slider";
 import Filter from "../components/Filter/Filter";
 import Banner from "../components/Banner/Banner";
+import ItemCard from "../components/UI/ItemCard";
 
-import classes from "../style/category.module.css";
+import { CtgLsitContainer } from "../style/StyledComponents";
 
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
@@ -24,14 +25,21 @@ const fetchTitle = async (category) => {
   }
 };
 
-// 쿼리 파라미터로 'category' 값을 받아 해당 되는 데이터만 받음
 const fetchItems = async (category) => {
   try {
-    const response = await axios.get(`http://localhost:8000/items/category`, {
-      params: {
-        category: category,
-      },
-    });
+    let response;
+
+    if (category === "bestSellers") {
+      response = await axios.get("http://localhost:8000/items/best");
+    } else if (category === "giftSet") {
+      response = await axios.get("http://localhost:8000/items/gift");
+    } else {
+      response = await axios.get(`http://localhost:8000/items/category`, {
+        params: {
+          category: category,
+        },
+      });
+    }
     return response.data;
   } catch (error) {
     throw new Error(error.message);
@@ -63,36 +71,11 @@ const Category = () => {
       <Slider />
       <Banner />
       <Filter title={title} />
-      <div className={classes.ctgList__container}>
-        <div className={classes.ctgList__inner}>
-          {mainItems.map((item) => {
-            return (
-              <div className={classes.ctgLis__productBox} key={item._id}>
-                <div className={classes.ctgLis__img}>
-                  <img src={item.img} alt="" />
-                </div>
-                <div className={classes.ctgLis__info}>
-                  <div className={classes.ctgLis__info__itemDesc}>
-                    {item.desc[0]} | {item.desc[1]} | {item.desc[2]}
-                  </div>
-                  <div className={classes.ctgLis__info__title}>{item.name}</div>
-                  <div className={classes.ctgLis__info__price}>
-                    <span className={classes.ctgLis__price}>
-                      {item.price} 원
-                    </span>
-                    <span className={classes.ctgLis__capacity}>
-                      {item.capacity}
-                    </span>
-                  </div>
-                  <span className={classes.ctgList__size}>
-                    +<strong>{item.quantity}</strong> Sizes
-                  </span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      <CtgLsitContainer>
+        {mainItems.map((item) => (
+          <ItemCard key={item._id} item={item} />
+        ))}
+      </CtgLsitContainer>
     </div>
   );
 };
