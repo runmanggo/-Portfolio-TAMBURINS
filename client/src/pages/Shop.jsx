@@ -6,8 +6,10 @@ import Filter from "../components/Filter/Filter";
 
 import { CtgLsitContainer } from "../style/StyledComponents";
 import { AllBtn } from "../style/StyledComponents";
+import { BtnBox } from "../style/StyledComponents";
 import { chunk } from "lodash";
 
+import { NavLink } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
 
@@ -51,25 +53,40 @@ const Shop = () => {
   return (
     <div>
       <Slider />
-      <Filter />
+      <Filter title={"전체 보기"} />
       {chunk(allItems, 4).map((itemGroup, index) => (
         <React.Fragment key={index}>
           <CtgLsitContainer>
             {itemGroup.map((item) => (
-              <ItemCard key={item._id} item={item} />
+              <NavLink
+                key={item._id}
+                to={`/shop/${item.category}/${item.itemId}`}
+              >
+                <ItemCard item={item} />
+              </NavLink>
             ))}
           </CtgLsitContainer>
           {categoryItems.some(
             (category) => category.ctgId === itemGroup[0].ctgId
           ) && (
-            <AllBtn>
-              {
+            <NavLink
+              to={`/shop/${
                 categoryItems.find(
                   (category) => category.ctgId === itemGroup[0].ctgId
-                ).sliderTitle
-              }
-              모두보기
-            </AllBtn>
+                ).category
+              }`}
+            >
+              <BtnBox>
+                <AllBtn>
+                  {
+                    categoryItems.find(
+                      (category) => category.ctgId === itemGroup[0].ctgId
+                    ).sliderTitle
+                  }
+                  &nbsp;모두보기
+                </AllBtn>
+              </BtnBox>
+            </NavLink>
           )}
         </React.Fragment>
       ))}

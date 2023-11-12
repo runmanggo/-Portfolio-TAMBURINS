@@ -39,6 +39,7 @@ router.get("/gift", async (req, res) => {
     const items = await MainItems.find({
       isGiftSet: true,
     });
+
     res.json(items);
   } catch (err) {
     res.json({ message: err });
@@ -50,6 +51,13 @@ router.get("/all", async (req, res) => {
     const items = await MainItems.find({
       isAllview: true,
     });
+
+    const order = [16, 12, 5, 4, 3, 10, 7, 8, 9, 11, 13, 14, 15];
+
+    items.sort((a, b) => {
+      return order.indexOf(a.ctgId) - order.indexOf(b.ctgId);
+    });
+
     res.json(items);
   } catch (err) {
     res.json({ message: err });
