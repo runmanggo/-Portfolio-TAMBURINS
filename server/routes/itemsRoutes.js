@@ -34,4 +34,26 @@ router.get("/best", async (req, res) => {
   }
 });
 
+router.get("/gift", async (req, res) => {
+  try {
+    const items = await MainItems.find({
+      isGiftSet: true,
+    });
+    res.json(items);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+
+router.get("/all", async (req, res) => {
+  try {
+    const items = await MainItems.find({
+      isAllview: true,
+    });
+    res.json(items);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+
 module.exports = router;
