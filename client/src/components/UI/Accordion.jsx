@@ -54,9 +54,9 @@ const DetailInfoContent = styled.div`
   overflow: hidden;
 `;
 
-const AccordianContainer = styled.p`
+const AccordianContainer = styled.div`
   padding: 16px 12px 24px;
-  font-weight: 200;
+  font-weight: 300;
   font-size: 14px;
 `;
 

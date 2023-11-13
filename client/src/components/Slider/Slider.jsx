@@ -35,6 +35,7 @@ const Slider = () => {
       {images.map((image) => (
         <SwiperSlide
           key={image._id}
+          onClick={() => handleImageClick(image.category)}
           className={`${classes.swiper__slide} ${
             activeImage === image.category ? classes.active : ""
           }`}
@@ -47,11 +48,7 @@ const Slider = () => {
                   : `/shop/${image.category}`
               }
             >
-              <img
-                src={image.sliderImg}
-                alt={`Slide ${image._id}`}
-                onClick={() => handleImageClick(image.category)}
-              />
+              <img src={image.sliderImg} alt={`Slide ${image._id}`} />
               <span>{image.sliderTitle}</span>
             </Link>
           </div>
