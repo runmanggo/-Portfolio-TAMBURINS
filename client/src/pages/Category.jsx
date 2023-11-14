@@ -41,7 +41,13 @@ const fetchItems = async (category) => {
         },
       });
     }
-    return response.data;
+
+    const giftItems = response.data.filter((item) => item.isGiftSet);
+    const nonGiftItems = response.data.filter((item) => !item.isGiftSet);
+
+    const items = nonGiftItems.concat(giftItems);
+
+    return items;
   } catch (error) {
     throw new Error(error.message);
   }
