@@ -3,9 +3,9 @@ const router = express.Router();
 
 const MainItems = require("../models/mainItems");
 
+// 모든 mainItems 데이터 불러오기
 router.get("/", async (req, res) => {
   try {
-    // 모든 mainItems 데이터 불러오기
     const data = await MainItems.find();
     res.json(data);
   } catch (err) {
@@ -25,6 +25,7 @@ router.get("/category", async (req, res) => {
   }
 });
 
+// 베스트 상품만
 router.get("/best", async (req, res) => {
   try {
     const items = await MainItems.find({ isBest: true });
@@ -34,6 +35,7 @@ router.get("/best", async (req, res) => {
   }
 });
 
+// 기프트 세트 상품만
 router.get("/gift", async (req, res) => {
   try {
     const items = await MainItems.find({
@@ -46,6 +48,7 @@ router.get("/gift", async (req, res) => {
   }
 });
 
+// allView에 들어갈 상품이지만, 원하는 순서대로
 router.get("/all", async (req, res) => {
   try {
     const items = await MainItems.find({

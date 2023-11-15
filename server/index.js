@@ -10,6 +10,7 @@ const mongoose = require("mongoose");
 
 const categoryRoutes = require("./routes/categoryRoutes");
 const itemRoutes = require("./routes/itemsRoutes");
+const itemsDetailRoutes = require("./routes/itemsDetailRoutes");
 
 // body-parser 미들웨어 사용
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,10 +24,13 @@ const uri = process.env.MONGO_URI;
 
 mongoose.connect(uri);
 
-// categoryRoutes를 /categories 경로에 등록
+// categoryRoutes를 기본 주소 등록
 app.use("/categories", categoryRoutes);
-// itemRoutes 를 /items 경로에 등록
+// itemRoutes  기본 주소 등록
 app.use("/items", itemRoutes);
+
+// itemsDetailRoutes 기본 주소 등록
+app.use("/detail", itemsDetailRoutes);
 
 //서버 실행
 app.listen(port, () => {
