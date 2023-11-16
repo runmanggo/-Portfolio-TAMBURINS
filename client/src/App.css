@@ -44,3 +44,7 @@ img {
 ::-webkit-scrollbar {
   display: none;
 }
+
+.parent {
+  overflow: hidden;
+}

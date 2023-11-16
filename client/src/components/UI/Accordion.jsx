@@ -58,6 +58,7 @@ const AccordianContainer = styled.div`
   padding: 16px 12px 24px;
   font-weight: 300;
   font-size: 14px;
+  line-height: 1.5rem;
 `;
 
 function Accordion(props) {
