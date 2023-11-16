@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import ItemCard from "../components/UI/ItemCard";
 import Slider from "../components/Slider/Slider";
@@ -35,6 +35,7 @@ const fetchTitle = async () => {
 };
 
 const Shop = () => {
+  const [activeImage, setActiveImage] = useState("");
   const {
     data: allItems,
     isLoading: isLoadingAllItems,
@@ -52,7 +53,7 @@ const Shop = () => {
 
   return (
     <div>
-      <Slider />
+      <Slider activeImage={activeImage} setActiveImage={setActiveImage} />
       <Filter title={"전체 보기"} />
       {chunk(allItems, 4).map((itemGroup, index) => (
         <React.Fragment key={index}>

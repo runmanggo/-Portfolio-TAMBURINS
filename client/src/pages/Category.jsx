@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Slider from "../components/Slider/Slider";
 import Filter from "../components/Filter/Filter";
 import Banner from "../components/Banner/Banner";
@@ -54,6 +54,7 @@ const fetchItems = async (category) => {
 };
 
 const Category = () => {
+  const [activeImage, setActiveImage] = useState("");
   const { category } = useParams();
   const {
     data: title,
@@ -75,7 +76,7 @@ const Category = () => {
 
   return (
     <div>
-      <Slider />
+      <Slider activeImage={activeImage} setActiveImage={setActiveImage} />
       <Banner />
       <Filter title={title} />
       <CtgLsitContainer>

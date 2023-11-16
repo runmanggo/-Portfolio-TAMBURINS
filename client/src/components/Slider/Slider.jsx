@@ -15,15 +15,14 @@ const fetchImages = async () => {
   }
 };
 
-const Slider = () => {
+const Slider = (props) => {
   const { data: images, isLoading, error } = useQuery("images", fetchImages);
-  const [activeImage, setActiveImage] = useState([]);
 
   if (isLoading) return console.log("로딩중");
   if (error) return console.log(error.message);
 
   const handleImageClick = (id) => {
-    setActiveImage(id);
+    props.setActiveImage(id);
   };
 
   return (
@@ -37,7 +36,7 @@ const Slider = () => {
           key={image._id}
           onClick={() => handleImageClick(image.category)}
           className={`${classes.swiper__slide} ${
-            activeImage === image.category ? classes.active : ""
+            props.activeImage === image.category ? classes.active : ""
           }`}
         >
           <div className={classes.swiper__innerContainer}>
