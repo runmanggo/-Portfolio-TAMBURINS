@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { useLocation, NavLink } from "react-router-dom";
 import axios from "axios";
@@ -6,6 +6,7 @@ import axios from "axios";
 import Filter from "../components/Filter/Filter";
 import Slider from "../components/Slider/Slider";
 import ItemCard from "../components/UI/ItemCard";
+import Results from "../components/UI/Results";
 
 import { CtgLsitContainer } from "../style/StyledComponents";
 
@@ -29,6 +30,7 @@ const fetchProducts = async (query) => {
 };
 
 const Search = () => {
+  const [activeImage, setActiveImage] = useState("");
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const query = queryParams.get("query");
@@ -45,24 +47,28 @@ const Search = () => {
   }
 
   if (error) {
-    return <span>Error: {error.message}</span>;
+    return "에러";
   }
 
   return (
     <div>
-      <Slider />
+      <Slider activeImage={activeImage} setActiveImage={setActiveImage} />
       <Filter title={`검색 결과  (${count})`} />
-      <CtgLsitContainer>
-        {products?.map((item, index) =>
-          item.itemId !== 602 ? (
-            <NavLink key={index} to={`/shop/${item.category}/${item.itemId}`}>
-              <ItemCard item={item} />
-            </NavLink>
-          ) : (
-            <ItemCard key={index} item={item} />
-          )
-        )}
-      </CtgLsitContainer>
+      {count > 0 ? (
+        <CtgLsitContainer>
+          {products?.map((item, index) =>
+            item.itemId !== 602 ? (
+              <NavLink key={index} to={`/shop/${item.category}/${item.itemId}`}>
+                <ItemCard item={item} />
+              </NavLink>
+            ) : (
+              <ItemCard key={index} item={item} />
+            )
+          )}
+        </CtgLsitContainer>
+      ) : (
+        <Results />
+      )}
     </div>
   );
 };

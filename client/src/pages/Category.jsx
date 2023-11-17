@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Slider from "../components/Slider/Slider";
 import Filter from "../components/Filter/Filter";
 import Banner from "../components/Banner/Banner";

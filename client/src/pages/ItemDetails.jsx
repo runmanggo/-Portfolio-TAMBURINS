@@ -68,7 +68,7 @@ const ItemDetails = () => {
     const random = shuffleArray(scent).slice(0, 4);
 
     setRandomScent(random);
-  }, [scent, isLoadingDetail, isLoadingScent, detailError, scentError]);
+  }, []);
 
   const handleBtnClick = () => {
     setIsShown(!isShown);
@@ -239,7 +239,7 @@ const ItemDetails = () => {
                     · 생일 축하 5,000 포인트 혜택 (1년 이내 구매 이력 있을 시)
                   </div>
                 </Accordion>
-                
+
                 <Accordion title="제품 세부 정보">
                   {Array.isArray(detail.accordion3) ? (
                     detail.accordion3.map((innerArray, index) => (

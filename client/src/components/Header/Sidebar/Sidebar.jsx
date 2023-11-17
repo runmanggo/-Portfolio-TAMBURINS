@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import classes from "./sidebar.module.css";
 import { NavLink } from "react-router-dom";
 
