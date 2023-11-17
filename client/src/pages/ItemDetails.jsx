@@ -68,7 +68,7 @@ const ItemDetails = () => {
     const random = shuffleArray(scent).slice(0, 4);
 
     setRandomScent(random);
-  }, [scent]);
+  }, [isLoadingDetail, isLoadingScent, detailError, scentError, scent]);
 
   const handleBtnClick = () => {
     setIsShown(!isShown);

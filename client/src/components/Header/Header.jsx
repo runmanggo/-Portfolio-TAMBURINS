@@ -38,10 +38,8 @@ const left_link = [
 
 const Header = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
-
   const [isTransparent, setIsTransparent] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -50,12 +48,10 @@ const Header = (props) => {
 
   useEffect(() => {
     setIsTransparent(isHome);
-  }, [location]);
+  }, [isHome]);
 
   useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
+    const handleResize = () => {};
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import { useQuery } from "react-query";
@@ -56,7 +56,7 @@ const Results = () => {
     const random = shuffleArray(best).slice(0, 4);
 
     setRandomScent(random);
-  }, [best]);
+  }, [isLoadingScent, scentError, best]);
 
   return (
     <>
