@@ -83,10 +83,26 @@ const ItemDetails = () => {
               <div className={classes.detail__imgs__wrapper}>
                 {Array.isArray(detail.mainImg) ? (
                   detail.mainImg.map((mainImg, index) => (
-                    <img key={index} src={mainImg} alt={`mainImg ${index}`} />
+                    <div key={index}>
+                      {mainImg === detail.mainVideo ? (
+                        <video>
+                          <source src={mainImg} type="video/mp4" />
+                        </video>
+                      ) : (
+                        <img src={mainImg} alt={`mainImg ${index}`} />
+                      )}
+                    </div>
                   ))
                 ) : (
-                  <img src={detail.mainImg} alt="mainImg" />
+                  <div>
+                    {detail.mainImg === detail.mainVideo || !detail.mainImg ? (
+                      <video loop muted autoPlay>
+                        <source src={detail.mainVideo} type="video/mp4" />
+                      </video>
+                    ) : (
+                      <img src={detail.mainImg} alt="mainImg" />
+                    )}
+                  </div>
                 )}
               </div>
             </div>

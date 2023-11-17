@@ -84,9 +84,15 @@ const Category = () => {
       <Filter title={title} />
       <CtgLsitContainer>
         {mainItems.map((item, index) => (
-          <NavLink key={index} to={`/shop/${item.category}/${item.itemId}`}>
-            <ItemCard item={item} />
-          </NavLink>
+          <div key={index}>
+            {item.itemId !== 602 ? (
+              <NavLink to={`/shop/${item.category}/${item.itemId}`}>
+                <ItemCard item={item} />
+              </NavLink>
+            ) : (
+              <ItemCard item={item} />
+            )}
+          </div>
         ))}
       </CtgLsitContainer>
     </div>
