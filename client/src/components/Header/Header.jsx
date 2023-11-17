@@ -8,6 +8,7 @@ import menu from "../../assets/image/menu.svg";
 import CartWhite from "../../assets/image/cart_white.svg";
 import MenuWhite from "../../assets/image/menu_white.svg";
 import Search from "../../assets/image/search.svg";
+import SearchWhite from "../../assets/image/search_white.svg";
 
 //컴포넌트
 import Sidebar from "./Sidebar/Sidebar";
@@ -45,8 +46,10 @@ const Header = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const isHome = location.pathname === "/home";
+
   useEffect(() => {
-    setIsTransparent(location.pathname === "/home");
+    setIsTransparent(isHome);
   }, [location]);
 
   useEffect(() => {
@@ -75,6 +78,11 @@ const Header = (props) => {
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
+
+    if (!searchTerm.trim()) {
+      return;
+    }
+
     navigate(`/shop/search?query=${searchTerm}`);
     setSearchTerm("");
   };
@@ -95,7 +103,14 @@ const Header = (props) => {
         </div>
         <div>
           <ul className={classes.right}>
-            <li className={classes.searchForm__container}>
+            <li
+              className={classes.searchForm__container}
+              style={{
+                border: isHome
+                  ? "1px solid var(--white)"
+                  : "1px solid var(--black)",
+              }}
+            >
               <form
                 className={classes.searchForm}
                 id="searchForm"
@@ -107,9 +122,10 @@ const Header = (props) => {
                   placeholder="검색어를 입력해주세요"
                   onChange={handleSearchChange}
                   value={searchTerm}
+                  className={isHome ? "homePlaceholder" : "otherPlaceholder"}
                 />
                 <button type="submit">
-                  <img src={Search} alt="" />
+                  <img src={isTransparent ? SearchWhite : Search} alt="" />
                 </button>
               </form>
             </li>

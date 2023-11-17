@@ -7,8 +7,6 @@ import Close from "../../../assets/image/close.svg";
 import Overlay from "../../UI/Overlay";
 
 const Sidebar = (props) => {
-  const [close, setClose] = useState(false);
-
   const handleLinkClick = () => {
     props.onClose();
   };
@@ -17,7 +15,7 @@ const Sidebar = (props) => {
     <Fragment>
       {props.showSidebar && <Overlay onClick={props.onClose} />}
       {props.showSidebar && (
-        <aside className={`${classes.aside} ${close ? classes.closed : ""}`}>
+        <aside className={classes.aside}>
           <div className={classes.aside__inner}>
             <div className={classes.aside__close}>
               <img src={Close} alt="" onClick={props.onClose} />
@@ -68,18 +66,6 @@ const Sidebar = (props) => {
                       <NavLink to="/mypage" onClick={handleLinkClick}>
                         마이페이지
                       </NavLink>
-                    </li>
-
-                    <li>
-                      <select
-                        className={classes.aside__select}
-                        name=""
-                        id="language-mobile"
-                      >
-                        <option value="KR">Shop in KR</option>
-                        <option value="CN">CN</option>
-                        <option value="EN">EN</option>
-                      </select>
                     </li>
                   </ul>
                 </div>

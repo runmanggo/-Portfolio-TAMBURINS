@@ -61,6 +61,15 @@
 .searchForm input {
   width: 15rem;
   border: none;
+  background-color: initial;
+}
+
+.homePlaceholder::placeholder {
+  color: var(--white);
+}
+
+.otherPlaceholder::placeholder {
+  color: var(--black);
 }
 
 .searchForm button {
