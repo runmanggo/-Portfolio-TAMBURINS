@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import classes from "./header.module.css";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 //이미지
 import Cart from "../../assets/image/cart.svg";
 import menu from "../../assets/image/menu.svg";
 import CartWhite from "../../assets/image/cart_white.svg";
 import MenuWhite from "../../assets/image/menu_white.svg";
+import Search from "../../assets/image/search.svg";
 
 //컴포넌트
 import Sidebar from "./Sidebar/Sidebar";
@@ -34,12 +35,15 @@ const left_link = [
   },
 ];
 
-const Header = () => {
+const Header = (props) => {
+  const [searchTerm, setSearchTerm] = useState("");
+
   const [isTransparent, setIsTransparent] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsTransparent(location.pathname === "/home");
@@ -65,6 +69,16 @@ const Header = () => {
     }
   };
 
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    navigate(`/shop/search?query=${searchTerm}`);
+    setSearchTerm("");
+  };
+
   const onClose = () => setShowSidebar(false);
 
   return (
@@ -81,7 +95,25 @@ const Header = () => {
         </div>
         <div>
           <ul className={classes.right}>
-            <li>Shop in KR</li>
+            <li className={classes.searchForm__container}>
+              <form
+                className={classes.searchForm}
+                id="searchForm"
+                onSubmit={handleSearchSubmit}
+              >
+                <input
+                  type="text"
+                  id="searchInput"
+                  placeholder="검색어를 입력해주세요"
+                  onChange={handleSearchChange}
+                  value={searchTerm}
+                />
+                <button type="submit">
+                  <img src={Search} alt="" />
+                </button>
+              </form>
+            </li>
+
             <li>
               <NavLink to="/mypage">마이페이지</NavLink>
             </li>

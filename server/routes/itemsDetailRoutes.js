@@ -3,6 +3,15 @@ const router = express.Router();
 
 const ItemsDetail = require("../models/itemsDetail");
 
+router.get("/", async (req, res) => {
+  try {
+    const items = await ItemsDetail.find();
+    res.json(items);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+
 router.get("/:id", async (req, res) => {
   try {
     const id = req.params.id;
