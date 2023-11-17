@@ -129,9 +129,18 @@ const ItemDetails = () => {
                   {Array.isArray(detail.capacityImg) ? (
                     detail.capacityImg.map((capImg, index) => (
                       <li key={index}>
-                        <div className={classes.product__size__border}>
-                          <img src={capImg} alt={`capacity ${index}`} />
-                        </div>
+                        {Array.isArray(detail.capacityLink) &&
+                        detail.capacityLink[index] ? (
+                          <NavLink to={detail.capacityLink[index]}>
+                            <div className={classes.product__size__border}>
+                              <img src={capImg} alt={`capacity ${index}`} />
+                            </div>
+                          </NavLink>
+                        ) : (
+                          <div className={classes.product__size__border}>
+                            <img src={capImg} alt={`capacity ${index}`} />
+                          </div>
+                        )}
                         <div>
                           {Array.isArray(detail.capacity)
                             ? detail.capacity[index]
