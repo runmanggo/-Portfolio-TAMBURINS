@@ -47,6 +47,27 @@
   font-weight: 350;
 }
 
+.searchForm__container {
+  width: 17rem;
+  display: flex;
+  border: 1px solid var(--black);
+  border-radius: 0.625rem;
+  padding: 0.2125rem;
+}
+.searchForm {
+  display: flex;
+  cursor: pointer;
+}
+.searchForm input {
+  width: 15rem;
+  border: none;
+}
+
+.searchForm button {
+  border: none;
+  background-color: initial;
+}
+
 .right img {
   width: 1.1rem;
 }

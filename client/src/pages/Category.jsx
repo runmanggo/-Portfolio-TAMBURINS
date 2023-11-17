@@ -83,17 +83,19 @@ const Category = () => {
       <Banner />
       <Filter title={title} />
       <CtgLsitContainer>
-        {mainItems.map((item, index) => (
-          <div key={index}>
-            {item.itemId !== 602 ? (
-              <NavLink to={`/shop/${item.category}/${item.itemId}`}>
-                <ItemCard item={item} />
-              </NavLink>
-            ) : (
+        {/* 토일렛 증정품만 상세페이지 넘어가지 않게 */}
+        {mainItems.map((item) =>
+          item.itemId !== 602 ? (
+            <NavLink
+              key={item._id}
+              to={`/shop/${item.category}/${item.itemId}`}
+            >
               <ItemCard item={item} />
-            )}
-          </div>
-        ))}
+            </NavLink>
+          ) : (
+            <ItemCard key={item._id} item={item} />
+          )
+        )}
       </CtgLsitContainer>
     </div>
   );
