@@ -79,32 +79,30 @@ const ItemDetails = () => {
       {detail && (
         <div className={classes.detail__content}>
           <div className={classes.detail__imgs}>
-            <div className={classes.detail__imgs__container}>
-              <div className={classes.detail__imgs__wrapper}>
-                {Array.isArray(detail.mainImg) ? (
-                  detail.mainImg.map((mainImg, index) => (
-                    <div key={index}>
-                      {mainImg === detail.mainVideo ? (
-                        <video>
-                          <source src={mainImg} type="video/mp4" />
-                        </video>
-                      ) : (
-                        <img src={mainImg} alt={`mainImg ${index}`} />
-                      )}
-                    </div>
-                  ))
-                ) : (
-                  <div>
-                    {detail.mainImg === detail.mainVideo || !detail.mainImg ? (
-                      <video loop muted autoPlay>
-                        <source src={detail.mainVideo} type="video/mp4" />
+            <div className={classes.detail__imgs__wrapper}>
+              {Array.isArray(detail.mainImg) ? (
+                detail.mainImg.map((mainImg, index) => (
+                  <div key={index}>
+                    {mainImg === detail.mainVideo ? (
+                      <video>
+                        <source src={mainImg} type="video/mp4" />
                       </video>
                     ) : (
-                      <img src={detail.mainImg} alt="mainImg" />
+                      <img src={mainImg} alt={`mainImg ${index}`} />
                     )}
                   </div>
-                )}
-              </div>
+                ))
+              ) : (
+                <div>
+                  {detail.mainImg === detail.mainVideo || !detail.mainImg ? (
+                    <video loop muted autoPlay>
+                      <source src={detail.mainVideo} type="video/mp4" />
+                    </video>
+                  ) : (
+                    <img src={detail.mainImg} alt="mainImg" />
+                  )}
+                </div>
+              )}
             </div>
           </div>
 

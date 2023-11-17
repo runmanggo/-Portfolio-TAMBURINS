@@ -35,7 +35,15 @@ const Banner = () => {
       {banners.map((item) => (
         <section key={item._id} className={classes.banner__container}>
           <div className={classes.banner__inner}>
-            {item.bannerImg && <img src={item.bannerImg} alt="" />}
+            {item.bannerImg && (
+              <img
+                src={item.bannerImg}
+                alt=""
+                className={
+                  item.category === "tubeHand" ? classes.banner__tubeHand : ""
+                }
+              />
+            )}
             {item.bannerVideo && (
               <video loop muted autoPlay>
                 <source src={item.bannerVideo} type="video/mp4" />

@@ -12,12 +12,18 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+.banner__tubeHand {
+  max-width: 60% !important;
 }
 
 .banner__inner img {
   max-width: 100%;
   height: auto;
 }
+
 .banner__inner video {
   max-width: 100%;
   height: auto;
