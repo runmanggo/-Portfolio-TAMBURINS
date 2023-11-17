@@ -49,10 +49,12 @@
 
 .searchForm__container {
   width: 17rem;
+  height: 24px;
   display: flex;
   border: 1px solid var(--black);
   border-radius: 0.625rem;
-  padding: 0.2125rem;
+  padding: 0.1rem 0.4rem;
+  margin-top: 0.2rem;
 }
 .searchForm {
   display: flex;
