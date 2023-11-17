@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from "../style/itemDetail.module.css";
 
 import Accordion from "../components/UI/Accordion";
@@ -23,19 +23,52 @@ const fetchDetail = async (id) => {
   }
 };
 
+const fetchScent = async () => {
+  try {
+    const response = await axios.get("http://localhost:8000/items");
+    const scent = response.data;
+
+    return scent;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 const ItemDetails = () => {
   const [isShown, setIsShown] = useState(true);
+  const [randomScent, setRandomScent] = useState([]);
 
   const { id } = useParams();
 
   const {
     data: detail,
-    isLoading,
-    error,
+    isLoading: isLoadingDetail,
+    error: detailError,
   } = useQuery(["detail", id], () => fetchDetail(id));
 
-  if (isLoading) return console.log("로딩중");
-  if (error) return console.log(error.message);
+  const {
+    data: scent,
+    isLoading: isLoadingScent,
+    error: scentError,
+  } = useQuery("scent", fetchScent);
+
+  useEffect(() => {
+    if (isLoadingDetail || isLoadingScent) return console.log("로딩중");
+    if (detailError || scentError)
+      return console.log(detailError.message || scentError.message);
+
+    const random = shuffleArray(scent).slice(0, 4);
+
+    setRandomScent(random);
+  }, [scent, isLoadingDetail, isLoadingScent, detailError, scentError]);
 
   const handleBtnClick = () => {
     setIsShown(!isShown);
@@ -48,17 +81,24 @@ const ItemDetails = () => {
           <div className={classes.detail__imgs}>
             <div className={classes.detail__imgs__container}>
               <div className={classes.detail__imgs__wrapper}>
-                {Array.isArray(detail.mainImg) &&
+                {Array.isArray(detail.mainImg) ? (
                   detail.mainImg.map((mainImg, index) => (
                     <img key={index} src={mainImg} alt={`mainImg ${index}`} />
-                  ))}
+                  ))
+                ) : (
+                  <img src={detail.mainImg} alt="mainImg" />
+                )}
               </div>
             </div>
           </div>
 
           <div className={classes.product__info}>
             <div className={classes.product__info__inner}>
-              <div className={classes.item__ctg}>{detail.title}</div>
+              <div className={classes.item__ctg}>
+                <NavLink to={`/shop/${detail.category}`}>
+                  {detail.title}
+                </NavLink>
+              </div>
               <div className={classes.item__ctg__info}>
                 <div className={classes.item__ctg__info__title}>
                   {detail.name}
@@ -70,15 +110,27 @@ const ItemDetails = () => {
 
               <div className={classes.product__sizeBox}>
                 <ul className={classes.product__size}>
-                  {Array.isArray(detail.capacityImg) &&
+                  {Array.isArray(detail.capacityImg) ? (
                     detail.capacityImg.map((capImg, index) => (
                       <li key={index}>
                         <div className={classes.product__size__border}>
                           <img src={capImg} alt={`capacity ${index}`} />
                         </div>
-                        <div>{detail.capacity[index]}</div>
+                        <div>
+                          {Array.isArray(detail.capacity)
+                            ? detail.capacity[index]
+                            : detail.capacity}
+                        </div>
                       </li>
-                    ))}
+                    ))
+                  ) : (
+                    <li>
+                      <div className={classes.product__size__border__active}>
+                        <img src={detail.capacityImg} alt="capacityImg" />
+                      </div>
+                      <div>{detail.capacity}</div>
+                    </li>
+                  )}
                 </ul>
               </div>
 
@@ -214,14 +266,19 @@ const ItemDetails = () => {
           </div>
         </div>
       )}
-      {/* 
+
       <div className={classes.recommend}>
         <CtgLsitContainer>
-          {products.map((item, index) => (
-            <ItemCard key={index} item={item} />
+          {randomScent.map((item) => (
+            <NavLink
+              key={item._id}
+              to={`/shop/${item.category}/${item.itemId}`}
+            >
+              <ItemCard item={item} />
+            </NavLink>
           ))}
         </CtgLsitContainer>
-      </div> */}
+      </div>
     </>
   );
 };

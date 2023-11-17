@@ -38,6 +38,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  cursor: pointer;
 }
 
 .item__ctg__info__title,
@@ -85,15 +86,24 @@
   border: 1px solid rgba(83, 83, 83, 0.35);
 }
 
+.product__size__border__active {
+  width: 83.5px;
+  height: 6.1rem;
+  border: 1px solid rgba(83, 83, 83, 0.4);
+}
+
 .product__size li > div {
   font-weight: 200;
 }
 
 .product__size img {
   width: 80px;
-  height: auto;
   border-radius: 3px;
   cursor: pointer;
+}
+
+.capacity {
+  text-align: center;
 }
 
 .detail__info__desc {
@@ -102,6 +112,12 @@
   font-weight: 300;
   line-height: 1.8;
 }
+
+.detail__info__desc span {
+  font-weight: 400;
+  font-size: 0.85rem;
+}
+
 .detail__info__desc div {
   margin-bottom: 0.8rem;
 }

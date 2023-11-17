@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import ItemCard from "../components/UI/ItemCard";
 import Slider from "../components/Slider/Slider";
@@ -47,9 +47,19 @@ const Shop = () => {
     error: categoryItemsError,
   } = useQuery("categoryItems", fetchTitle);
 
-  if (isLoadingAllItems || isLoadingCategoryItems) return console.log("로딩중");
-  if (allItemsError || categoryItemsError)
-    return console.log(allItemsError?.message || categoryItemsError?.message);
+  useEffect(() => {
+    if (isLoadingAllItems || isLoadingCategoryItems) {
+      console.log("로딩중");
+    }
+    if (allItemsError || categoryItemsError) {
+      console.log(allItemsError?.message || categoryItemsError?.message);
+    }
+  }, [
+    isLoadingAllItems,
+    isLoadingCategoryItems,
+    allItemsError,
+    categoryItemsError,
+  ]);
 
   return (
     <div>

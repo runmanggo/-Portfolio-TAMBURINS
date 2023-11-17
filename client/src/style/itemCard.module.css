@@ -1,5 +1,6 @@
 .ctgList__productBox {
   margin-bottom: 58px;
+  cursor: pointer;
 }
 
 .ctgList__img {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "../components/Slider/Slider";
 import Filter from "../components/Filter/Filter";
 import Banner from "../components/Banner/Banner";
@@ -42,12 +42,18 @@ const fetchItems = async (category) => {
       });
     }
 
-    const giftItems = response.data.filter((item) => item.isGiftSet);
-    const nonGiftItems = response.data.filter((item) => !item.isGiftSet);
+    let isItemRemoved = false;
 
-    const items = nonGiftItems.concat(giftItems);
+    const filteredItems = response.data.filter((item) => {
+      if (isItemRemoved || item.ctgId !== 13 || item.itemId !== 307) {
+        return true;
+      }
 
-    return items;
+      isItemRemoved = true;
+      return false;
+    });
+
+    return filteredItems;
   } catch (error) {
     throw new Error(error.message);
   }
@@ -58,8 +64,8 @@ const Category = () => {
   const { category } = useParams();
   const {
     data: title,
-    isLoading,
-    error,
+    isLoading: isLoadingTitle,
+    error: titleError,
   } = useQuery(["title", category], () => fetchTitle(category));
 
   const {
@@ -68,11 +74,8 @@ const Category = () => {
     error: itemsError,
   } = useQuery(["items", category], () => fetchItems(category));
 
-  if (itemsIsLoading) return console.log("items 로딩중");
-  if (itemsError) return console.log(itemsError.message);
-
-  if (isLoading) return console.log("로딩중");
-  if (error) return console.log(error.message);
+  if (itemsIsLoading || isLoadingTitle) return;
+  if (itemsError || titleError) return;
 
   return (
     <div>
@@ -80,8 +83,8 @@ const Category = () => {
       <Banner />
       <Filter title={title} />
       <CtgLsitContainer>
-        {mainItems.map((item) => (
-          <NavLink key={item._id} to={`/shop/${item.category}/${item.itemId}`}>
+        {mainItems.map((item, index) => (
+          <NavLink key={index} to={`/shop/${item.category}/${item.itemId}`}>
             <ItemCard item={item} />
           </NavLink>
         ))}
