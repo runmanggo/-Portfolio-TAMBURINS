@@ -24,10 +24,10 @@ const InnerContainer = styled.div`
 
 const fetchScent = async () => {
   try {
-    const response = await axios.get("http://localhost:8000/items");
-    const scent = response.data;
+    const response = await axios.get("http://localhost:8000/items/best");
+    const best = response.data;
 
-    return scent;
+    return best;
   } catch (error) {
     throw new Error(error.message);
   }
@@ -44,19 +44,19 @@ function shuffleArray(array) {
 const Results = () => {
   const [randomScent, setRandomScent] = useState([]);
   const {
-    data: scent,
+    data: best,
     isLoading: isLoadingScent,
     error: scentError,
-  } = useQuery("scent", fetchScent);
+  } = useQuery("best", fetchScent);
 
   useEffect(() => {
     if (isLoadingScent) return console.log("로딩중");
     if (scentError) return console.log(scentError.message);
 
-    const random = shuffleArray(scent).slice(0, 4);
+    const random = shuffleArray(best).slice(0, 4);
 
     setRandomScent(random);
-  }, [scent, isLoadingScent, scentError]);
+  }, [best]);
 
   return (
     <>
