@@ -34,6 +34,7 @@
   display: flex;
   border-bottom: 0.5px solid #a8a8a8;
   padding: 20px 0;
+  flex-direction: column;
 }
 
 .cart__items__txt {
@@ -52,16 +53,6 @@
 }
 
 .detail__btn__white {
-  border: 1px solid var(--gray);
-  color: var(--gray);
-  background-color: var(--white);
-  width: 100%;
-  height: 50px;
-  text-align: center;
-  font-size: 14px;
-  font-weight: 500;
-}
-.detail__btn__black {
   border: 1px solid var(--black);
   background: var(--black);
   color: var(--white);
@@ -71,4 +62,5 @@
   border: 1px solidvar(--black);
   font-size: 14px;
   font-weight: 500;
+  cursor: pointer;
 }

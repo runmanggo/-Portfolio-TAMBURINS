@@ -1,0 +1,101 @@
+.cartPopupItem {
+  color: var(--gray);
+  display: flex;
+  border-bottom: 0.5px solid #a8a8a8;
+  padding: 20px 0;
+  justify-content: space-evenly;
+}
+
+.cartPopupColumn {
+  position: relative;
+  padding-top: 1px;
+}
+
+.checkboxItem {
+  display: flex;
+}
+
+.checkboxItem input {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.checkboxShape {
+  top: 0;
+  width: 12px;
+  height: 12px;
+  border: 1px solid #c3c3c3;
+}
+
+.checkboxLabel {
+  display: inline-block;
+  position: relative;
+  z-index: 99;
+  font-size: 11px;
+  cursor: pointer;
+  vertical-align: top;
+  line-height: 1.6em;
+}
+
+.cartPopupColumn__thumb {
+  width: 54px;
+  margin: 0 15px;
+}
+
+.cartItem__info {
+  position: relative;
+  display: flex;
+  padding-top: 1px;
+  width: calc(80% - 34px);
+  flex-direction: column;
+}
+
+.cartItem__info__product {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
+
+.cartItem__productName {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.cartItem__productPrice {
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.cartItem__quantitySelect {
+  padding-top: 2px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.select {
+  border: 0.3px solid #a8a8a8;
+  border-radius: 0.125rem;
+  width: 54px;
+  height: 30px;
+  margin-top: 7px;
+  text-indent: 14px;
+}
+
+.deleteButton {
+  font-size: 0.8125rem;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  color: var(--gray);
+  border: none;
+  background-color: initial;
+  line-height: normal;
+  cursor: pointer;
+}

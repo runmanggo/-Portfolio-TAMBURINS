@@ -67,6 +67,9 @@ const Header = (props) => {
 
   const toggleSidebar = () => {
     if (window.innerWidth < 1024) {
+      if (!showSidebar && props.cartIsShown) {
+        props.showCartHandler();
+      }
       setShowSidebar((prevShowSidebar) => !prevShowSidebar);
     }
   };
