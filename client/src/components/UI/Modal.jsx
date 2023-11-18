@@ -3,19 +3,26 @@ import styled from "styled-components";
 
 const ModalBox = styled.div`
   position: fixed;
-  top: 60px;
+  top: 70px;
   right: 50px;
   background: var(--white);
   width: 375px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
   z-index: 110;
   opacity: 1;
-  visibility: visible;
+  display: ${(props) => (props.$show ? "block" : "none")};
   transition: 0.6s ease;
+
+  @media (max-width: 1023px) {
+    width: 100%;
+    top: 70px !important;
+    right: 0;
+    box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.16);
+  }
 `;
 
 const Modal = (props) => {
-  return <ModalBox>{props.children}</ModalBox>;
+  return <ModalBox $show={props.show}>{props.children}</ModalBox>;
 };
 
 export default Modal;

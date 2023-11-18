@@ -9,6 +9,8 @@ import CartWhite from "../../assets/image/cart_white.svg";
 import MenuWhite from "../../assets/image/menu_white.svg";
 import Search from "../../assets/image/search.svg";
 import SearchWhite from "../../assets/image/search_white.svg";
+import Close from "../../assets/image/close.svg";
+import CloseWhite from "../../assets/image/close_white.svg";
 
 //컴포넌트
 import Sidebar from "./Sidebar/Sidebar";
@@ -40,6 +42,7 @@ const Header = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isTransparent, setIsTransparent] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
+  const [cartImgIndex, setcartImgIndex] = useState(Cart);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -81,6 +84,28 @@ const Header = (props) => {
 
     navigate(`/shop/search?query=${searchTerm}`);
     setSearchTerm("");
+  };
+
+  useEffect(() => {
+    let icon;
+    if (props.cartIsShown) {
+      if (isHome) {
+        icon = CloseWhite;
+      } else {
+        icon = Close;
+      }
+    } else {
+      if (isHome) {
+        icon = CartWhite;
+      } else {
+        icon = Cart;
+      }
+    }
+    setcartImgIndex(icon);
+  }, [props.cartIsShown, isHome]);
+
+  const handleCartClick = () => {
+    props.showCartHandler();
   };
 
   const onClose = () => setShowSidebar(false);
@@ -133,8 +158,10 @@ const Header = (props) => {
               <NavLink to="/login">로그인</NavLink>
             </li>
             <li>
-              <img src={isTransparent ? CartWhite : Cart} alt="" />
-              <span className={classes.badge}>1</span>
+              <img src={cartImgIndex} alt="" onClick={handleCartClick} />
+              {cartImgIndex !== Close && cartImgIndex !== CloseWhite && (
+                <span className={classes.badge}>1</span>
+              )}
             </li>
             <li>
               <img
