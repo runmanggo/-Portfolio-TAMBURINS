@@ -41,7 +41,7 @@ export const OptionBtn = styled.button`
   background: ${(props) => props.$background || "var(--black)"};
   color: ${(props) => props.$color || "var(--white)"};
   width: 100%;
-  height: 50px;
+  height: ${(props) => props.$height || "50px"};
   text-align: center;
   font-size: 14px;
   font-weight: 500;

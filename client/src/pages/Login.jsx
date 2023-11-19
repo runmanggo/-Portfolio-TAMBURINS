@@ -52,7 +52,9 @@ function Login() {
             확인
           </OptionBtn>
           <OptionBtn $background="var(--white)" $color="var(--black)">
-            <NavLink type="button">신규 회원가입</NavLink>
+            <NavLink to={`/signup`} type="button">
+              신규 회원가입
+            </NavLink>
           </OptionBtn>
         </div>
       </div>

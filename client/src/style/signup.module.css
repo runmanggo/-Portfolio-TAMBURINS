@@ -1,0 +1,119 @@
+.section {
+  height: 100vh;
+  width: 100%;
+  letter-spacing: -0.4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section__inner {
+  min-width: 329px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 329px;
+}
+
+.title {
+  text-align: left;
+  margin-top: 0;
+  margin-bottom: 50px;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--gray);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 25px;
+}
+
+.input__label {
+  font-weight: 500;
+  color: var(--black);
+  display: block;
+  width: 100%;
+  font-size: 11px;
+}
+
+.common__input__wrap {
+  width: 100px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.common__input__id {
+  letter-spacing: -0.2px;
+  color: var(--black);
+  text-align: left;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  border: none;
+  width: 100px;
+}
+
+.common__input__id input {
+  width: 100px;
+  height: 33px;
+  padding: 0 5px;
+}
+
+.tam__select__wrap {
+  height: 33px;
+  border: 1px solid var(--black);
+}
+
+.tam__select__input {
+  width: 100px;
+  height: 100%;
+  line-height: 33px;
+  padding: 0 10px;
+  border: none;
+}
+
+.common__input__notice__item {
+  display: flex;
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: -0.28px;
+  font-weight: normal;
+  color: #707070;
+}
+
+.common__input__notice__item li:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.common__input {
+  width: 100%;
+  letter-spacing: -0.2px;
+  color: var(--black);
+  text-align: left;
+  font-size: 100%;
+  border: none;
+  display: flex;
+  gap: 5px;
+}
+
+input {
+  height: 33px;
+  width: 100%;
+  padding: 0 5px;
+}
+
+.input__btn__ath {
+  flex: 0 0 87px;
+}
+
+.authentication__number {
+  display: none;
+}
+.submitBtn {
+  padding-top: 40px;
+}
