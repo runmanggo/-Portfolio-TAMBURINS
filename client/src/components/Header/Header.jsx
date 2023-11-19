@@ -137,7 +137,7 @@ const Header = (props) => {
         <div>
           <ul className={classes.right}>
             <li
-              className={classes.searchForm__container}
+              className={`${classes.searchForm__container} search-item`}
               style={{
                 border: isHome
                   ? "1px solid var(--white)"
@@ -162,11 +162,10 @@ const Header = (props) => {
                 </button>
               </form>
             </li>
-
-            <li>
+            <li className={classes.mypage}>
               <NavLink to="/mypage">마이페이지</NavLink>
             </li>
-            <li>
+            <li className={classes.login}>
               <NavLink to="/login">로그인</NavLink>
             </li>
             <li>

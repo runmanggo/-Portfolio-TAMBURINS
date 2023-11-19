@@ -5,7 +5,7 @@ import Accordion from "../components/UI/Accordion";
 import { CtgLsitContainer } from "../style/StyledComponents";
 import ItemCard from "../components/UI/ItemCard";
 
-import { useParams, NavLink } from "react-router-dom";
+import { useParams, NavLink, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
 
@@ -48,9 +48,11 @@ function shuffleArray(array) {
 const ItemDetails = (props) => {
   const [isShown, setIsShown] = useState(true);
   const [randomScent, setRandomScent] = useState([]);
+
   const dispatch = useDispatch();
 
   const { id } = useParams();
+  const location = useLocation();
 
   const {
     data: detail,
@@ -138,7 +140,13 @@ const ItemDetails = (props) => {
                         {Array.isArray(detail.capacityLink) &&
                         detail.capacityLink[index] ? (
                           <NavLink to={detail.capacityLink[index]}>
-                            <div className={classes.product__size__border}>
+                            <div
+                              className={
+                                location.pathname === detail.capacityLink[index]
+                                  ? classes.product__size__border__active
+                                  : classes.product__size__border
+                              }
+                            >
                               <img src={capImg} alt={`capacity ${index}`} />
                             </div>
                           </NavLink>

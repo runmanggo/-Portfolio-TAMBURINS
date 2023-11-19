@@ -38,6 +38,10 @@
   font-family: "BookkMyungjo-Bd";
 }
 
+li {
+  display: flex;
+}
+
 .right {
   display: flex;
   flex-direction: row;
@@ -54,7 +58,9 @@
   border: 1px solid var(--black);
   border-radius: 0.625rem;
   padding: 0.1rem 0.4rem;
-  margin-top: 0.2rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5px;
 }
 .searchForm {
   display: flex;
@@ -106,8 +112,12 @@
   .left li:not(:first-child) {
     display: none;
   }
-  .right li:not(:nth-child(4)):not(:last-child) {
+  .right .mypage,
+  .right .login {
     display: none;
+  }
+  .right .search-item {
+    display: block;
   }
   .mobile__menu {
     display: block;
