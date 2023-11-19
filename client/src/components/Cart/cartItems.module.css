@@ -6,6 +6,10 @@
   align-items: center;
 }
 
+.cartPopupItem:not(:last-child) {
+  border-bottom: 0.5px solid #a8a8a8;
+}
+
 .checkboxItem {
   display: flex;
 }
@@ -82,4 +86,10 @@
   background-color: initial;
   line-height: normal;
   cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  .cartPopupItem {
+    width: 100%;
+  }
 }

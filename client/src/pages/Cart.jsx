@@ -1,21 +1,37 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import classes from "../style/cart.module.css";
+import shortid from "shortid";
 
 import CartItems from "../components/Cart/CartItems";
+import { NavLink } from "react-router-dom";
 
 const Cart = () => {
-  const items = useSelector((state) => state.cart.items);
+  const cartItems = useSelector((state) => state.cart.items);
+  const total = Object.values(cartItems).reduce(
+    (sum, item) => sum + (item.isSelected ? item.price * item.quantity : 0),
+    0
+  );
   return (
-    <mian>
+    <main>
       <div className={classes.cart__container}>
         <section className={classes.cart__container__left}>
           <div className={classes.left__title}>쇼핑백</div>
-          <div className={classes.left__list}>
-            {items.map((item) => (
-              <CartItems key={item.itemId} item={item} />
-            ))}
-          </div>
+          {cartItems.length > 0 ? (
+            <div className={classes.left__list}>
+              {cartItems.map((item) => (
+                <CartItems
+                  key={shortid.generate()}
+                  item={item}
+                  className={classes.cartItems}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className={classes.left__list__zero}>
+              쇼핑백에 담긴 상품이 없습니다.
+            </div>
+          )}
         </section>
 
         <section className={classes.cart__container__right}>
@@ -23,7 +39,9 @@ const Cart = () => {
           <div className={classes.right__priceGroup}>
             <div className={classes.right__priceRow}>
               <div className={classes.right___priceLabel}>주문 금액</div>
-              <div className={classes.right__priceValue}>46,500 원</div>
+              <div className={classes.right__priceValue}>
+                {total.toLocaleString()} 원
+              </div>
             </div>
             <div className={classes.right__priceRow}>
               <div className={classes.right__priceLabel}>배송비</div>
@@ -31,13 +49,15 @@ const Cart = () => {
                 <span className={classes.right__priceNoti}>
                   3만원 이상 구매 시 무료배송
                 </span>
-                0원
+                {(total >= 30000 ? 0 : 3000).toLocaleString()} 원
               </div>
             </div>
 
             <div className={classes.right__total}>
               <div className={classes.right__priceLabel}>총 금액</div>
-              <div className={classes.right__priceValue}>46,500원</div>
+              <div className={classes.right__priceValue}>
+                {total.toLocaleString()} 원
+              </div>
             </div>
           </div>
           <div className={classes.common__btnWrapper}>
@@ -45,7 +65,7 @@ const Cart = () => {
               주문 계속하기
             </button>
             <button type="button" className={classes.btnShopping}>
-              쇼핑 계속하기
+              <NavLink to={"/shop"}>쇼핑 계속하기</NavLink>
             </button>
           </div>
           <div className={classes.right____infoGroup}>
@@ -60,7 +80,7 @@ const Cart = () => {
           </div>
         </section>
       </div>
-    </mian>
+    </main>
   );
 };
 
