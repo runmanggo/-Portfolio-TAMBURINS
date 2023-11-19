@@ -35,3 +35,15 @@ export const AllBtn = styled.button`
     margin: 20px auto 80px;
   }
 `;
+
+export const OptionBtn = styled.button`
+  border: 1px solid var(--black);
+  background: ${(props) => props.$background || "var(--black)"};
+  color: ${(props) => props.$color || "var(--white)"};
+  width: 100%;
+  height: 50px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+`;

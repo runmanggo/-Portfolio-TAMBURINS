@@ -48,3 +48,9 @@ img {
 .parent {
   overflow: hidden;
 }
+
+input:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
