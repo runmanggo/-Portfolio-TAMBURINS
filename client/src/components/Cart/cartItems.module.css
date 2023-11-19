@@ -1,35 +1,13 @@
 .cartPopupItem {
   color: var(--gray);
   display: flex;
-  border-bottom: 0.5px solid #a8a8a8;
   padding: 20px 0;
   justify-content: space-evenly;
-}
-
-.cartPopupColumn {
-  position: relative;
-  padding-top: 1px;
+  align-items: center;
 }
 
 .checkboxItem {
   display: flex;
-}
-
-.checkboxItem input {
-  position: absolute;
-  z-index: 0;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-}
-
-.checkboxShape {
-  top: 0;
-  width: 12px;
-  height: 12px;
-  border: 1px solid #c3c3c3;
 }
 
 .checkboxLabel {
@@ -44,6 +22,7 @@
 
 .cartPopupColumn__thumb {
   width: 54px;
+  height: fit-content;
   margin: 0 15px;
 }
 
@@ -69,6 +48,11 @@
 
 .cartItem__productPrice {
   font-size: 15px;
+  font-weight: 300;
+}
+
+.cartItem__capacity {
+  font-size: 12px;
   font-weight: 300;
 }
 

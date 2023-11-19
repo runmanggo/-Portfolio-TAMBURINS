@@ -175,6 +175,7 @@
   border: 1px solid var(--black);
   background: var(--black);
   color: var(--white);
+  cursor: pointer;
 }
 
 .accordian__container {

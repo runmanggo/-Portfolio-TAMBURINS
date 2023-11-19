@@ -6,7 +6,7 @@ const ModalBox = styled.div`
   top: 70px;
   right: 50px;
   background: var(--white);
-  width: 375px;
+  width: 400px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
   z-index: 110;
   opacity: 1;

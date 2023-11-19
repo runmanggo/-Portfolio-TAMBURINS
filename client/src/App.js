@@ -6,8 +6,6 @@ import CartPopup from "./components/Cart/CartPopup";
 
 import "./App.css";
 
-// const cartIcon = [Cart, Close];
-
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
 

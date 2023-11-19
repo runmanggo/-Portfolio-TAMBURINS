@@ -15,6 +15,8 @@ import CloseWhite from "../../assets/image/close_white.svg";
 //컴포넌트
 import Sidebar from "./Sidebar/Sidebar";
 
+import { useSelector } from "react-redux";
+
 const left_link = [
   {
     path: "home",
@@ -113,6 +115,13 @@ const Header = (props) => {
 
   const onClose = () => setShowSidebar(false);
 
+  const totalQuantity = useSelector((state) =>
+    Object.values(state.cart.items).reduce(
+      (sum, item) => sum + (item.isSelected ? Number(item.quantity) : 0),
+      0
+    )
+  );
+
   return (
     <header className={navIsTransparent}>
       <nav>
@@ -163,7 +172,7 @@ const Header = (props) => {
             <li>
               <img src={cartImgIndex} alt="" onClick={handleCartClick} />
               {cartImgIndex !== Close && cartImgIndex !== CloseWhite && (
-                <span className={classes.badge}>1</span>
+                <span className={classes.badge}>{totalQuantity}</span>
               )}
             </li>
             <li>

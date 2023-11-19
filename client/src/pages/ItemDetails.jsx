@@ -9,6 +9,9 @@ import { useParams, NavLink } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
 
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "../redux/cartSlice";
+
 const fetchDetail = async (id) => {
   try {
     const response = await axios.get(`http://localhost:8000/detail/${id}`);
@@ -42,9 +45,10 @@ function shuffleArray(array) {
   return array;
 }
 
-const ItemDetails = () => {
+const ItemDetails = (props) => {
   const [isShown, setIsShown] = useState(true);
   const [randomScent, setRandomScent] = useState([]);
+  const dispatch = useDispatch();
 
   const { id } = useParams();
 
@@ -72,6 +76,10 @@ const ItemDetails = () => {
 
   const handleBtnClick = () => {
     setIsShown(!isShown);
+  };
+
+  const handleAddToCart = () => {
+    dispatch(addItemToCart(detail));
   };
 
   return (
@@ -209,7 +217,9 @@ const ItemDetails = () => {
                 )}
               </div>
 
-              <button className={classes.cart__btn}>장바구니 담기</button>
+              <button className={classes.cart__btn} onClick={handleAddToCart}>
+                장바구니 담기
+              </button>
 
               <div className={classes.accordian__container}>
                 {Array.isArray(detail.accordion1) &&
