@@ -56,6 +56,7 @@
   font-size: 100%;
   border: none;
   width: 100px;
+  flex-direction: column;
 }
 
 .common__input__id input {
@@ -99,21 +100,32 @@
   border: none;
   display: flex;
   gap: 5px;
+  flex-direction: column;
 }
 
-input {
+.input {
   height: 33px;
   width: 100%;
   padding: 0 5px;
+}
+
+.email {
+  color: rgba(112, 112, 112, 0.7);
 }
 
 .input__btn__ath {
   flex: 0 0 87px;
 }
 
-.authentication__number {
-  display: none;
+.user_sex__input {
+  width: 100%;
 }
+
 .submitBtn {
-  padding-top: 40px;
+  padding-top: 20px;
+}
+
+.p {
+  font-size: 10px;
+  color: #ff6464;
 }

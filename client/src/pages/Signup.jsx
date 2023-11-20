@@ -1,17 +1,49 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classes from "../style/signup.module.css";
 
 import { OptionBtn } from "../style/StyledComponents";
+import { useForm } from "react-hook-form";
 
 const Signup = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm({ mode: "onChange" });
+
+  const handleEmailDomainChange = (event) => {
+    const selectedDomain = event.target.value;
+    if (selectedDomain === "직접 입력") {
+      setValue("userEmail", "");
+    } else {
+      setValue("userEmail", selectedDomain);
+    }
+  };
+
+  useEffect(() => {
+    register("userEmail", {
+      required: "이메일 도메인을 선택 / 작성 해주세요.",
+    });
+  }, [register]);
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
+  const getBorderColor = (error) => {
+    return error ? "1px solid #FF6464" : "";
+  };
+
   return (
     <section className={classes.section}>
       <div className={classes.section__inner}>
         <h1 className={classes.title}>회원가입</h1>
-        <form className={classes.form}>
+        <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={classes.common__input__item}>
             <div className={classes.common__input__label}>
-              <label className={classes.input__label} htmlFor="user_id">
+              <label className={classes.input__label} htmlFor="userId">
                 아이디(필수)
               </label>
             </div>
@@ -19,10 +51,19 @@ const Signup = () => {
             <div className={classes.common__input__wrap}>
               <div className={classes.common__input__id}>
                 <input
+                  style={{
+                    border: getBorderColor(errors.userId),
+                  }}
+                  {...register("userId", {
+                    required: "이메일을 입력해주세요.",
+                    pattern: {
+                      value: /^[A-za-z0-9가-힣]{3,10}$/,
+                      message: "영문 대소문자, 숫자만 입력 가능합니다.",
+                    },
+                  })}
                   type="text"
-                  name="user_id"
-                  id="user_id"
-                  required
+                  name="userId"
+                  id="userId"
                   className={classes.input}
                   autoComplete="off"
                 />
@@ -31,82 +72,123 @@ const Signup = () => {
               <div className={classes.common__input__wrap}>
                 <div className={classes.common__input__id}>
                   <input
+                    style={{
+                      border: getBorderColor(errors.userEmail),
+                    }}
+                    {...register("userEmail", {
+                      required: "이메일 도메인을 선택 / 작성 해주세요.",
+                    })}
                     type="text"
-                    id="user_email"
-                    name="user_email"
-                    readOnly
-                    aria-readonly="true"
-                    className={classes.input}
+                    id="userEmail"
+                    name="userEmail"
+                    defaultValue=""
+                    className={`${classes.input} ${classes.email}`}
                   />
                 </div>
                 <div className={classes.tam__select}>
                   <div className={classes.tam__select__wrap}>
                     <select
+                      {...register("email_domain", {
+                        required: "이메일 도메인을 선택해주세요.",
+                      })}
                       className={classes.tam__select__input}
                       id="email-select"
                       data-target="user_email"
+                      defaultValue=""
+                      onChange={handleEmailDomainChange}
                     >
-                      <option value="" selected disabled>
-                        선택
-                      </option>
-                      <option value="naver.com">naver.com</option>
-                      <option value="hanmail.net">hanmail.net</option>
-                      <option value="nate.com">nate.com</option>
-                      <option value="gmail.com">gmail.com</option>
-                      <option value="hotmail.com">hotmail.com</option>
-                      <option value="hanmir.com">hanmir.com</option>
-                      <option value="dreamwiz.com">dreamwiz.com</option>
-                      <option value="lycos.co.kr">lycos.co.kr</option>
-                      <option value="empas.com">empas.com</option>
-                      <option value="direct">직접 입력</option>
+                      <option>선택</option>
+                      <option>naver.com</option>
+                      <option>hanmail.net</option>
+                      <option>nate.com</option>
+                      <option>gmail.com</option>
+                      <option>hotmail.com</option>
+                      <option>hanmir.com</option>
+                      <option>dreamwiz.com</option>
+                      <option>lycos.co.kr</option>
+                      <option>empas.com</option>
+                      <option value="직접 입력">직접 입력</option>
                     </select>
                   </div>
                 </div>
               </div>
             </div>
+            {errors?.userId?.message ? (
+              <p className={classes.p}>{errors.userId.message}</p>
+            ) : (
+              errors?.userEmail?.message && (
+                <p className={classes.p}>{errors.userEmail.message}</p>
+              )
+            )}
           </div>
 
           <div className={classes.common__input__item}>
             <div className={classes.common__input__label}>
-              <label className={classes.input__label} htmlFor="user_password">
+              <label className={classes.input__label} htmlFor="userPw">
                 비밀번호(필수)
               </label>
             </div>
             <div className={classes.common__input}>
               <input
+                style={{
+                  border: getBorderColor(errors.userPw),
+                }}
+                {...register("userPw", {
+                  required: "비밀번호를 입력해주세요.",
+                  pattern: {
+                    value: /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+/<>,]).+$/,
+                    message:
+                      "비밀번호는 최소 1개의 대문자, 특수문자, 숫자를 포함해야 합니다.",
+                  },
+                  minLength: {
+                    value: 8,
+                    message: "비밀번호는 최소 8자 이상으로 입력해주세요.",
+                  },
+                  maxLength: {
+                    value: 20,
+                    message: "비밀번호는 20자 이내로 입력해주세요.",
+                  },
+                })}
                 type="password"
-                name="user_password"
-                id="user_password"
-                required
+                name="userPw"
+                id="userPw"
                 className={classes.input}
-                size="20"
-                maxLength="20"
                 autoComplete="new-password"
               />
+              {errors.userPw && (
+                <p className={classes.p}>{errors.userPw.message}</p>
+              )}
             </div>
           </div>
           <div className={classes.common__input__item}>
             <div className={classes.common__input__label}>
-              <label
-                className={classes.input__label}
-                htmlFor="user_password_re"
-              >
+              <label className={classes.input__label} htmlFor="userPwRe">
                 비밀번호 확인(필수)
               </label>
             </div>
             <div className={classes.common__input}>
               <input
+                style={{
+                  border: getBorderColor(errors.userPwRe),
+                }}
+                {...register("userPwRe", {
+                  required: "비밀번호 확인을 위해 다시 한번 입력해주세요.",
+                  validate: (value) =>
+                    value === watch("userPw") ||
+                    "비밀번호가 일치하지 않습니다.",
+                })}
                 type="password"
-                name="user_password_re"
-                id="user_password_re"
-                required
+                name="userPwRe"
+                id="userPwRe"
                 className={classes.input}
-                size="20"
-                maxLength="20"
                 autoComplete="new-password"
               />
+              {errors.userPwRe && (
+                <p className={classes.p}>{errors.userPwRe.message}</p>
+              )}
             </div>
           </div>
+
           <div className={classes.common__input__notice__item}>
             <ul>
               <li className={classes.member__notice__item}>
@@ -115,160 +197,107 @@ const Signup = () => {
               </li>
               <li className={classes.member__notice__item}>
                 · 사용 가능한 특수문자: ! @ # $ % ^ &amp; * ( )__+ / &lt; &gt; ,
-                .
               </li>
             </ul>
           </div>
+
           <div className={classes.common__input__item}>
             <div className={classes.common__input__label}>
-              <label className={classes.input__label} htmlFor="user_sex">
-                *성별(선택)
-              </label>
-            </div>
-            <div className={classes.tam__select}>
-              <div className={classes.tam__select__wrap}>
-                <span className={classes.tam__select__ico}></span>
-                <select
-                  className={classes.tam__select__input}
-                  name="user_sex"
-                  id="gender-select"
-                >
-                  <option value="" selected disabled>
-                    성별을 선택해주세요.
-                  </option>
-                  <option value="남">남자</option>
-                  <option value="여">여자</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div className={classes.common__input__item}>
-            <div className={classes.common__input__label}>
-              <label className={classes.input__label} htmlFor="user_name">
+              <label className={classes.input__label} htmlFor="username">
                 이름(필수)
               </label>
             </div>
             <div className={classes.common__input}>
               <input
+                style={{
+                  border: getBorderColor(errors.username),
+                }}
+                {...register("username", {
+                  required: "이름을 입력해주세요.",
+                  maxLength: {
+                    value: 10,
+                    message: "이름은 10자 이내로 입력해주세요.",
+                  },
+                  pattern: {
+                    value: /^[A-Za-z가-힣]+$/,
+                    message: "숫자와 특수문자는 사용할 수 없습니다.",
+                  },
+                })}
                 type="text"
-                id="user_name"
-                name="user_name"
-                required
+                id="username"
+                name="username"
                 className={classes.input}
-                size="10"
                 autoComplete="off"
               />
+              {errors.username && (
+                <p className={classes.p}>{errors.username.message}</p>
+              )}
             </div>
           </div>
           <div className={classes.common__input__item}>
             <div className={classes.common__input__label}>
-              <label className={classes.input__label} htmlFor="user_hp">
+              <label className={classes.input__label} htmlFor="userHp">
                 연락처(필수)
               </label>
             </div>
             <div className={classes.common__input}>
               <input
+                style={{
+                  border: getBorderColor(errors.userHp),
+                }}
+                {...register("userHp", {
+                  required: "연락처를 입력해주세요.",
+                  pattern: {
+                    value: /^[0-9]{3}[0-9]{4}[0-9]{4}$/,
+                    message:
+                      "올바른 연락처 형식을 입력해주세요. (예시: 01012341234)",
+                  },
+                })}
                 type="tel"
-                id="user_hp"
-                name="user_hp"
-                required
+                id="userHp"
+                name="userHp"
                 className={classes.input}
                 placeholder="예 : 01012341234"
                 autoComplete="email"
-                pattern="[0-9]*"
                 inputMode="numeric"
-                maxLength="13"
               />
-              <OptionBtn
-                id="register_hp_send-btn"
-                className={classes.input__btn__ath}
-                type="button"
-                $background="initial"
-                $color="var(--black)"
-                $height="33px"
-              >
-                인증하기
-              </OptionBtn>
-            </div>
-          </div>
-          <div className={classes.common__input__item}>
-            <input
-              type="hidden"
-              value="0"
-              id="init_check_input"
-              name="init_check_input"
-            />
-            <div className={classes.authentication__number}>
-              <div className={classes.common__input__label}>
-                <label className={classes.input__label} htmlFor="">
-                  인증번호 입력
-                </label>
-              </div>
-              <div className={classes.common__input}>
-                <input
-                  type="text"
-                  id="user_number"
-                  name="user_number"
-                  className={classes.input}
-                  size="11"
-                />
-                <button
-                  style={{ width: "60px" }}
-                  className={classes.input__btn__resend}
-                  id="resend_btn"
-                  type="button"
-                >
-                  재전송
-                </button>
-                <button
-                  style={{ width: "60px" }}
-                  className={classes.input__btn}
-                  id="init_check_btn"
-                  type="button"
-                >
-                  인증하기
-                </button>
-              </div>
-            </div>
-          </div>
-          <div
-            className={classes.common__input__item}
-            id="hp_check_div"
-            style={{ display: "none" }}
-          >
-            <div className={classes.common__input__label}>
-              <label className={classes.input__label} htmlFor="">
-                연락처
-              </label>
-            </div>
-            <div className={classes.common__input}>
-              <input
-                type="text"
-                id="hp_check_input"
-                readOnly
-                className={classes.input}
-                size="11"
-              />
+              {errors.userHp && (
+                <p className={classes.p}>{errors.userHp.message}</p>
+              )}
             </div>
           </div>
           <div className={classes.common__input__item}>
             <div className={classes.common__input__label}>
-              <label className={classes.input__label} htmlFor="reg_mb_birth">
+              <label className={classes.input__label} htmlFor="birth">
                 생년월일(양력/필수)
               </label>
             </div>
             <div className={classes.common__input}>
               <input
+                style={{
+                  border: getBorderColor(errors.birth),
+                }}
+                {...register("birth", {
+                  required: "생년월일을 입력해주세요.",
+                  maxLength: {
+                    value: 8,
+                    message: "생년월일 8자리로 입력해주세요.",
+                  },
+                  pattern: {
+                    value: /^[0-9]+$/,
+                    message: "숫자만 입력해주세요.",
+                  },
+                })}
                 type="text"
-                id="reg_mb_birth"
-                required
+                id="birth"
+                name="birth"
                 className={classes.input}
-                size="8"
-                placeholder="예 : 2020-01-31"
-                pattern="[0-9]*"
+                placeholder="예 : 20200101"
                 inputMode="numeric"
               />
-              <input type="hidden" id="reg_mb_birth-hidden" name="mb_birth" />
+              {errors.birth && (
+                <p className={classes.p}>{errors.birth.message}</p>
+              )}
             </div>
           </div>
 

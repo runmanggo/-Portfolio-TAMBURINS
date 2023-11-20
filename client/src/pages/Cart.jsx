@@ -13,6 +13,7 @@ const Cart = () => {
     (sum, item) => sum + (item.isSelected ? item.price * item.quantity : 0),
     0
   );
+
   return (
     <main>
       <div className={classes.cart__container}>
