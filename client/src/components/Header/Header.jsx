@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import classes from "./header.module.css";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 //이미지
 import Cart from "../../assets/image/cart.svg";
 import menu from "../../assets/image/menu.svg";
@@ -15,7 +15,8 @@ import CloseWhite from "../../assets/image/close_white.svg";
 //컴포넌트
 import Sidebar from "./Sidebar/Sidebar";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { login, logout } from "../../redux/authSlice.js";
 
 const left_link = [
   {
@@ -45,7 +46,9 @@ const Header = (props) => {
   const [isTransparent, setIsTransparent] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const [cartImgIndex, setcartImgIndex] = useState(Cart);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
+  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -122,6 +125,14 @@ const Header = (props) => {
     )
   );
 
+  const handleLogout = () => {
+    const auth = getAuth();
+    auth.signOut().then(() => {
+      dispatch(logout());
+      navigate("/home");
+    });
+  };
+
   return (
     <header className={navIsTransparent}>
       <nav>
@@ -165,9 +176,15 @@ const Header = (props) => {
             <li className={classes.mypage}>
               <NavLink to="/mypage">마이페이지</NavLink>
             </li>
-            <li className={classes.login}>
-              <NavLink to="/login">로그인</NavLink>
-            </li>
+            {isLoggedIn ? (
+              <li className={classes.login} onClick={handleLogout}>
+                로그아웃
+              </li>
+            ) : (
+              <li className={classes.login}>
+                <NavLink to="/login">로그인</NavLink>
+              </li>
+            )}
             <li>
               <img src={cartImgIndex} alt="" onClick={handleCartClick} />
               {cartImgIndex !== Close && cartImgIndex !== CloseWhite && (

@@ -3,8 +3,14 @@ import classes from "../style/signup.module.css";
 
 import { OptionBtn } from "../style/StyledComponents";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../firebase.config";
 
 const Signup = () => {
+  const navigate = useNavigate();
   //유효성 체크
   const {
     register,
@@ -30,7 +36,35 @@ const Signup = () => {
     });
   }, [register]);
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    const { emailId, userEmail, userPw, userPwRe, username, userHp, birth } =
+      data;
+    const email = `${emailId}@${userEmail}`;
+    const auth = getAuth();
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        userPw
+      );
+      console.log("회원가입 성공:", userCredential.user);
+
+      try {
+        await setDoc(doc(db, "users", userCredential.user.uid), {
+          Name: username,
+          PhoneNum: userHp,
+          Birth: birth,
+        });
+        console.log("프로필 업데이트 성공");
+      } catch (error) {
+        console.log("프로필 업데이트 실패:", error);
+      }
+    } catch (error) {
+      console.log("회원가입 실패:", error);
+    }
+
+    navigate("/login");
     console.log(data);
   };
 
@@ -54,20 +88,20 @@ const Signup = () => {
               <div className={classes.common__input__id}>
                 <input
                   style={{
-                    border: getBorderColor(errors.userId),
+                    border: getBorderColor(errors.emailId),
                   }}
-                  {...register("userId", {
+                  {...register("emailId", {
                     required: "이메일을 입력해주세요.",
                     pattern: {
                       value: /^[A-za-z0-9가-힣]{3,10}$/,
                       message: "영문 대소문자, 숫자만 입력 가능합니다.",
                     },
                   })}
-                  type="email"
-                  name="userId"
-                  id="userId"
+                  type="text"
+                  name="emailId"
+                  id="emailId"
                   className={classes.input}
-                  autoComplete="username"
+                  autoComplete="emailId"
                 />
               </div>
               <span>@</span>
@@ -80,7 +114,7 @@ const Signup = () => {
                     {...register("userEmail", {
                       required: "이메일 도메인을 선택 / 작성 해주세요.",
                     })}
-                    type="email"
+                    type="text"
                     id="userEmail"
                     name="userEmail"
                     defaultValue=""
@@ -116,8 +150,8 @@ const Signup = () => {
                 </div>
               </div>
             </div>
-            {errors?.userId?.message ? (
-              <p className={classes.p}>{errors.userId.message}</p>
+            {errors?.emailId?.message ? (
+              <p className={classes.p}>{errors.emailId.message}</p>
             ) : (
               errors?.userEmail?.message && (
                 <p className={classes.p}>{errors.userEmail.message}</p>

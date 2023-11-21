@@ -63,3 +63,9 @@
   align-items: center;
   justify-content: center;
 }
+
+/* 유효성 검사 에러 메세지 */
+.p {
+  font-size: 10px;
+  color: #ff6464;
+}
