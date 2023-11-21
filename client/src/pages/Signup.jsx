@@ -5,6 +5,7 @@ import { OptionBtn } from "../style/StyledComponents";
 import { useForm } from "react-hook-form";
 
 const Signup = () => {
+  //유효성 체크
   const {
     register,
     handleSubmit,
@@ -22,6 +23,7 @@ const Signup = () => {
     }
   };
 
+  //register 함수를 select 태그의 onChange 이벤트 핸들러의 충돌 해결
   useEffect(() => {
     register("userEmail", {
       required: "이메일 도메인을 선택 / 작성 해주세요.",
@@ -61,11 +63,11 @@ const Signup = () => {
                       message: "영문 대소문자, 숫자만 입력 가능합니다.",
                     },
                   })}
-                  type="text"
+                  type="email"
                   name="userId"
                   id="userId"
                   className={classes.input}
-                  autoComplete="off"
+                  autoComplete="username"
                 />
               </div>
               <span>@</span>
@@ -78,11 +80,12 @@ const Signup = () => {
                     {...register("userEmail", {
                       required: "이메일 도메인을 선택 / 작성 해주세요.",
                     })}
-                    type="text"
+                    type="email"
                     id="userEmail"
                     name="userEmail"
                     defaultValue=""
                     className={`${classes.input} ${classes.email}`}
+                    autoComplete="username"
                   />
                 </div>
                 <div className={classes.tam__select}>
