@@ -45,20 +45,6 @@ function App() {
     handleRouteChange();
   }, [location]);
 
-  useEffect(() => {
-    const checkOutsideClick = (e) => {
-      const path = e.composedPath();
-      if (!path.includes(document.getElementById("cart"))) {
-        closeCartHandler();
-      }
-    };
-    document.addEventListener("mousedown", checkOutsideClick);
-
-    return () => {
-      document.removeEventListener("mousedown", checkOutsideClick);
-    };
-  }, []);
-
   return (
     <Fragment>
       <CartPopup show={cartIsShown} />

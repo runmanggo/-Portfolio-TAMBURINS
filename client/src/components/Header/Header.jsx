@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import classes from "./header.module.css";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 //이미지
 import Cart from "../../assets/image/cart.svg";
 import menu from "../../assets/image/menu.svg";
@@ -112,9 +112,32 @@ const Header = (props) => {
     setcartImgIndex(icon);
   }, [props.cartIsShown, isHome]);
 
-  const handleCartClick = () => {
-    props.showCartHandler();
+  const cartRef = useRef();
+  const { closeCartHandler, cartIsShown: isOpen, showCartHandler } = props;
+
+  const handleCartClick = (event) => {
+    if (cartImgIndex !== Close && cartImgIndex !== CloseWhite) {
+      showCartHandler();
+    }
   };
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (!cartRef.current.contains(event.target)) {
+        closeCartHandler();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("click", handleOutsideClick);
+    } else {
+      document.removeEventListener("click", handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, [isOpen, closeCartHandler]);
 
   const onClose = () => setShowSidebar(false);
 
@@ -186,7 +209,19 @@ const Header = (props) => {
               </li>
             )}
             <li>
-              <img src={cartImgIndex} alt="" onClick={handleCartClick} />
+              <img
+                src={cartImgIndex}
+                ref={cartRef}
+                alt=""
+                onClick={(event) => {
+                  if (cartImgIndex === Close || cartImgIndex === CloseWhite) {
+                    event.stopPropagation();
+                    closeCartHandler();
+                  } else {
+                    handleCartClick(event);
+                  }
+                }}
+              />
               {cartImgIndex !== Close && cartImgIndex !== CloseWhite && (
                 <span className={classes.badge}>{totalQuantity}</span>
               )}
