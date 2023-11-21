@@ -13,10 +13,10 @@ import Close from "../../assets/image/close.svg";
 import CloseWhite from "../../assets/image/close_white.svg";
 
 //컴포넌트
-import Sidebar from "./Sidebar/Sidebar";
+import Sidebar from "../Sidebar/Sidebar";
 
 import { useSelector, useDispatch } from "react-redux";
-import { login, logout } from "../../redux/authSlice.js";
+import { logout } from "../../redux/authSlice.js";
 
 const left_link = [
   {

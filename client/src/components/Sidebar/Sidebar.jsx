@@ -1,21 +1,41 @@
 import React, { Fragment } from "react";
 import classes from "./sidebar.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
-import Close from "../../../assets/image/close.svg";
+import Close from "../../assets/image/close.svg";
 
-import Overlay from "../../UI/Overlay";
+import Overlay from "../UI/Overlay";
+
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../redux/authSlice.js";
+import { getAuth } from "firebase/auth";
 
 const Sidebar = (props) => {
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleLinkClick = () => {
     props.onClose();
+  };
+
+  const handleLogout = () => {
+    const auth = getAuth();
+    auth.signOut().then(() => {
+      dispatch(logout());
+      navigate("/home");
+    });
   };
 
   return (
     <Fragment>
       {props.showSidebar && <Overlay onClick={props.onClose} />}
       {props.showSidebar && (
-        <aside className={classes.aside}>
+        <aside
+          className={`${classes.aside} ${
+            props.showSidebar ? classes["aside-on"] : ""
+          }`}
+        >
           <div className={classes.aside__inner}>
             <div className={classes.aside__close}>
               <img src={Close} alt="" onClick={props.onClose} />
@@ -40,21 +60,21 @@ const Sidebar = (props) => {
                         선물 추천
                       </NavLink>
                     </li>
-                    <li>
-                      <NavLink to="/store" onClick={handleLinkClick}>
-                        매장 보기
-                      </NavLink>
-                    </li>
+                    <li>매장 보기</li>
                   </ul>
                 </div>
 
                 <div className={classes.aside__footer}>
                   <ul>
-                    <li>
-                      <NavLink to="/login" onClick={handleLinkClick}>
-                        로그인
-                      </NavLink>
-                    </li>
+                    {isLoggedIn ? (
+                      <li>
+                        <NavLink onClick={handleLinkClick}>로그아웃</NavLink>
+                      </li>
+                    ) : (
+                      <li className={classes.login}>
+                        <NavLink to="/login">로그인</NavLink>
+                      </li>
+                    )}
 
                     <li>
                       <NavLink to="/mypage" onClick={handleLinkClick}>
