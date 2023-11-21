@@ -9,6 +9,7 @@ import Overlay from "../UI/Overlay";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../redux/authSlice.js";
 import { getAuth } from "firebase/auth";
+import { clearCart } from "../../redux/cartSlice";
 
 const Sidebar = (props) => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -23,6 +24,7 @@ const Sidebar = (props) => {
     const auth = getAuth();
     auth.signOut().then(() => {
       dispatch(logout());
+      dispatch(clearCart());
       navigate("/home");
     });
   };

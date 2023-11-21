@@ -113,13 +113,17 @@ const Login = () => {
             )}
           </div>
           <div className={classes.common__btnWrapper}>
-            <OptionBtn type="submit" id="btn-track-order">
-              <NavLink>확인</NavLink>
+            <OptionBtn as={NavLink} type="submit" id="btn-track-order">
+              확인
             </OptionBtn>
-            <OptionBtn $background="var(--white)" $color="var(--black)">
-              <NavLink to={`/signup`} type="button">
-                신규 회원가입
-              </NavLink>
+            <OptionBtn
+              as={NavLink}
+              $background="var(--white)"
+              $color="var(--black)"
+              to={`/signup`}
+              type="button"
+            >
+              신규 회원가입
             </OptionBtn>
           </div>
         </form>

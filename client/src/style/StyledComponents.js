@@ -45,5 +45,8 @@ export const OptionBtn = styled.button`
   text-align: center;
   font-size: 14px;
   font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
 `;

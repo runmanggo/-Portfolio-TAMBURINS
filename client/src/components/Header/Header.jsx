@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import classes from "./header.module.css";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { getAuth } from "firebase/auth";
+
 //이미지
 import Cart from "../../assets/image/cart.svg";
 import menu from "../../assets/image/menu.svg";
@@ -17,6 +18,7 @@ import Sidebar from "../Sidebar/Sidebar";
 
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../redux/authSlice.js";
+import { clearCart } from "../../redux/cartSlice";
 
 const left_link = [
   {
@@ -152,6 +154,7 @@ const Header = (props) => {
     const auth = getAuth();
     auth.signOut().then(() => {
       dispatch(logout());
+      dispatch(clearCart());
       navigate("/home");
     });
   };

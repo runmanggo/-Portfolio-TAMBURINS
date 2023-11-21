@@ -43,9 +43,11 @@ const CartPopup = (props) => {
           <div> {total.toLocaleString()} 원</div>
         </div>
         <div className={classes.cart__btnWrap}>
-          <button type="button" className={classes.detail__btn__white}>
-            <NavLink to={"/cart"}>주문 하기</NavLink>
-          </button>
+          <NavLink to={"/cart"} className={classes.detail__btn__white}>
+            <button type="button" className={classes.detail__btn__white}>
+              주문 하기
+            </button>
+          </NavLink>
         </div>
       </Modal>
     </div>
