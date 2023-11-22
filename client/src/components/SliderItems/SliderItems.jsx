@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import { Pagination } from "swiper/modules";
+
 import classes from "./SliderItem.module.css";
 
 import { useParams } from "react-router-dom";
@@ -40,7 +40,7 @@ const SliderItems = () => {
     if (detailError) {
       return console.log("Error:", detailError.message);
     }
-  }, []);
+  }, [isLoadingDetail, detailError]);
 
   const pagination = {
     clickable: true,
@@ -48,7 +48,7 @@ const SliderItems = () => {
       return (
         '<span class="' +
         className +
-        '" style="background-color: var(--black)">' +
+        ' my-bullet" style="background: #333 !important;">' +
         (index + 1) +
         "</span>"
       );

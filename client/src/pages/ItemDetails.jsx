@@ -203,8 +203,14 @@ const ItemDetails = (props) => {
                 </div>
                 <div className={classes.detail__info__desc}>
                   {Array.isArray(detail.infoSummary) ? (
-                    detail.infoSummary.map((summary) => (
-                      <div key={shortid.generate()}>{summary}</div>
+                    detail.infoSummary.map((desc, index) => (
+                      <div key={shortid.generate()}>
+                        {Array.isArray(desc)
+                          ? desc.map((text, subIndex) => (
+                              <div key={`${index}-${subIndex}`}>{text}</div>
+                            ))
+                          : desc}
+                      </div>
                     ))
                   ) : (
                     <div>{detail.infoSummary}</div>
