@@ -7,7 +7,9 @@ const Filter = (props) => {
       <div className={classes.filter__container}>
         <div className={classes.filter__inner}>
           <div className={classes.filter_content}>
-            <div>{props.title}</div>
+            <div>
+              {props.title} <span>({props.quantity})</span>
+            </div>
           </div>
         </div>
       </div>

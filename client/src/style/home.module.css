@@ -53,6 +53,7 @@ img {
   font-weight: 600;
   color: var(--white);
   letter-spacing: 0.0313rem;
+  text-align: center;
 }
 
 .mainPage__btn {

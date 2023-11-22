@@ -17,6 +17,7 @@
 }
 
 .header nav {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 0 2.75rem;
@@ -52,24 +53,24 @@ li {
 }
 
 .searchForm__container {
-  width: 17rem;
-  height: 24px;
+  height: 1.5rem;
   display: flex;
   border: 1px solid var(--black);
   border-radius: 0.625rem;
   padding: 0.1rem 0.4rem;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.5px;
+  margin-bottom: 0.0938rem;
 }
 .searchForm {
   display: flex;
   cursor: pointer;
 }
 .searchForm input {
-  width: 15rem;
+  width: 100%;
   border: none;
   background-color: initial;
+  text-align: center;
 }
 
 .homePlaceholder::placeholder {
@@ -121,5 +122,21 @@ li {
   }
   .mobile__menu {
     display: block;
+  }
+}
+
+@media (max-width: 530px) {
+  .left li:nth-child(1) {
+    font-size: 0;
+  }
+
+  .left li:nth-child(1)::before {
+    content: "T";
+    display: block;
+    font-family: "BookkMyungjo-Bd";
+    font-size: 1.5625rem;
+  }
+  .searchForm__container {
+    margin-left: 1.3rem;
   }
 }

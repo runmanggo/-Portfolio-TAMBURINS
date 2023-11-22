@@ -62,9 +62,9 @@ const Home = () => {
           }
         >
           <div className={classes.mainPage__title}>TOILET FRAGRANCE</div>
-          <button className={classes.mainPage__btn}>
-            <NavLink to="/shop/toiletFragrance">신제품보기</NavLink>
-          </button>
+          <NavLink to="/shop/toiletFragrance">
+            <button className={classes.mainPage__btn}> 신제품보기</button>
+          </NavLink>
         </div>
       </div>
     </div>

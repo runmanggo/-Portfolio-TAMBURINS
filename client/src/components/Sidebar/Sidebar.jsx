@@ -49,6 +49,7 @@ const Sidebar = (props) => {
                   제품 보기
                 </NavLink>
               </div>
+
               <div className={classes.aside__menuBox}>
                 <div className={classes.aside__content}>
                   <ul>
@@ -78,17 +79,9 @@ const Sidebar = (props) => {
                       </li>
                     )}
 
-                    <li>
-                      <NavLink to="/mypage" onClick={handleLinkClick}>
-                        문의하기
-                      </NavLink>
-                    </li>
+                    <li>문의하기</li>
 
-                    <li>
-                      <NavLink to="/mypage" onClick={handleLinkClick}>
-                        마이페이지
-                      </NavLink>
-                    </li>
+                    <li>마이페이지</li>
                   </ul>
                 </div>
               </div>

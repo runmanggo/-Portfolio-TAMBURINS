@@ -38,7 +38,7 @@ const left_link = [
     display: "선물추천",
   },
   {
-    path: "store",
+    path: "",
     display: "매장보기",
   },
 ];
@@ -199,9 +199,7 @@ const Header = (props) => {
                 </button>
               </form>
             </li>
-            <li className={classes.mypage}>
-              <NavLink to="/mypage">마이페이지</NavLink>
-            </li>
+            <li className={classes.mypage}>마이페이지</li>
             {isLoggedIn ? (
               <li className={classes.login} onClick={handleLogout}>
                 로그아웃

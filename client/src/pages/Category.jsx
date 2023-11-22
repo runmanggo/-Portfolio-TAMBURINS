@@ -81,7 +81,7 @@ const Category = () => {
     <div>
       <Slider activeImage={activeImage} setActiveImage={setActiveImage} />
       <Banner />
-      <Filter title={title} />
+      <Filter title={title} quantity={mainItems.length} />
       <CtgLsitContainer>
         {/* 토일렛 증정품만 상세페이지 넘어가지 않게 */}
         {mainItems.map((item) =>

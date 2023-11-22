@@ -16,6 +16,7 @@ export const CtgLsitContainer = styled.div`
   }
 `;
 
+// /shop의 버튼들
 export const BtnBox = styled.div`
   padding: 0 20px;
 `;
@@ -36,6 +37,7 @@ export const AllBtn = styled.button`
   }
 `;
 
+// 선택 버튼들
 export const OptionBtn = styled.button`
   border: 1px solid var(--black);
   background: ${(props) => props.$background || "var(--black)"};

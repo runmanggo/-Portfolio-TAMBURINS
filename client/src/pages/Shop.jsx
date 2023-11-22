@@ -13,6 +13,8 @@ import { NavLink } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
 
+import shortid from "shortid";
+
 const fetchAll = async () => {
   try {
     const response = await axios.get("http://localhost:8000/items/all");
@@ -64,9 +66,9 @@ const Shop = () => {
   return (
     <div>
       <Slider activeImage={activeImage} setActiveImage={setActiveImage} />
-      <Filter title={"전체 보기"} />
-      {chunk(allItems, 4).map((itemGroup, index) => (
-        <React.Fragment key={index}>
+      <Filter title={"전체 보기"} quantity={allItems ? allItems.length : 0} />
+      {chunk(allItems, 4).map((itemGroup) => (
+        <React.Fragment key={shortid.generate()}>
           <CtgLsitContainer>
             {itemGroup.map((item) => (
               <NavLink
