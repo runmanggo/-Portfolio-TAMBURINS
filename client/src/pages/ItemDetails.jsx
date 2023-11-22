@@ -4,6 +4,7 @@ import classes from "../style/itemDetail.module.css";
 import Accordion from "../components/UI/Accordion";
 import { CtgLsitContainer } from "../style/StyledComponents";
 import ItemCard from "../components/UI/ItemCard";
+import SliderItems from "../components/SliderItems/SliderItems";
 
 import { useParams, NavLink, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
@@ -11,6 +12,8 @@ import axios from "axios";
 
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../redux/cartSlice";
+
+import shortid from "shortid";
 
 const fetchDetail = async (id) => {
   try {
@@ -48,6 +51,7 @@ function shuffleArray(array) {
 const ItemDetails = (props) => {
   const [isShown, setIsShown] = useState(true);
   const [randomScent, setRandomScent] = useState([]);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const dispatch = useDispatch();
 
@@ -84,37 +88,51 @@ const ItemDetails = (props) => {
     dispatch(addItemToCart(detail));
   };
 
+  const handleWindowResize = () => {
+    setWindowWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowResize);
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
+
   return (
     <>
       {detail && (
         <div className={classes.detail__content}>
-          <div className={classes.detail__imgs}>
-            <div className={classes.detail__imgs__wrapper}>
-              {Array.isArray(detail.mainImg) ? (
-                detail.mainImg.map((mainImg, index) => (
-                  <div key={index}>
-                    {mainImg === detail.mainVideo ? (
-                      <video>
-                        <source src={mainImg} type="video/mp4" />
+          {windowWidth < 1024 ? (
+            <SliderItems />
+          ) : (
+            <div className={classes.detail__imgs}>
+              <div className={classes.detail__imgs__wrapper}>
+                {Array.isArray(detail.mainImg) ? (
+                  detail.mainImg.map((mainImg, index) => (
+                    <div key={shortid.generate()}>
+                      {mainImg === detail.mainVideo ? (
+                        <video>
+                          <source src={mainImg} type="video/mp4" />
+                        </video>
+                      ) : (
+                        <img src={mainImg} alt={`mainImg ${index}`} />
+                      )}
+                    </div>
+                  ))
+                ) : (
+                  <div>
+                    {detail.mainImg === detail.mainVideo || !detail.mainImg ? (
+                      <video loop muted autoPlay>
+                        <source src={detail.mainVideo} type="video/mp4" />
                       </video>
                     ) : (
-                      <img src={mainImg} alt={`mainImg ${index}`} />
+                      <img src={detail.mainImg} alt="mainImg" />
                     )}
                   </div>
-                ))
-              ) : (
-                <div>
-                  {detail.mainImg === detail.mainVideo || !detail.mainImg ? (
-                    <video loop muted autoPlay>
-                      <source src={detail.mainVideo} type="video/mp4" />
-                    </video>
-                  ) : (
-                    <img src={detail.mainImg} alt="mainImg" />
-                  )}
-                </div>
-              )}
+                )}
+              </div>
             </div>
-          </div>
+          )}
 
           <div className={classes.product__info}>
             <div className={classes.product__info__inner}>
@@ -136,7 +154,7 @@ const ItemDetails = (props) => {
                 <ul className={classes.product__size}>
                   {Array.isArray(detail.capacityImg) ? (
                     detail.capacityImg.map((capImg, index) => (
-                      <li key={index}>
+                      <li key={shortid.generate()}>
                         {Array.isArray(detail.capacityLink) &&
                         detail.capacityLink[index] ? (
                           <NavLink to={detail.capacityLink[index]}>
@@ -185,8 +203,8 @@ const ItemDetails = (props) => {
                 </div>
                 <div className={classes.detail__info__desc}>
                   {Array.isArray(detail.infoSummary) ? (
-                    detail.infoSummary.map((summary, index) => (
-                      <div key={index}>{summary}</div>
+                    detail.infoSummary.map((summary) => (
+                      <div key={shortid.generate()}>{summary}</div>
                     ))
                   ) : (
                     <div>{detail.infoSummary}</div>
@@ -206,11 +224,11 @@ const ItemDetails = (props) => {
                       className={classes.detail__info__ctg__summary}
                     >
                       {Array.isArray(detail.detailBtnDesc) ? (
-                        detail.detailBtnDesc.map((desc, index) => (
-                          <div key={index}>
+                        detail.detailBtnDesc.map((desc) => (
+                          <div key={shortid.generate()}>
                             {Array.isArray(desc) ? (
-                              desc.map((text, subIndex) => (
-                                <div key={subIndex}>{text}</div>
+                              desc.map((text) => (
+                                <div key={shortid.generate()}>{text}</div>
                               ))
                             ) : (
                               <div>{desc}</div>
@@ -234,8 +252,8 @@ const ItemDetails = (props) => {
                   detail.accordion1.length !== 0 &&
                   detail.accordion1[0] !== "" && (
                     <Accordion title="향 노트">
-                      {detail.accordion1.map((data, index) => (
-                        <div key={index}>{data}</div>
+                      {detail.accordion1.map((data) => (
+                        <div key={shortid.generate()}>{data}</div>
                       ))}
                     </Accordion>
                   )}
@@ -260,18 +278,21 @@ const ItemDetails = (props) => {
 
                 <Accordion title="제품 세부 정보">
                   {Array.isArray(detail.accordion3) ? (
-                    detail.accordion3.map((innerArray, index) => (
-                      <div key={index} className={classes.acc3__box}>
+                    detail.accordion3.map((innerArray) => (
+                      <div
+                        key={shortid.generate()}
+                        className={classes.acc3__box}
+                      >
                         {Array.isArray(innerArray) ? (
                           innerArray.map((item, subIndex) =>
                             subIndex === 0 ? (
-                              <div key={subIndex}>
+                              <div key={shortid.generate()}>
                                 <div className={classes.acc3__title}>
                                   {item}
                                 </div>
                               </div>
                             ) : (
-                              <div key={subIndex}>{item}</div>
+                              <div key={shortid.generate()}>{item}</div>
                             )
                           )
                         ) : (
@@ -313,7 +334,7 @@ const ItemDetails = (props) => {
         <CtgLsitContainer>
           {randomScent.map((item) => (
             <NavLink
-              key={item._id}
+              key={shortid.generate()}
               to={`/shop/${item.category}/${item.itemId}`}
             >
               <ItemCard item={item} />
