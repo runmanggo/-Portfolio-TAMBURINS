@@ -33,11 +33,7 @@ const Sidebar = (props) => {
     <Fragment>
       {props.showSidebar && <Overlay onClick={props.onClose} />}
       {props.showSidebar && (
-        <aside
-          className={`${classes.aside} ${
-            props.showSidebar ? classes["aside-on"] : ""
-          }`}
-        >
+        <aside className={classes.aside}>
           <div className={classes.aside__inner}>
             <div className={classes.aside__close}>
               <img src={Close} alt="" onClick={props.onClose} />
@@ -71,14 +67,15 @@ const Sidebar = (props) => {
                   <ul>
                     {isLoggedIn ? (
                       <li>
-                        <NavLink onClick={handleLinkClick}>로그아웃</NavLink>
+                        <NavLink onClick={handleLogout}>로그아웃</NavLink>
                       </li>
                     ) : (
                       <li className={classes.login}>
-                        <NavLink to="/login">로그인</NavLink>
+                        <NavLink to="/login" onClick={handleLinkClick}>
+                          로그인
+                        </NavLink>
                       </li>
                     )}
-
                     <li>문의하기</li>
 
                     <li>마이페이지</li>

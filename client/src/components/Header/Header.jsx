@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import classes from "./header.module.css";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { getAuth } from "firebase/auth";
+import { auth } from "../../firebase.config.js";
 
 //이미지
 import Cart from "../../assets/image/cart.svg";
@@ -48,7 +48,7 @@ const Header = (props) => {
   const [isTransparent, setIsTransparent] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const [cartImgIndex, setcartImgIndex] = useState(Cart);
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.auth.loggedIn);
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -118,6 +118,7 @@ const Header = (props) => {
   const { closeCartHandler, cartIsShown: isOpen, showCartHandler } = props;
 
   const handleCartClick = (event) => {
+    event.stopPropagation();
     if (cartImgIndex !== Close && cartImgIndex !== CloseWhite) {
       showCartHandler();
     }
@@ -149,16 +150,13 @@ const Header = (props) => {
       0
     )
   );
-
   const handleLogout = () => {
-    const auth = getAuth();
     auth.signOut().then(() => {
       dispatch(logout());
       dispatch(clearCart());
       navigate("/home");
     });
   };
-
   return (
     <header className={navIsTransparent}>
       <nav>

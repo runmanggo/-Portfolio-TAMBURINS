@@ -1,12 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import classes from "../style/login.module.css";
 import { OptionBtn } from "../style/StyledComponents";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/authSlice";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { auth, db } from "../firebase.config";
 import { useForm } from "react-hook-form";
+import { setCartItems } from "../redux/cartSlice";
+
+const getCartItems = async (uid) => {
+  const q = query(collection(db, "carts"), where("uid", "==", uid));
+  const querySnapshot = await getDocs(q);
+  const cartItems = [];
+  querySnapshot.forEach((doc) => {
+    cartItems.push(doc.data());
+  });
+  return cartItems;
+};
 
 const Login = () => {
   const {
@@ -20,15 +32,22 @@ const Login = () => {
 
   const onSubmit = async ({ userId, userPw }) => {
     try {
-      const auth = getAuth();
       const userCredential = await signInWithEmailAndPassword(
         auth,
         userId,
         userPw
       );
-      dispatch(login());
+      dispatch(login(userCredential.user.uid));
       console.log("로그인 성공:", userCredential.user);
-      navigate(`/home`); // 로그인 성공 후 홈 페이지로 이동
+
+      // 로그인 후에 장바구니 정보를 가져옵니다.
+      const cartItems = await getCartItems(userCredential.user.uid);
+      dispatch(setCartItems(cartItems));
+      console.log("장바구니 항목:", cartItems);
+
+      // cartItems를 사용하여 Redux 상태를 업데이트하거나, 로컬 상태를 설정하세요.
+
+      navigate(`/home`); // 로그인 성공시 홈
     } catch (error) {
       console.log("로그인 실패:", error);
     }
@@ -113,9 +132,7 @@ const Login = () => {
             )}
           </div>
           <div className={classes.common__btnWrapper}>
-            <OptionBtn as={NavLink} type="submit" id="btn-track-order">
-              확인
-            </OptionBtn>
+            <OptionBtn type="submit">확인</OptionBtn>
             <OptionBtn
               as={NavLink}
               $background="var(--white)"

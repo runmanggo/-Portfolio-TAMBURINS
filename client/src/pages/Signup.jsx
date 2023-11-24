@@ -37,8 +37,7 @@ const Signup = () => {
   }, [register]);
 
   const onSubmit = async (data) => {
-    const { emailId, userEmail, userPw, userPwRe, username, userHp, birth } =
-      data;
+    const { emailId, userEmail, userPw, username, userHp, birth } = data;
     const email = `${emailId}@${userEmail}`;
     const auth = getAuth();
 

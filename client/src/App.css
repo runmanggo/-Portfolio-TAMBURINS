@@ -45,10 +45,6 @@ img {
   display: none;
 }
 
-.parent {
-  overflow: hidden;
-}
-
 input:focus {
   outline: none;
   box-shadow: none;

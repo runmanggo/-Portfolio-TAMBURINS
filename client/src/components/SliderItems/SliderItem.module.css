@@ -1,9 +1,19 @@
-.swiper__items {
+.slick__slider {
   width: 100%;
 }
 
-.swiper__items img {
+.slick__slider img {
   width: 50%;
   display: block;
   margin: auto;
+}
+
+.slick__slider video {
+  width: 50%;
+  display: block;
+  margin: auto;
+}
+
+.slick__slider:focus {
+  outline: none;
 }

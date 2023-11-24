@@ -7,7 +7,8 @@ import CartPopup from "./components/Cart/CartPopup";
 import { login, logout } from "./redux/authSlice";
 
 import { useDispatch } from "react-redux";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase.config";
 
 import { useLocation } from "react-router-dom";
 
@@ -20,7 +21,6 @@ function App() {
 
   // 로그인 상태 감지 및 유지 로직
   useEffect(() => {
-    const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch(login());
@@ -47,7 +47,7 @@ function App() {
 
   return (
     <Fragment>
-      <CartPopup show={cartIsShown} />
+      <CartPopup show={cartIsShown} closeCartHandler={closeCartHandler} />
       <Header
         cartIsShown={cartIsShown}
         showCartHandler={showCartHandler}

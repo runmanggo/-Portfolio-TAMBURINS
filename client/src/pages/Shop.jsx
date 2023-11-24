@@ -79,28 +79,30 @@ const Shop = () => {
               </NavLink>
             ))}
           </CtgLsitContainer>
-          {categoryItems.some(
-            (category) => category.ctgId === itemGroup[0].ctgId
-          ) && (
-            <NavLink
-              to={`/shop/${
-                categoryItems.find(
-                  (category) => category.ctgId === itemGroup[0].ctgId
-                ).category
-              }`}
-            >
-              <BtnBox>
-                <AllBtn>
-                  {
-                    categoryItems.find(
-                      (category) => category.ctgId === itemGroup[0].ctgId
-                    ).sliderTitle
-                  }
-                  &nbsp;모두보기
-                </AllBtn>
-              </BtnBox>
-            </NavLink>
-          )}
+          {itemGroup.length > 0 &&
+            categoryItems &&
+            categoryItems.some(
+              (category) => category.ctgId === itemGroup[0].ctgId
+            ) && (
+              <NavLink
+                to={`/shop/${
+                  categoryItems.find(
+                    (category) => category.ctgId === itemGroup[0].ctgId
+                  ).category
+                }`}
+              >
+                <BtnBox>
+                  <AllBtn>
+                    {
+                      categoryItems.find(
+                        (category) => category.ctgId === itemGroup[0].ctgId
+                      ).sliderTitle
+                    }
+                    &nbsp;모두보기
+                  </AllBtn>
+                </BtnBox>
+              </NavLink>
+            )}
         </React.Fragment>
       ))}
     </div>
