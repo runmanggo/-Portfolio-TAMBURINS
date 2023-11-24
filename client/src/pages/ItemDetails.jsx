@@ -12,6 +12,8 @@ import axios from "axios";
 
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../redux/cartSlice";
+import { db, auth } from "../firebase.config";
+import { doc, setDoc } from "firebase/firestore";
 
 import shortid from "shortid";
 
@@ -54,7 +56,6 @@ const ItemDetails = (props) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const dispatch = useDispatch();
-
   const { id } = useParams();
   const location = useLocation();
 
@@ -84,19 +85,46 @@ const ItemDetails = (props) => {
     setIsShown(!isShown);
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     dispatch(addItemToCart(detail));
+
+    var uid = auth.currentUser.uid;
+    var itemId = detail.itemId;
+    var quantity = 1;
+
+    // Firestore에 데이터를 작성
+    try {
+      await setDoc(doc(db, "carts", `${uid}_${itemId}`), {
+        uid: uid,
+        itemId: itemId,
+        quantity: quantity,
+        price: detail.price,
+        name: detail.name,
+        capacity: detail.capacity,
+        capacityImg: detail.capacityImg,
+        isSelected: true,
+      });
+    } catch (e) {
+      console.error("Error writing document: ", e);
+    }
   };
 
-  const handleWindowResize = () => {
-    setWindowWidth(window.innerWidth);
-  };
+  // 화면 사이즈
   useEffect(() => {
-    window.addEventListener("resize", handleWindowResize);
+    const isDesktopView = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", isDesktopView);
     return () => {
-      window.removeEventListener("resize", handleWindowResize);
+      window.removeEventListener("resize", isDesktopView);
     };
   }, []);
+
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }, [location.pathname]);
 
   return (
     <>

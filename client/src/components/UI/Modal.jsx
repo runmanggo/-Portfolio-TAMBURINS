@@ -22,7 +22,14 @@ const ModalBox = styled.div`
 `;
 
 const Modal = (props) => {
-  return <ModalBox $show={props.show}>{props.children}</ModalBox>;
-};
+  const handleClickInside = (event) => {
+    event.stopPropagation();
+  };
 
+  return (
+    <ModalBox $show={props.show} onClick={handleClickInside}>
+      {props.children}
+    </ModalBox>
+  );
+};
 export default Modal;

@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
+
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 import classes from "./SliderItem.module.css";
 
@@ -42,55 +44,41 @@ const SliderItems = () => {
     }
   }, [isLoadingDetail, detailError]);
 
-  const pagination = {
-    clickable: true,
-    renderBullet: function (index, className) {
-      return (
-        '<span class="' +
-        className +
-        ' my-bullet" style="background: #333 !important;">' +
-        (index + 1) +
-        "</span>"
-      );
-    },
-    dynamicBullets: true,
+  const settings = {
+    dots: true,
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
   };
 
   return (
     <>
       {detail && (
-        <>
-          <Swiper
-            loop={true}
-            pagination={pagination}
-            modules={[Pagination]}
-            className={classes.swiper__items}
-          >
-            {Array.isArray(detail.mainImg) ? (
-              detail.mainImg.map((mainImg, index) => (
-                <SwiperSlide key={shortid.generate()}>
-                  {mainImg === detail.mainVideo ? (
-                    <video>
-                      <source src={mainImg} type="video/mp4" />
-                    </video>
-                  ) : (
-                    <img src={mainImg} alt={`mainImg ${index}`} />
-                  )}
-                </SwiperSlide>
-              ))
-            ) : (
-              <SwiperSlide>
-                {detail.mainImg === detail.mainVideo || !detail.mainImg ? (
-                  <video loop muted autoPlay>
-                    <source src={detail.mainVideo} type="video/mp4" />
+        <Slider {...settings} className={classes.slick__slider}>
+          {Array.isArray(detail.mainImg) ? (
+            detail.mainImg.map((mainImg, index) => (
+              <div key={shortid.generate()} className={classes.slick__slide}>
+                {mainImg === detail.mainVideo ? (
+                  <video>
+                    <source src={mainImg} type="video/mp4" />
                   </video>
                 ) : (
-                  <img src={detail.mainImg} alt="mainImg" />
+                  <img src={mainImg} alt={`mainImg ${index}`} />
                 )}
-              </SwiperSlide>
-            )}
-          </Swiper>
-        </>
+              </div>
+            ))
+          ) : (
+            <div className="slick-slide">
+              {detail.mainImg === detail.mainVideo || !detail.mainImg ? (
+                <video loop muted autoPlay>
+                  <source src={detail.mainVideo} type="video/mp4" />
+                </video>
+              ) : (
+                <img src={detail.mainImg} alt="mainImg" />
+              )}
+            </div>
+          )}
+        </Slider>
       )}
     </>
   );
