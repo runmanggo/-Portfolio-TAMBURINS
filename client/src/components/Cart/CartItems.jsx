@@ -25,14 +25,15 @@ const CartItems = (props) => {
     );
   };
 
+  // 유저가 카트에 상품 담으면 저장된후, 카트에서 삭제하면 파이어베이스에서도 삭제
   const removeHandler = async () => {
     dispatch(removeItem({ itemId: item.itemId }));
-    const uid = auth?.currentUser.uid;
+    const uid = auth.currentUser.uid || "temp"; // 회원, 비회원도 카트 기능 사용 가능하게
     const docRef = doc(db, "carts", `${uid}_${item.itemId}`);
     await deleteDoc(docRef);
   };
 
-  // 이미지
+  // 용량에 따른 이미지 변경
   let imgSrc;
   if (typeof item.capacityImg === "string") {
     imgSrc = item.capacityImg;
@@ -45,7 +46,7 @@ const CartItems = (props) => {
     imgSrc = item.capacityImg[0];
   }
 
-  // 용량
+  // 용량에따른 텍스트 변경
   let capacity;
   if (typeof item.capacity === "string") {
     capacity = item.capacity;
@@ -93,7 +94,7 @@ const CartItems = (props) => {
             value={item.quantity}
             onChange={selectHandler}
           >
-            {[...Array(10).keys()].map((_, index) => (
+            {[...Array(10).keys()].map((index) => (
               <option value={index + 1} key={index + 1}>
                 {index + 1}
               </option>

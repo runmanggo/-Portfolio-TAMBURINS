@@ -47,19 +47,24 @@ const Header = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isTransparent, setIsTransparent] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
+  // 카트 팝업 열릴 경우 카트아이콘, 닫아야할때는 close아이콘으로 순차적으로 처리
   const [cartImgIndex, setcartImgIndex] = useState(Cart);
+  // 로그인 상태 가져오기
   const isLoggedIn = useSelector((state) => state.auth.loggedIn);
 
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
+  //현 위치가 /home인지 확인하기
   const isHome = location.pathname === "/home";
 
+  //주소가 /home일 경우 해더 투명으로 변경
   useEffect(() => {
     setIsTransparent(isHome);
   }, [isHome]);
 
+  // 유저의 화면 크기 확인하기 위해 : /home 메인 이미지가 유저 화면 크기에 맞게 나오게 하려고
   useEffect(() => {
     const handleResize = () => {};
     window.addEventListener("resize", handleResize);
@@ -72,6 +77,7 @@ const Header = (props) => {
     ? `${classes.header} ${classes.transparent}`
     : classes.header;
 
+  // 화면크기 1024px 아허일 경우 사이드바 나오겠금
   const toggleSidebar = () => {
     if (window.innerWidth < 1024) {
       if (!showSidebar && props.cartIsShown) {
@@ -81,6 +87,7 @@ const Header = (props) => {
     }
   };
 
+  // 검색
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -88,14 +95,16 @@ const Header = (props) => {
   const handleSearchSubmit = (event) => {
     event.preventDefault();
 
+    // 검색창에 빈값일 경우 아무것도 나오지 않도록
     if (!searchTerm.trim()) {
       return;
     }
-
+    //검색어가 있을 경우
     navigate(`/shop/search?query=${searchTerm}`);
     setSearchTerm("");
   };
 
+  // 주소가 /home일 경우 하얀색 아이콘 사용하기 위해
   useEffect(() => {
     let icon;
     if (props.cartIsShown) {
@@ -114,9 +123,11 @@ const Header = (props) => {
     setcartImgIndex(icon);
   }, [props.cartIsShown, isHome]);
 
+  // 카트 팝업
   const cartRef = useRef();
   const { closeCartHandler, cartIsShown: isOpen, showCartHandler } = props;
 
+  // 카트 아이콘의 순서에 Close,CloseWhite 아니면 카트 열리게
   const handleCartClick = (event) => {
     event.stopPropagation();
     if (cartImgIndex !== Close && cartImgIndex !== CloseWhite) {
@@ -124,6 +135,18 @@ const Header = (props) => {
     }
   };
 
+  // 카트 팝업닫기
+  const handleImgChange = (event) => {
+    if (cartImgIndex === Close || cartImgIndex === CloseWhite) {
+      event.stopPropagation();
+      closeCartHandler();
+    } else {
+      handleCartClick(event);
+    }
+  };
+
+  // 장바구니가 열려 있는 상태(isOpen)에서만 외부 클릭을 감지하며,
+  // 클릭된 위치가 장바구니(cartRef.current)를 포함하고 있지 않다면 장바구니 닫기
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (!cartRef.current.contains(event.target)) {
@@ -150,6 +173,8 @@ const Header = (props) => {
       0
     )
   );
+
+  //로그아웃
   const handleLogout = () => {
     auth.signOut().then(() => {
       dispatch(logout());
@@ -157,6 +182,7 @@ const Header = (props) => {
       navigate("/home");
     });
   };
+
   return (
     <header className={navIsTransparent}>
       <nav>
@@ -212,14 +238,7 @@ const Header = (props) => {
                 src={cartImgIndex}
                 ref={cartRef}
                 alt=""
-                onClick={(event) => {
-                  if (cartImgIndex === Close || cartImgIndex === CloseWhite) {
-                    event.stopPropagation();
-                    closeCartHandler();
-                  } else {
-                    handleCartClick(event);
-                  }
-                }}
+                onClick={handleImgChange}
               />
               {cartImgIndex !== Close && cartImgIndex !== CloseWhite && (
                 <span className={classes.badge}>{totalQuantity}</span>
