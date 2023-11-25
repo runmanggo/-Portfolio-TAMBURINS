@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API } from "./config";
+import { API } from "./api.config";
 
 //배너 컴포넌트
 export const fetchBanners = async (category) => {
