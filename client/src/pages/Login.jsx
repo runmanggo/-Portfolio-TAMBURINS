@@ -40,12 +40,9 @@ const Login = () => {
       dispatch(login(userCredential.user.uid));
       console.log("로그인 성공:", userCredential.user);
 
-      // 로그인 후에 장바구니 정보를 가져옵니다.
       const cartItems = await getCartItems(userCredential.user.uid);
       dispatch(setCartItems(cartItems));
       console.log("장바구니 항목:", cartItems);
-
-      // cartItems를 사용하여 Redux 상태를 업데이트하거나, 로컬 상태를 설정하세요.
 
       navigate(`/home`); // 로그인 성공시 홈
     } catch (error) {

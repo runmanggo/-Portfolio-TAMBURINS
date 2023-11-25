@@ -1,22 +1,9 @@
 import React, { Fragment } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import axios from "axios";
+import { fetchBanners } from "../../services/bannerApi";
 
 import classes from "./banner.module.css";
-
-const fetchBanners = async (category) => {
-  try {
-    const response = await axios.get("http://localhost:8000/categories/banner");
-    const banners = response.data;
-    const filteredBanners = category
-      ? banners.filter((item) => item.category === category)
-      : banners;
-    return filteredBanners;
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
 
 const Banner = () => {
   const { category } = useParams();
