@@ -26,6 +26,7 @@ mongoose.connect(uri);
 
 // categoryRoutes 기본 주소 등록
 app.use("/categories", categoryRoutes);
+
 // itemRoutes  기본 주소 등록
 app.use("/items", itemRoutes);
 

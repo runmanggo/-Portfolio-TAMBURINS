@@ -1,15 +1,16 @@
 import React from "react";
-import Modal from "../UI/Modal";
+
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import shortid from "shortid";
 
 import classes from "./cartPopup.module.css";
 import CartItems from "./CartItems";
+import Modal from "../UI/Modal";
 
 const CartPopup = (props) => {
   const cartItems = useSelector((state) => state.cart.items);
-  const total = Object.values(cartItems).reduce(
+  const total = cartItems.reduce(
     (sum, item) => sum + (item.isSelected ? item.price * item.quantity : 0),
     0
   );

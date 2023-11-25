@@ -19,6 +19,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../redux/authSlice.js";
 import { clearCart } from "../../redux/cartSlice";
+import shortid from "shortid";
 
 const left_link = [
   {
@@ -188,8 +189,8 @@ const Header = (props) => {
       <nav>
         <div>
           <ul className={classes.left}>
-            {left_link.map((link, index) => (
-              <li key={index}>
+            {left_link.map((link) => (
+              <li key={shortid.generate()}>
                 <NavLink to={link.path}>{link.display}</NavLink>
               </li>
             ))}
