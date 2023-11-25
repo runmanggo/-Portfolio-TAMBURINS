@@ -3,7 +3,6 @@ import classes from "./sidebar.module.css";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import Close from "../../assets/image/close.svg";
-
 import Overlay from "../UI/Overlay";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -16,10 +15,12 @@ const Sidebar = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // 다른 페이지로 넘어갈때 사이드바 자동 닫힘
   const handleLinkClick = () => {
     props.onClose();
   };
 
+  //로그아웃
   const handleLogout = () => {
     const auth = getAuth();
     auth.signOut().then(() => {

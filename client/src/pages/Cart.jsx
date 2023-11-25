@@ -9,7 +9,8 @@ import { NavLink } from "react-router-dom";
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.items);
-  const total = Object.values(cartItems).reduce(
+
+  const total = cartItems.reduce(
     (sum, item) => sum + (item.isSelected ? item.price * item.quantity : 0),
     0
   );

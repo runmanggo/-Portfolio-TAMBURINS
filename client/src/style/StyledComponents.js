@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+// 상품 카드 레이아웃
 export const CtgLsitContainer = styled.div`
   width: 100%;
   display: grid;
@@ -37,7 +38,7 @@ export const AllBtn = styled.button`
   }
 `;
 
-// 선택 버튼들
+// 그 외 버튼
 export const OptionBtn = styled.button`
   border: 1px solid var(--black);
   background: ${(props) => props.$background || "var(--black)"};

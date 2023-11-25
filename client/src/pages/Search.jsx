@@ -53,7 +53,7 @@ const Search = () => {
   return (
     <div>
       <Slider activeImage={activeImage} setActiveImage={setActiveImage} />
-      <Filter title={`검색 결과  (${count})`} />
+      <Filter title="검색 결과" quantity={count} />
       {count > 0 ? (
         <CtgLsitContainer>
           {products?.map((item, index) =>
