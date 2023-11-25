@@ -48,4 +48,5 @@ img {
 input:focus {
   outline: none;
   box-shadow: none;
+  background-color: transparent;
 }

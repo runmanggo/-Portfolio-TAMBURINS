@@ -69,10 +69,11 @@ li {
 .searchForm input {
   width: 100%;
   border: none;
-  background-color: initial;
+  background-color: transparent;
   text-align: center;
 }
 
+/* 주소가 홈일 경우를 위한 css */
 .homePlaceholder::placeholder {
   color: var(--white);
 }
@@ -83,7 +84,7 @@ li {
 
 .searchForm button {
   border: none;
-  background-color: initial;
+  background-color: transparent;
 }
 
 .right img {
