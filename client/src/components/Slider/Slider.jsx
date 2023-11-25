@@ -4,16 +4,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import { Link } from "react-router-dom";
 import classes from "./slider.module.css";
-import axios from "axios";
 
-const fetchImages = async () => {
-  try {
-    const response = await axios.get("http://localhost:8000/categories");
-    return response.data;
-  } catch (error) {
-    throw new Error("이미지 데이터를 불러오는 중 오류가 발생했습니다.");
-  }
-};
+import { useFetchData as fetchImages } from "../../services/useFetchData";
 
 const Slider = (props) => {
   const { data: images, isLoading, error } = useQuery("images", fetchImages);

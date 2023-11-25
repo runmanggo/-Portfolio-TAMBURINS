@@ -8,22 +8,10 @@ import classes from "./SliderItem.module.css";
 
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import axios from "axios";
+
+import { fetchDetail } from "../../services/fetchDetail";
+
 import shortid from "shortid";
-
-const fetchDetail = async (id) => {
-  try {
-    const response = await axios.get(`http://localhost:8000/detail/${id}`);
-    const details = response.data;
-
-    const matchedId = details.find((detail) => detail.itemId === Number(id));
-
-    return matchedId;
-  } catch (error) {
-    console.error(error);
-    throw new Error(error.message);
-  }
-};
 
 const SliderItems = () => {
   const { id } = useParams();
@@ -38,7 +26,6 @@ const SliderItems = () => {
     if (isLoadingDetail) {
       return console.log("로딩중");
     }
-
     if (detailError) {
       return console.log("Error:", detailError.message);
     }
@@ -56,14 +43,14 @@ const SliderItems = () => {
       {detail && (
         <Slider {...settings} className={classes.slick__slider}>
           {Array.isArray(detail.mainImg) ? (
-            detail.mainImg.map((mainImg, index) => (
+            detail.mainImg.map((mainImg) => (
               <div key={shortid.generate()} className={classes.slick__slide}>
                 {mainImg === detail.mainVideo ? (
                   <video>
                     <source src={mainImg} type="video/mp4" />
                   </video>
                 ) : (
-                  <img src={mainImg} alt={`mainImg ${index}`} />
+                  <img src={mainImg} alt={`mainImg ${mainImg.itemId}`} />
                 )}
               </div>
             ))

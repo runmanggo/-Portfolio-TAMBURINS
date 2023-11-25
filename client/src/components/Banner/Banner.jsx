@@ -1,7 +1,8 @@
 import React, { Fragment } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import { fetchBanners } from "../../services/bannerApi";
+
+import { fetchBanners } from "../../services/fetchBanners";
 
 import classes from "./banner.module.css";
 
