@@ -44,15 +44,13 @@ const Login = () => {
         userPw
       );
       dispatch(login(userCredential.user.uid));
-      console.log("로그인 성공:", userCredential.user);
 
       const cartItems = await getCartItems(userCredential.user.uid);
       dispatch(setCartItems(cartItems));
-      console.log("장바구니 항목:", cartItems);
 
       navigate(`/home`); // 로그인 성공시 홈
     } catch (error) {
-      console.log("로그인 실패:", error);
+      throw new Error("로그인 실패");
     }
   };
 

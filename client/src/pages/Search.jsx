@@ -24,11 +24,11 @@ const Search = () => {
   const count = data?.count;
 
   if (isLoading) {
-    return "로딩중";
+    return;
   }
 
   if (error) {
-    return "에러";
+    return;
   }
 
   return (

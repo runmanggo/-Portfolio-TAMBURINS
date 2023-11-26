@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import classes from "./SliderItem.module.css";
+import classes from "./SliderItems.module.css";
 
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
@@ -24,10 +24,10 @@ const SliderItems = () => {
 
   useEffect(() => {
     if (isLoadingDetail) {
-      return console.log("로딩중");
+      return;
     }
     if (detailError) {
-      return console.log("Error:", detailError.message);
+      return;
     }
   }, [isLoadingDetail, detailError]);
 

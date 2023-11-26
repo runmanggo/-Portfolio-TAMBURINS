@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 import { fetchBanners } from "../../services/fetchBanners";
 
 import classes from "./banner.module.css";
+import shortid from "shortid";
 
 const Banner = () => {
   const { category } = useParams();
@@ -17,44 +18,50 @@ const Banner = () => {
 
   useEffect(() => {
     if (isLoading) {
-      console.log("로딩중");
+      return;
     }
     if (error) {
-      console.log(error.message);
+      return;
     }
   }, [isLoading, error]);
 
   return (
     <Fragment>
-      {banners.map((item) => (
-        <section key={item._id} className={classes.banner__container}>
-          <div className={classes.banner__inner}>
-            {item.bannerImg && (
-              <img
-                src={item.bannerImg}
-                alt=""
-                className={
-                  item.category === "tubeHand" ? classes.banner__tubeHand : ""
-                }
-              />
-            )}
-            {item.bannerVideo && (
-              <video loop muted autoPlay>
-                <source src={item.bannerVideo} type="video/mp4" />
-                <source src={item.bannerVideo} type="video/webm" />
-              </video>
-            )}
-          </div>
-          {item.bannerTitle && (
-            <div className={classes.banner__context}>
-              <div className={classes.banner__title}>{item.bannerTitle}</div>
-              {item.bannerContent && (
-                <div className={classes.banner_text}>{item.bannerContent}</div>
+      {banners &&
+        banners.map((item) => (
+          <section
+            key={shortid.generate()}
+            className={classes.banner__container}
+          >
+            <div className={classes.banner__inner}>
+              {item.bannerImg && (
+                <img
+                  src={item.bannerImg}
+                  alt=""
+                  className={
+                    item.category === "tubeHand" ? classes.banner__tubeHand : ""
+                  }
+                />
+              )}
+              {item.bannerVideo && (
+                <video loop muted autoPlay>
+                  <source src={item.bannerVideo} type="video/mp4" />
+                  <source src={item.bannerVideo} type="video/webm" />
+                </video>
               )}
             </div>
-          )}
-        </section>
-      ))}
+            {item.bannerTitle && (
+              <div className={classes.banner__context}>
+                <div className={classes.banner__title}>{item.bannerTitle}</div>
+                {item.bannerContent && (
+                  <div className={classes.banner_text}>
+                    {item.bannerContent}
+                  </div>
+                )}
+              </div>
+            )}
+          </section>
+        ))}
     </Fragment>
   );
 };

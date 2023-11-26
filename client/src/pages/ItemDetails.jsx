@@ -4,6 +4,7 @@ import classes from "../style/itemDetail.module.css";
 //컴포넌트
 import Accordion from "../components/UI/Accordion";
 import { CtgLsitContainer } from "../components/StyledComponents/ctgLsitContainer";
+import { CommonBtn } from "../components/StyledComponents/commonBtn";
 import ItemCard from "../components/UI/ItemCard";
 import SliderItems from "../components/SliderItems/SliderItems";
 
@@ -54,7 +55,7 @@ const ItemDetails = (props) => {
   } = useQuery("scent", fetchScent);
 
   useEffect(() => {
-    if (isLoadingDetail || isLoadingScent) return console.log("로딩중");
+    if (isLoadingDetail || isLoadingScent) return;
     if (detailError || scentError) {
       let errorMessage = "";
       if (detailError) {
@@ -63,7 +64,7 @@ const ItemDetails = (props) => {
       if (scentError) {
         errorMessage += scentError.message;
       }
-      return console.log(errorMessage);
+      return;
     }
 
     const random = shuffleArray(scent).slice(0, 4);
@@ -80,7 +81,7 @@ const ItemDetails = (props) => {
   const handleAddToCart = async () => {
     dispatch(addItemToCart(detail));
 
-    var uid = auth.currentUser.uid || "temp";
+    var uid = auth.currentUser ? auth.currentUser.uid : "temp";
     var itemId = detail.itemId;
     var quantity = 1;
 
@@ -272,9 +273,13 @@ const ItemDetails = (props) => {
                 )}
               </div>
 
-              <button className={classes.cart__btn} onClick={handleAddToCart}>
+              <CommonBtn
+                className={classes.cart__btn}
+                onClick={handleAddToCart}
+              >
                 장바구니 담기
-              </button>
+              </CommonBtn>
+
               {/* 아코디언 첫번째 */}
               <div className={classes.accordian__container}>
                 {Array.isArray(detail.accordion1) &&

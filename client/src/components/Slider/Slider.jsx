@@ -10,18 +10,14 @@ import { API } from "../../services/api.config";
 
 const Slider = (props) => {
   const fetchImages = useFetchData(API.CATEGORIES);
-  const {
-    data: images,
-    isLoading: isQueryLoading,
-    error,
-  } = useQuery("images", fetchImages);
+  const { data: images, isLoading, error } = useQuery("images", fetchImages);
 
   useEffect(() => {
-    if (isQueryLoading) return console.log("로딩중");
+    if (isLoading) return;
     if (error) {
-      return console.log(error.message);
+      return;
     }
-  }, [error, isQueryLoading]);
+  }, [error, isLoading]);
 
   const handleImageClick = (id) => {
     props.setActiveImage(id);

@@ -36,10 +36,10 @@ const Shop = () => {
 
   useEffect(() => {
     if (isLoadingAllItems || isLoadingCategoryItems) {
-      console.log("로딩중");
+      return;
     }
     if (allItemsError || categoryItemsError) {
-      console.log(allItemsError.message || categoryItemsError.message);
+      return;
     }
   }, [
     isLoadingAllItems,

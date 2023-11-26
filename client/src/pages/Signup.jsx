@@ -48,7 +48,6 @@ const Signup = () => {
         email,
         userPw
       );
-      console.log("회원가입 성공:", userCredential.user);
 
       try {
         await setDoc(doc(db, "users", userCredential.user.uid), {
@@ -56,16 +55,13 @@ const Signup = () => {
           PhoneNum: userHp,
           Birth: birth,
         });
-        console.log("프로필 업데이트 성공");
       } catch (error) {
-        console.log("프로필 업데이트 실패:", error);
+        throw new Error("프로필 업데이트 실패");
       }
     } catch (error) {
-      console.log("회원가입 실패:", error);
+      throw new Error("회원가입 실패");
     }
-
     navigate("/login");
-    console.log(data);
   };
 
   const getBorderColor = (error) => {
