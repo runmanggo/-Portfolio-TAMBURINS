@@ -4,45 +4,30 @@ import ItemCard from "../components/UI/ItemCard";
 import Slider from "../components/Slider/Slider";
 import Filter from "../components/Filter/Filter";
 
-import { CtgLsitContainer } from "../style/StyledComponents";
-import { AllBtn } from "../style/StyledComponents";
-import { BtnBox } from "../style/StyledComponents";
+import { CtgLsitContainer } from "../components/StyledComponents/ctgLsitContainer";
+import { AllBtn } from "../components/StyledComponents/shopBtn";
+import { BtnBox } from "../components/StyledComponents/shopBtn";
 import { chunk } from "lodash";
 
 import { NavLink } from "react-router-dom";
 import { useQuery } from "react-query";
-import axios from "axios";
+import { API } from "../services/api.config";
+import { useFetchData } from "../services/useFetchData";
 
 import shortid from "shortid";
 
-const fetchAll = async () => {
-  try {
-    const response = await axios.get("http://localhost:8000/items/all");
-    const data = response.data;
-
-    return data;
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
-
-const fetchTitle = async () => {
-  try {
-    const response = await axios.get("http://localhost:8000/categories");
-    const data = response.data;
-    return data;
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
-
 const Shop = () => {
+  // slider 해당 페이지 border 효과 주기 위해
   const [activeImage, setActiveImage] = useState("");
+
+  const fetchAll = useFetchData(API.ALL);
   const {
     data: allItems,
     isLoading: isLoadingAllItems,
     error: allItemsError,
   } = useQuery("allItems", fetchAll);
+
+  const fetchTitle = useFetchData(API.CATEGORIES);
   const {
     data: categoryItems,
     isLoading: isLoadingCategoryItems,
@@ -54,7 +39,7 @@ const Shop = () => {
       console.log("로딩중");
     }
     if (allItemsError || categoryItemsError) {
-      console.log(allItemsError?.message || categoryItemsError?.message);
+      console.log(allItemsError.message || categoryItemsError.message);
     }
   }, [
     isLoadingAllItems,

@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
 import classes from "../style/itemDetail.module.css";
 
+//컴포넌트
 import Accordion from "../components/UI/Accordion";
-import { CtgLsitContainer } from "../style/StyledComponents";
+import { CtgLsitContainer } from "../components/StyledComponents/ctgLsitContainer";
 import ItemCard from "../components/UI/ItemCard";
 import SliderItems from "../components/SliderItems/SliderItems";
 
 import { useParams, NavLink, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
-import axios from "axios";
+
+//데이터 api
+import { useFetchData } from "../services/useFetchData";
+import { API } from "../services/api.config";
+import { fetchDetailId as fetchDetail } from "../services/fetchDetail";
 
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../redux/cartSlice";
@@ -17,31 +22,7 @@ import { doc, setDoc } from "firebase/firestore";
 
 import shortid from "shortid";
 
-const fetchDetail = async (id) => {
-  try {
-    const response = await axios.get(`http://localhost:8000/detail/${id}`);
-    const details = response.data;
-
-    const matchedId = details.find((detail) => detail.itemId === Number(id));
-
-    return matchedId;
-  } catch (error) {
-    console.error(error);
-    throw new Error(error.message);
-  }
-};
-
-const fetchScent = async () => {
-  try {
-    const response = await axios.get("http://localhost:8000/items");
-    const scent = response.data;
-
-    return scent;
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
-
+//랜덤 추천 상품을 위한 Fisher-Yates 셔플 알고리즘
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -65,6 +46,7 @@ const ItemDetails = (props) => {
     error: detailError,
   } = useQuery(["detail", id], () => fetchDetail(id));
 
+  const fetchScent = useFetchData(API.ITEMS);
   const {
     data: scent,
     isLoading: isLoadingScent,
@@ -73,22 +55,32 @@ const ItemDetails = (props) => {
 
   useEffect(() => {
     if (isLoadingDetail || isLoadingScent) return console.log("로딩중");
-    if (detailError || scentError)
-      return console.log(detailError.message || scentError.message);
+    if (detailError || scentError) {
+      let errorMessage = "";
+      if (detailError) {
+        errorMessage += detailError.message;
+      }
+      if (scentError) {
+        errorMessage += scentError.message;
+      }
+      return console.log(errorMessage);
+    }
 
     const random = shuffleArray(scent).slice(0, 4);
 
     setRandomScent(random);
   }, [isLoadingDetail, isLoadingScent, detailError, scentError, scent]);
 
+  // 상품 더보기 버튼
   const handleBtnClick = () => {
     setIsShown(!isShown);
   };
 
+  // 상품 담았을시 파이어베이스로 저장되게
   const handleAddToCart = async () => {
     dispatch(addItemToCart(detail));
 
-    var uid = auth.currentUser.uid;
+    var uid = auth.currentUser.uid || "temp";
     var itemId = detail.itemId;
     var quantity = 1;
 
@@ -120,6 +112,7 @@ const ItemDetails = (props) => {
     };
   }, []);
 
+  // 밑에서 상품 눌렀을 경우 위로 부드럽게 자동 스크롤
   useEffect(() => {
     requestAnimationFrame(() => {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -130,6 +123,7 @@ const ItemDetails = (props) => {
     <>
       {detail && (
         <div className={classes.detail__content}>
+          {/* 상세페이지 메인 이미지 1024px 이하일때 스와이프로 변하게 */}
           {windowWidth < 1024 ? (
             <SliderItems />
           ) : (
@@ -177,7 +171,7 @@ const ItemDetails = (props) => {
                   {detail.price.toLocaleString()} 원
                 </div>
               </div>
-
+              {/* 상품 사이즈에 따른 조건부 */}
               <div className={classes.product__sizeBox}>
                 <ul className={classes.product__size}>
                   {Array.isArray(detail.capacityImg) ? (
@@ -219,6 +213,7 @@ const ItemDetails = (props) => {
                 </ul>
               </div>
 
+              {/* 상품 더보기 버튼 관련 조건부 */}
               <div className={classes.detail__info}>
                 <div className={classes.detail__info__desc}>
                   {Array.isArray(detail.itemKeyWord) ? (
@@ -280,7 +275,7 @@ const ItemDetails = (props) => {
               <button className={classes.cart__btn} onClick={handleAddToCart}>
                 장바구니 담기
               </button>
-
+              {/* 아코디언 첫번째 */}
               <div className={classes.accordian__container}>
                 {Array.isArray(detail.accordion1) &&
                   detail.accordion1.length !== 0 &&
@@ -310,6 +305,7 @@ const ItemDetails = (props) => {
                   </div>
                 </Accordion>
 
+                {/* 아코디언 세번째 */}
                 <Accordion title="제품 세부 정보">
                   {Array.isArray(detail.accordion3) ? (
                     detail.accordion3.map((innerArray) => (
@@ -338,6 +334,7 @@ const ItemDetails = (props) => {
                     <div>{detail.accordion3}</div>
                   )}
                 </Accordion>
+
                 <Accordion title="배송 & 반품">
                   <div>3만원 이상 구매하실 경우 배송 비용은 무료입니다.</div>
                   <br />
@@ -363,7 +360,7 @@ const ItemDetails = (props) => {
           </div>
         </div>
       )}
-
+      {/* 랜덤 추천상품 */}
       <div className={classes.recommend}>
         <CtgLsitContainer>
           {randomScent.map((item) => (

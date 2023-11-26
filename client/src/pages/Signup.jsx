@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import classes from "../style/signup.module.css";
 
-import { OptionBtn } from "../style/StyledComponents";
+import { CommonBtn } from "../components/StyledComponents/commonBtn";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
@@ -36,6 +36,7 @@ const Signup = () => {
     });
   }, [register]);
 
+  // 회원가입 성공, 실패
   const onSubmit = async (data) => {
     const { emailId, userEmail, userPw, username, userHp, birth } = data;
     const email = `${emailId}@${userEmail}`;
@@ -338,9 +339,9 @@ const Signup = () => {
           </div>
 
           <div className={classes.submitBtn}>
-            <OptionBtn $height="45px" type="submit">
+            <CommonBtn $height="45px" type="submit">
               가입하기
-            </OptionBtn>
+            </CommonBtn>
           </div>
         </form>
       </div>

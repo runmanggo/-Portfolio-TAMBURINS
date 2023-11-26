@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 
-import { CtgLsitContainer } from "../../style/StyledComponents";
+import { CtgLsitContainer } from "../StyledComponents/ctgLsitContainer";
 import ItemCard from "../../components/UI/ItemCard";
 import Filter from "../Filter/Filter";
 

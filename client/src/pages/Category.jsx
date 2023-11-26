@@ -4,60 +4,16 @@ import Filter from "../components/Filter/Filter";
 import Banner from "../components/Banner/Banner";
 import ItemCard from "../components/UI/ItemCard";
 
-import { CtgLsitContainer } from "../style/StyledComponents";
+import { CtgLsitContainer } from "../components/StyledComponents/ctgLsitContainer";
 
 import { useParams, NavLink } from "react-router-dom";
 import { useQuery } from "react-query";
 
-import axios from "axios";
-
 //필터 컴포넌트 category에 해당되는 title 호출
-const fetchTitle = async (category) => {
-  try {
-    const response = await axios.get("http://localhost:8000/categories");
-    const titles = response.data;
-
-    const matchedTitle = titles.filter((title) => title.category === category);
-
-    return matchedTitle.length > 0 ? matchedTitle[0].sliderTitle : "";
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
+import { fetchTitle } from "../services/fetchTitle";
 
 // 각 조건에 맞게 데이터 받아오기
-const fetchItems = async (category) => {
-  try {
-    let response;
-
-    if (category === "bestSellers") {
-      response = await axios.get("http://localhost:8000/items/best");
-    } else if (category === "giftSet") {
-      response = await axios.get("http://localhost:8000/items/gift");
-    } else {
-      response = await axios.get(`http://localhost:8000/items/category`, {
-        params: {
-          category: category,
-        },
-      });
-    }
-
-    let isItemRemoved = false;
-
-    const filteredItems = response.data.filter((item) => {
-      if (isItemRemoved || item.ctgId !== 13 || item.itemId !== 307) {
-        return true;
-      }
-
-      isItemRemoved = true;
-      return false;
-    });
-
-    return filteredItems;
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
+import { fetchItems } from "../services/fetchItems";
 
 const Category = () => {
   const [activeImage, setActiveImage] = useState("");

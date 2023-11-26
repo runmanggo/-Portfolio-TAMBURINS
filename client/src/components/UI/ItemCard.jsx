@@ -4,10 +4,6 @@ import classes from "../../style/itemCard.module.css";
 const ItemCard = (props) => {
   const item = props.item;
 
-  if (!item) {
-    return null;
-  }
-
   return (
     <div>
       <div className={classes.ctgList__productBox} key={item._id}>

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 
@@ -15,8 +15,14 @@ const Banner = () => {
     error,
   } = useQuery(["banners", category], () => fetchBanners(category));
 
-  if (isLoading) return console.log("로딩중");
-  if (error) return console.log(error.message);
+  useEffect(() => {
+    if (isLoading) {
+      console.log("로딩중");
+    }
+    if (error) {
+      console.log(error.message);
+    }
+  }, [isLoading, error]);
 
   return (
     <Fragment>

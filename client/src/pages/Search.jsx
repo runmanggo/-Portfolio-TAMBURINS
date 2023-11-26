@@ -1,33 +1,14 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { useLocation, NavLink } from "react-router-dom";
-import axios from "axios";
 
 import Filter from "../components/Filter/Filter";
 import Slider from "../components/Slider/Slider";
 import ItemCard from "../components/UI/ItemCard";
 import Results from "../components/UI/Results";
 
-import { CtgLsitContainer } from "../style/StyledComponents";
-
-const fetchProducts = async (query) => {
-  try {
-    const response = await axios.get(
-      `http://localhost:8000/items?query=${query}`
-    );
-
-    const filteredProducts = response.data.filter(
-      (product) =>
-        product.name.includes(query) ||
-        (Array.isArray(product.desc) &&
-          product.desc.some((desc) => desc.includes(query)))
-    );
-
-    return { products: filteredProducts, count: filteredProducts.length };
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
+import { CtgLsitContainer } from "../components/StyledComponents/ctgLsitContainer";
+import { fetchProducts } from "../services/fetchProducts";
 
 const Search = () => {
   const [activeImage, setActiveImage] = useState("");
@@ -53,7 +34,7 @@ const Search = () => {
   return (
     <div>
       <Slider activeImage={activeImage} setActiveImage={setActiveImage} />
-      <Filter title="검색 결과" quantity={count} />
+      <Filter title="검색 결과" quantity={count ? count : 0} />
       {count > 0 ? (
         <CtgLsitContainer>
           {products?.map((item, index) =>

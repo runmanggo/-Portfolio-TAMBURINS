@@ -1,15 +1,19 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import classes from "../style/login.module.css";
-import { OptionBtn } from "../style/StyledComponents";
+import { CommonBtn } from "../components/StyledComponents/commonBtn";
+
 import { useDispatch } from "react-redux";
 import { login } from "../redux/authSlice";
+import { setCartItems } from "../redux/cartSlice";
+
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { auth, db } from "../firebase.config";
-import { useForm } from "react-hook-form";
-import { setCartItems } from "../redux/cartSlice";
 
+import { useForm } from "react-hook-form";
+
+//유저 카트에 담긴 상품 조회
 const getCartItems = async (uid) => {
   const q = query(collection(db, "carts"), where("uid", "==", uid));
   const querySnapshot = await getDocs(q);
@@ -21,6 +25,7 @@ const getCartItems = async (uid) => {
 };
 
 const Login = () => {
+  // 리액트 훅 폼
   const {
     register,
     handleSubmit,
@@ -30,6 +35,7 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  //로그인
   const onSubmit = async ({ userId, userPw }) => {
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -50,6 +56,7 @@ const Login = () => {
     }
   };
 
+  // 입력양식이 다를 경우 경고 역할
   const getBorderColor = (error) => {
     return error ? "1px solid #FF6464" : "";
   };
@@ -129,8 +136,8 @@ const Login = () => {
             )}
           </div>
           <div className={classes.common__btnWrapper}>
-            <OptionBtn type="submit">확인</OptionBtn>
-            <OptionBtn
+            <CommonBtn type="submit">확인</CommonBtn>
+            <CommonBtn
               as={NavLink}
               $background="var(--white)"
               $color="var(--black)"
@@ -138,7 +145,7 @@ const Login = () => {
               type="button"
             >
               신규 회원가입
-            </OptionBtn>
+            </CommonBtn>
           </div>
         </form>
       </div>

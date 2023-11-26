@@ -11,8 +11,8 @@ import { db, auth } from "../../firebase.config";
 import { doc, deleteDoc } from "firebase/firestore";
 
 const CartItems = (props) => {
-  const dispatch = useDispatch();
   const item = props.item;
+  const dispatch = useDispatch();
 
   const selectHandler = (event) => {
     const selectedQuantity = event.target.value;
