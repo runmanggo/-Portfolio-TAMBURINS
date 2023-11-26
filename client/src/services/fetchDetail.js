@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API } from "./api.config";
 
+//SliderItems 컴포넌트
 export const fetchDetail = async (id) => {
   try {
     const response = await axios.get(API.ITEMS_DETAIL);
@@ -15,9 +16,10 @@ export const fetchDetail = async (id) => {
   }
 };
 
+// ItemDetails 컴포넌트
 export const fetchDetailId = async (id) => {
   try {
-    const response = await axios.get(`http://localhost:8000/detail/${id}`);
+    const response = await axios.get(`${API.ITEMS_DETAIL}/${id}`);
     const details = response.data;
 
     const matchedId = details.find((detail) => detail.itemId === Number(id));

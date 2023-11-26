@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API } from "./api.config";
 
+// Search 컴포넌트
 export const fetchProducts = async (query) => {
   try {
     const response = await axios.get(`${API.ITEMS}?query=${query}`);

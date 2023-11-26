@@ -3,7 +3,8 @@ import styled from "styled-components";
 
 import { useQuery } from "react-query";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
+import { useFetchData } from "../../services/useFetchData";
+import { API } from "../../services/api.config";
 
 import { CtgLsitContainer } from "../StyledComponents/ctgLsitContainer";
 import ItemCard from "../../components/UI/ItemCard";
@@ -22,17 +23,6 @@ const InnerContainer = styled.div`
   color: var(--black);
 `;
 
-const fetchScent = async () => {
-  try {
-    const response = await axios.get("http://localhost:8000/items/best");
-    const best = response.data;
-
-    return best;
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
-
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -43,6 +33,7 @@ function shuffleArray(array) {
 
 const Results = () => {
   const [randomScent, setRandomScent] = useState([]);
+  const fetchScent = useFetchData(API.BEST);
   const {
     data: best,
     isLoading: isLoadingScent,
@@ -50,8 +41,8 @@ const Results = () => {
   } = useQuery("best", fetchScent);
 
   useEffect(() => {
-    if (isLoadingScent) return console.log("로딩중");
-    if (scentError) return console.log(scentError.message);
+    if (isLoadingScent) return "로딩중";
+    if (scentError) return scentError.message;
 
     const random = shuffleArray(best).slice(0, 4);
 

@@ -66,6 +66,7 @@ function Accordion(props) {
   const contentRef = useRef(null);
   const [height, setHeight] = useState(0);
 
+  // 아코디언 내용을 동적으로 계산하므로 내용의 높이가 변경되도 반영되게
   useEffect(() => {
     setHeight(contentRef.current?.scrollHeight || 0);
   }, [props.children]);
