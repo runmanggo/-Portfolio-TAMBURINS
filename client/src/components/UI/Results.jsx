@@ -41,8 +41,8 @@ const Results = () => {
   } = useQuery("best", fetchScent);
 
   useEffect(() => {
-    if (isLoadingScent) return "로딩중";
-    if (scentError) return scentError.message;
+    if (isLoadingScent) return;
+    if (scentError) return;
 
     const random = shuffleArray(best).slice(0, 4);
 
