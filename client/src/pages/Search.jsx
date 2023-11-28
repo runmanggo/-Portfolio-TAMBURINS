@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useLocation, NavLink } from "react-router-dom";
 
 import Filter from "../components/Filter/Filter";
@@ -16,9 +16,10 @@ const Search = () => {
   const queryParams = new URLSearchParams(location.search);
   const query = queryParams.get("query");
 
-  const { data, isLoading, error } = useQuery(["products", query], () =>
-    fetchProducts(query)
-  );
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["products", query],
+    queryFn: () => fetchProducts(query),
+  });
 
   const products = data?.products;
   const count = data?.count;

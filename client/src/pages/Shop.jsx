@@ -10,7 +10,7 @@ import { BtnBox } from "../components/StyledComponents/shopBtn";
 import { chunk } from "lodash";
 
 import { NavLink } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { API } from "../services/api.config";
 import { useFetchData } from "../services/useFetchData";
 
@@ -25,14 +25,17 @@ const Shop = () => {
     data: allItems,
     isLoading: isLoadingAllItems,
     error: allItemsError,
-  } = useQuery("allItems", fetchAll);
+  } = useQuery({ queryKey: ["allItems"], queryFn: fetchAll });
 
   const fetchTitle = useFetchData(API.CATEGORIES);
   const {
     data: categoryItems,
     isLoading: isLoadingCategoryItems,
     error: categoryItemsError,
-  } = useQuery("categoryItems", fetchTitle);
+  } = useQuery({
+    queryKey: ["categoryItems"],
+    queryFn: fetchTitle,
+  });
 
   useEffect(() => {
     if (isLoadingAllItems || isLoadingCategoryItems) {

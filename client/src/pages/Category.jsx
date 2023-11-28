@@ -7,7 +7,7 @@ import ItemCard from "../components/UI/ItemCard";
 import { CtgLsitContainer } from "../components/StyledComponents/ctgLsitContainer";
 
 import { useParams, NavLink } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 //필터 컴포넌트 category에 해당되는 title 호출
 import { fetchTitle } from "../services/fetchTitle";
@@ -22,13 +22,19 @@ const Category = () => {
     data: title,
     isLoading: isLoadingTitle,
     error: titleError,
-  } = useQuery(["title", category], () => fetchTitle(category));
+  } = useQuery({
+    queryKey: ["title", category],
+    queryFn: () => fetchTitle(category),
+  });
 
   const {
     data: mainItems,
     isLoading: itemsIsLoading,
     error: itemsError,
-  } = useQuery(["items", category], () => fetchItems(category));
+  } = useQuery({
+    queryKey: ["items", category],
+    queryFn: () => fetchItems(category),
+  });
 
   if (itemsIsLoading || isLoadingTitle) return;
   if (itemsError || titleError) return;

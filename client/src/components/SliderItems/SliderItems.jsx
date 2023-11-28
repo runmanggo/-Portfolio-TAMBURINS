@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import classes from "./SliderItems.module.css";
 
 import { useParams } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 import { fetchDetail } from "../../services/fetchDetail";
 

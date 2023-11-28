@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { NavLink } from "react-router-dom";
 import { useFetchData } from "../../services/useFetchData";
 import { API } from "../../services/api.config";
@@ -38,7 +38,7 @@ const Results = () => {
     data: best,
     isLoading: isLoadingScent,
     error: scentError,
-  } = useQuery("best", fetchScent);
+  } = useQuery({ queryKey: ["best"], queryFn: fetchScent });
 
   useEffect(() => {
     if (isLoadingScent) return;

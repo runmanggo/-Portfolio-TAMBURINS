@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import { Link } from "react-router-dom";
@@ -10,7 +10,11 @@ import { API } from "../../services/api.config";
 
 const Slider = (props) => {
   const fetchImages = useFetchData(API.CATEGORIES);
-  const { data: images, isLoading, error } = useQuery("images", fetchImages);
+  const {
+    data: images,
+    isLoading,
+    error,
+  } = useQuery({ queryKey: ["images"], queryFn: fetchImages });
 
   useEffect(() => {
     if (isLoading) return;

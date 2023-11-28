@@ -24,7 +24,7 @@ const Cart = () => {
           <div className={classes.left__title}>
             쇼핑백
             <br />
-            <span>장바구니는 격주 수요일 자정에 비워집니다.</span>
+            <span>쇼핑백은 격주 수요일 자정에 비워집니다.</span>
           </div>
           {cartItems.length > 0 ? (
             <div className={classes.left__list}>

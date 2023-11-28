@@ -9,7 +9,7 @@ import ItemCard from "../components/UI/ItemCard";
 import SliderItems from "../components/SliderItems/SliderItems";
 
 import { useParams, NavLink, useLocation } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 //데이터 api
 import { useFetchData } from "../services/useFetchData";
@@ -45,14 +45,14 @@ const ItemDetails = (props) => {
     data: detail,
     isLoading: isLoadingDetail,
     error: detailError,
-  } = useQuery(["detail", id], () => fetchDetail(id));
+  } = useQuery({ queryKey: ["detail", id], queryFn: () => fetchDetail(id) });
 
   const fetchScent = useFetchData(API.ITEMS);
   const {
     data: scent,
     isLoading: isLoadingScent,
     error: scentError,
-  } = useQuery("scent", fetchScent);
+  } = useQuery({ queryKey: ["scent"], queryFn: fetchScent });
 
   useEffect(() => {
     if (isLoadingDetail || isLoadingScent) return;

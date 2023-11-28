@@ -29,8 +29,8 @@ const CartPopup = (props) => {
       <div className={classes.cart__inner}>
         <div className={classes.cart__scroll}>
           <div className={classes.cart__title}>
-            <span>장바구니</span> <br />
-            장바구니는 격주 수요일 자정에 비워집니다.
+            <span>쇼핑백</span> <br />
+            쇼핑백은 격주 수요일 자정에 비워집니다.
           </div>
           <div className={classes.cart__list}>
             {cartItems.length > 0 ? (

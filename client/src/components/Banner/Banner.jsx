@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 import { fetchBanners } from "../../services/fetchBanners";
 
@@ -14,7 +14,10 @@ const Banner = () => {
     data: banners,
     isLoading,
     error,
-  } = useQuery(["banners", category], () => fetchBanners(category));
+  } = useQuery({
+    queryKey: ["banners", category],
+    queryFn: () => fetchBanners(category),
+  });
 
   useEffect(() => {
     if (isLoading) {
