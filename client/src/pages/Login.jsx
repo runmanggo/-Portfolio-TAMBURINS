@@ -4,7 +4,7 @@ import classes from "../style/login.module.css";
 import { CommonBtn } from "../components/StyledComponents/commonBtn";
 
 import { useDispatch } from "react-redux";
-import { login } from "../redux/authSlice";
+import { login, logout } from "../redux/authSlice";
 import { setCartItems } from "../redux/cartSlice";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -48,12 +48,17 @@ const Login = () => {
       const cartItems = await getCartItems(userCredential.user.uid);
       dispatch(setCartItems(cartItems));
 
+      // 유저가 섹션을 닫지 않을 경우의 로직
+      setTimeout(() => {
+        dispatch(logout()); // 로그아웃 액션 디스패치
+        navigate(`/login`);
+      }, 60 * 60 * 1000); // 1시간 후
+
       navigate(`/home`); // 로그인 성공시 홈
     } catch (error) {
       throw new Error("로그인 실패");
     }
   };
-
   // 입력양식이 다를 경우 경고 역할
   const getBorderColor = (error) => {
     return error ? "1px solid #FF6464" : "";

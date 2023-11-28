@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import shortid from "shortid";
 
@@ -15,12 +15,22 @@ const CartPopup = (props) => {
     0
   );
 
+  const location = useLocation();
+
+  // 밑에서 상품 눌렀을 경우 위로 부드럽게 자동 스크롤
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }, [location.pathname]);
+
   return (
     <Modal show={props.show}>
       <div className={classes.cart__inner}>
         <div className={classes.cart__scroll}>
           <div className={classes.cart__title}>
-            <span>장바구니</span>
+            <span>장바구니</span> <br />
+            장바구니는 격주 수요일 자정에 비워집니다.
           </div>
           <div className={classes.cart__list}>
             {cartItems.length > 0 ? (

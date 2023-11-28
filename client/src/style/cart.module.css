@@ -26,6 +26,12 @@ main {
   font-weight: 600;
 }
 
+.left__title span {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--gray);
+}
+
 .left__list {
   margin: 20px auto 0;
 }

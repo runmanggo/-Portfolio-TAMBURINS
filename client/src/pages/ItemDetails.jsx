@@ -64,6 +64,7 @@ const ItemDetails = (props) => {
       if (scentError) {
         errorMessage += scentError.message;
       }
+      console.error(errorMessage);
       return;
     }
 
@@ -77,28 +78,48 @@ const ItemDetails = (props) => {
     setIsShown(!isShown);
   };
 
+  function getGuestId() {
+    let guestId = localStorage.getItem("guestId");
+    if (!guestId) {
+      guestId = shortid.generate(); // 고유 ID 생성 함수
+      localStorage.setItem("guestId", guestId);
+    }
+    return guestId;
+  }
+
   // 상품 담았을시 파이어베이스로 저장되게
   const handleAddToCart = async () => {
     dispatch(addItemToCart(detail));
 
-    var uid = auth.currentUser ? auth.currentUser.uid : "temp";
+    var uid = auth.currentUser ? auth.currentUser.uid : getGuestId();
     var itemId = detail.itemId;
     var quantity = 1;
 
-    // Firestore에 데이터를 작성
-    try {
-      await setDoc(doc(db, "carts", `${uid}_${itemId}`), {
-        uid: uid,
-        itemId: itemId,
-        quantity: quantity,
-        price: detail.price,
-        name: detail.name,
-        capacity: detail.capacity,
-        capacityImg: detail.capacityImg,
-        isSelected: true,
-      });
-    } catch (e) {
-      console.error("Error writing document: ", e);
+    const cartItem = {
+      uid: uid,
+      itemId: itemId,
+      quantity: quantity,
+      price: detail.price,
+      name: detail.name,
+      capacity: detail.capacity,
+      capacityImg: detail.capacityImg,
+      isSelected: true,
+      time: Date.now(),
+    };
+
+    // 회원인 경우 장바구니 아이템을 파이어베이스에 저장
+    if (auth.currentUser) {
+      try {
+        await setDoc(doc(db, "carts", `${uid}_${itemId}`), cartItem);
+      } catch (e) {
+        console.error("Error writing document: ", e);
+      }
+    }
+    // 비회원인 경우 로컬 스토리지에 데이터를 저장
+    else {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(cartItem);
+      localStorage.setItem("cart", JSON.stringify(cart));
     }
   };
 

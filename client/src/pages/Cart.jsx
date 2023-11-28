@@ -21,7 +21,11 @@ const Cart = () => {
     <main>
       <div className={classes.cart__container}>
         <section className={classes.cart__container__left}>
-          <div className={classes.left__title}>쇼핑백</div>
+          <div className={classes.left__title}>
+            쇼핑백
+            <br />
+            <span>장바구니는 격주 수요일 자정에 비워집니다.</span>
+          </div>
           {cartItems.length > 0 ? (
             <div className={classes.left__list}>
               {cartItems.map((item) => (

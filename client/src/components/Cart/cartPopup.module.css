@@ -14,10 +14,11 @@
   color: var(--gray);
   padding: 0 20px;
   height: 50px;
+  font-size: 11px;
+  font-weight: 300;
 }
 
 .cart__title span {
-  display: block;
   font-size: 14px;
   font-weight: 600;
   line-height: 50px;

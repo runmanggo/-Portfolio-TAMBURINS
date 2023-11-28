@@ -10,6 +10,8 @@ import {
 import { db, auth } from "../../firebase.config";
 import { doc, deleteDoc } from "firebase/firestore";
 
+import shortid from "shortid";
+
 const CartItems = (props) => {
   const item = props.item;
   const dispatch = useDispatch();
@@ -25,12 +27,36 @@ const CartItems = (props) => {
     );
   };
 
+  function getGuestId() {
+    let guestId = localStorage.getItem("guestId");
+    if (!guestId) {
+      guestId = shortid.generate(); // 고유 ID 생성 함수
+      localStorage.setItem("guestId", guestId);
+    }
+    return guestId;
+  }
+
   // 유저가 카트에 상품 담으면 저장된후, 카트에서 삭제하면 파이어베이스에서도 삭제
   const removeHandler = async () => {
     dispatch(removeItem({ itemId: item.itemId }));
-    const uid = auth.currentUser.uid || "temp"; // 회원, 비회원도 카트 기능 사용 가능하게
-    const docRef = doc(db, "carts", `${uid}_${item.itemId}`);
-    await deleteDoc(docRef);
+
+    if (auth.currentUser) {
+      // 회원인 경우 파이어베이스에서 항목 삭제
+      const uid = auth.currentUser.uid;
+      const docRef = doc(db, "carts", `${uid}_${item.itemId}`);
+      await deleteDoc(docRef);
+    } else {
+      // 비회원인 경우 로컬 스토리지에서 항목 삭제
+      const uid = getGuestId();
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const index = cart.findIndex(
+        (cartItem) => cartItem.itemId === item.itemId && cartItem.uid === uid
+      );
+      if (index !== -1) {
+        cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+      }
+    }
   };
 
   // 용량에 따른 이미지 변경

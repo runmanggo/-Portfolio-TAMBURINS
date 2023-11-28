@@ -11,7 +11,7 @@ import { getAuth } from "firebase/auth";
 import { clearCart } from "../../redux/cartSlice";
 
 const Sidebar = (props) => {
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.auth.loggedIn);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

@@ -18,7 +18,7 @@
   display: inline-block;
   position: relative;
   z-index: 99;
-  font-size: 11px;
+  font-size: 0.6875rem;
   cursor: pointer;
   vertical-align: top;
   line-height: 1.6em;
@@ -46,17 +46,17 @@
 }
 
 .cartItem__productName {
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 400;
 }
 
 .cartItem__productPrice {
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 300;
 }
 
 .cartItem__capacity {
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 300;
 }
 
