@@ -159,7 +159,10 @@ const ItemDetails = (props) => {
                           <source src={mainImg} type="video/mp4" />
                         </video>
                       ) : (
-                        <img src={mainImg} alt={`mainImg ${index}`} />
+                        <img
+                          src={`data:image/jpeg;base64,${mainImg}`}
+                          alt={`mainImg ${index}`}
+                        />
                       )}
                     </div>
                   ))
@@ -170,7 +173,10 @@ const ItemDetails = (props) => {
                         <source src={detail.mainVideo} type="video/mp4" />
                       </video>
                     ) : (
-                      <img src={detail.mainImg} alt="mainImg" />
+                      <img
+                        src={`data:image/jpeg;base64,${detail.mainImg}`}
+                        alt="mainImg"
+                      />
                     )}
                   </div>
                 )}
@@ -209,12 +215,18 @@ const ItemDetails = (props) => {
                                   : classes.product__size__border
                               }
                             >
-                              <img src={capImg} alt={`capacity ${index}`} />
+                              <img
+                                src={`data:image/jpeg;base64,${capImg}`}
+                                alt={`capacity ${index}`}
+                              />
                             </div>
                           </NavLink>
                         ) : (
                           <div className={classes.product__size__border}>
-                            <img src={capImg} alt={`capacity ${index}`} />
+                            <img
+                              src={`data:image/jpeg;base64,${capImg}`}
+                              alt={`capacity ${index}`}
+                            />
                           </div>
                         )}
                         <div>
@@ -227,7 +239,10 @@ const ItemDetails = (props) => {
                   ) : (
                     <li>
                       <div className={classes.product__size__border__active}>
-                        <img src={detail.capacityImg} alt="capacityImg" />
+                        <img
+                          src={`data:image/jpeg;base64,${detail.capacityImg}`}
+                          alt="capacityImg"
+                        />
                       </div>
                       <div>{detail.capacity}</div>
                     </li>

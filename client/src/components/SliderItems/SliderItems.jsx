@@ -20,7 +20,10 @@ const SliderItems = () => {
     data: detail,
     isLoading: isLoadingDetail,
     error: detailError,
-  } = useQuery(["detail", id], () => fetchDetail(id));
+  } = useQuery({
+    queryKey: ["detail", id],
+    queryFn: () => fetchDetail(id),
+  });
 
   useEffect(() => {
     if (isLoadingDetail) {
@@ -50,7 +53,10 @@ const SliderItems = () => {
                     <source src={mainImg} type="video/mp4" />
                   </video>
                 ) : (
-                  <img src={mainImg} alt={`mainImg ${mainImg.itemId}`} />
+                  <img
+                    src={`data:image/jpeg;base64,${mainImg}`}
+                    alt={`mainImg ${mainImg.itemId}`}
+                  />
                 )}
               </div>
             ))
@@ -61,7 +67,10 @@ const SliderItems = () => {
                   <source src={detail.mainVideo} type="video/mp4" />
                 </video>
               ) : (
-                <img src={detail.mainImg} alt="mainImg" />
+                <img
+                  src={`data:image/jpeg;base64,${detail.mainImg}`}
+                  alt="mainImg"
+                />
               )}
             </div>
           )}
