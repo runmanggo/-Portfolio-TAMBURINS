@@ -8,7 +8,7 @@ const ItemCard = (props) => {
     <div>
       <div className={classes.ctgList__productBox} key={item._id}>
         <div className={classes.ctgList__img}>
-          <img src={item.img} alt="" />
+          <img src={`data:image/jpeg;base64,${item.img}`} alt="" />
         </div>
         <div className={classes.ctgList__info}>
           {item.desc && (

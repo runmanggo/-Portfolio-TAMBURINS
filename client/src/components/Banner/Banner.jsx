@@ -39,7 +39,7 @@ const Banner = () => {
             <div className={classes.banner__inner}>
               {item.bannerImg && (
                 <img
-                  src={item.bannerImg}
+                  src={`data:image/jpeg;base64,${item.bannerImg}`}
                   alt=""
                   className={
                     item.category === "tubeHand" ? classes.banner__tubeHand : ""

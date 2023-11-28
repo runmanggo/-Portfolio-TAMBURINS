@@ -50,7 +50,7 @@ const Slider = (props) => {
                 }
               >
                 <img
-                  src={image.sliderImg}
+                  src={`data:image/jpeg;base64,${image.sliderImg}`}
                   alt={`Slide ${image._id}`}
                   onClick={() => handleImageClick(image.category)}
                 />

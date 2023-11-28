@@ -18,18 +18,13 @@ export const fetchItems = async (category) => {
       });
     }
 
-    let isItemRemoved = false;
+    const targetIndex = response.data.findIndex((item) => item.ctgId === 13);
 
-    const filteredItems = response.data.filter((item) => {
-      if (isItemRemoved || item.ctgId !== 13 || item.itemId !== 307) {
-        return true;
-      }
+    if (targetIndex !== -1) {
+      response.data.splice(targetIndex, 1);
+    }
 
-      isItemRemoved = true;
-      return false;
-    });
-
-    return filteredItems;
+    return response.data;
   } catch (error) {
     throw new Error(error.message);
   }
