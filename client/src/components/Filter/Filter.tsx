@@ -1,7 +1,12 @@
-import React from "react";
+import React, { FC } from "react";
 import classes from "./filter.module.css";
 
-const Filter = (props) => {
+interface Props {
+  title: string;
+  quantity: number;
+}
+
+const Filter: FC<Props> = (props) => {
   return (
     <div className={classes.filter}>
       <div className={classes.filter__container}>

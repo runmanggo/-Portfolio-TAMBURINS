@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { FC, Fragment } from "react";
 import classes from "./sidebar.module.css";
 import { NavLink, useNavigate } from "react-router-dom";
 
@@ -10,8 +10,15 @@ import { logout } from "../../redux/authSlice";
 import { getAuth } from "firebase/auth";
 import { clearCart } from "../../redux/cartSlice";
 
-const Sidebar = (props) => {
-  const isLoggedIn = useSelector((state) => state.auth.loggedIn);
+import { RootState } from "../../model/rootState";
+
+interface Props {
+  showSidebar: boolean;
+  onClose: () => void;
+}
+
+const Sidebar: FC<Props> = (props) => {
+  const isLoggedIn = useSelector((state: RootState) => state.auth.loggedIn);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -68,7 +75,9 @@ const Sidebar = (props) => {
                   <ul>
                     {isLoggedIn ? (
                       <li>
-                        <NavLink onClick={handleLogout}>로그아웃</NavLink>
+                        <NavLink to="" onClick={handleLogout}>
+                          로그아웃
+                        </NavLink>
                       </li>
                     ) : (
                       <li className={classes.login}>

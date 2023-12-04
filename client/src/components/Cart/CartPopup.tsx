@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { FC, useEffect } from "react";
 
 import { NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -8,8 +8,23 @@ import classes from "./cartPopup.module.css";
 import CartItems from "./CartItems";
 import Modal from "../UI/Modal";
 
-const CartPopup = (props) => {
-  const cartItems = useSelector((state) => state.cart.items);
+import { CartItem } from "model/cartItem";
+
+interface Props {
+  show: boolean;
+  closeCartHandler: () => void;
+}
+
+interface RootState {
+  cart: {
+    items: CartItem[];
+  };
+}
+
+const CartPopup: FC<Props> = (props) => {
+  const cartItems = useSelector(
+    (state: RootState) => state.cart.items as CartItem[]
+  );
   const total = cartItems.reduce(
     (sum, item) => sum + (item.isSelected ? item.price * item.quantity : 0),
     0

@@ -12,6 +12,7 @@
     "@types/node": "^20.10.3",
     "@types/react": "^18.2.41",
     "@types/react-dom": "^18.2.17",
+    "@types/shortid": "^0.0.32",
     "axios": "^1.6.0",
     "env": "^0.0.2",
     "firebase": "^10.5.2",

@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import { useDispatch } from "react-redux";
 import classes from "./cartItems.module.css";
 import {
@@ -10,13 +10,19 @@ import {
 import { db, auth } from "../../firebase.config";
 import { doc, deleteDoc } from "firebase/firestore";
 
+import { CartItem } from "model/cartItem";
+
 import shortid from "shortid";
 
-const CartItems = (props) => {
+type Props = {
+  item: CartItem;
+};
+
+const CartItems: FC<Props> = (props) => {
   const item = props.item;
   const dispatch = useDispatch();
 
-  const selectHandler = (event) => {
+  const selectHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedQuantity = event.target.value;
 
     dispatch(
@@ -48,10 +54,14 @@ const CartItems = (props) => {
     } else {
       // 비회원인 경우 로컬 스토리지에서 항목 삭제
       const uid = getGuestId();
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const cartData = localStorage.getItem("cart");
+      let cart: CartItem[] = cartData ? JSON.parse(cartData) : [];
       const index = cart.findIndex(
-        (cartItem) => cartItem.itemId === item.itemId && cartItem.uid === uid
+        (cartItem: CartItem) =>
+          Number(cartItem.itemId) === Number(item.itemId) &&
+          cartItem.uid === uid
       );
+
       if (index !== -1) {
         cart.splice(index, 1);
         localStorage.setItem("cart", JSON.stringify(cart));

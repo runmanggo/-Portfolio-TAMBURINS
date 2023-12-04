@@ -1,7 +1,12 @@
 export interface CartItem {
-  itemId: string;
+  itemId: number;
   price: number;
   quantity: number;
   totalPrice: number;
+  // cartItems props 타입지정
   isSelected: boolean;
+  capacityImg: string[] | string;
+  capacity: string[] | string;
+  name: string;
+  uid: any;
 }
