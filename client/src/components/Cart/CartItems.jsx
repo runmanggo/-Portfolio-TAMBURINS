@@ -103,7 +103,11 @@ const CartItems = (props) => {
       </div>
 
       <div className={classes.cartPopupColumn__thumb}>
-        <img src={imgSrc} alt="" className={classes.image} />
+        <img
+          src={`data:image/jpeg;base64,${imgSrc}`}
+          alt=""
+          className={classes.image}
+        />
       </div>
 
       <div className={classes.cartItem__info}>

@@ -18,7 +18,7 @@ const persistConfig = {
   whitelist: ["cart"],
 };
 
-//리듀서 세션 스토리지에 저장
+//리듀서 스토리지에 저장
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 // 리덕스 스토어에 저장

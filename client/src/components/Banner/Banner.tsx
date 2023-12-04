@@ -3,20 +3,21 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchBanners } from "../../services/fetchBanners";
+import { Banner as BannerData } from "model/banner";
 
 import classes from "./banner.module.css";
 import shortid from "shortid";
 
-const Banner = () => {
-  const { category } = useParams();
+const Banner: React.FC = () => {
+  const { category } = useParams<{ category?: string }>();
 
   const {
     data: banners,
     isLoading,
     error,
-  } = useQuery({
+  } = useQuery<BannerData[], Error>({
     queryKey: ["banners", category],
-    queryFn: () => fetchBanners(category),
+    queryFn: () => fetchBanners(category ? category : ""),
   });
 
   useEffect(() => {
@@ -48,8 +49,11 @@ const Banner = () => {
               )}
               {item.bannerVideo && (
                 <video loop muted autoPlay>
-                  <source src={item.bannerVideo} type="video/mp4" />
-                  <source src={item.bannerVideo} type="video/webm" />
+                  {item.bannerVideo.endsWith(".mp4") ? (
+                    <source src={item.bannerVideo} type="video/mp4" />
+                  ) : (
+                    <source src={item.bannerVideo} type="video/webm" />
+                  )}
                 </video>
               )}
             </div>

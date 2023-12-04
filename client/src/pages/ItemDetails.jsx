@@ -22,6 +22,7 @@ import { db, auth } from "../firebase.config";
 import { doc, setDoc } from "firebase/firestore";
 
 import shortid from "shortid";
+import debounce from "lodash.debounce";
 
 //랜덤 추천 상품을 위한 Fisher-Yates 셔플 알고리즘
 function shuffleArray(array) {
@@ -91,9 +92,9 @@ const ItemDetails = (props) => {
   const handleAddToCart = async () => {
     dispatch(addItemToCart(detail));
 
-    var uid = auth.currentUser ? auth.currentUser.uid : getGuestId();
-    var itemId = detail.itemId;
-    var quantity = 1;
+    const uid = auth.currentUser ? auth.currentUser.uid : getGuestId();
+    const itemId = detail.itemId;
+    const quantity = 1;
 
     const cartItem = {
       uid: uid,
@@ -104,7 +105,6 @@ const ItemDetails = (props) => {
       capacity: detail.capacity,
       capacityImg: detail.capacityImg,
       isSelected: true,
-      time: Date.now(),
     };
 
     // 회원인 경우 장바구니 아이템을 파이어베이스에 저장
@@ -125,12 +125,14 @@ const ItemDetails = (props) => {
 
   // 화면 사이즈
   useEffect(() => {
-    const isDesktopView = () => {
+    const handleResize = debounce(() => {
       setWindowWidth(window.innerWidth);
-    };
-    window.addEventListener("resize", isDesktopView);
+    }, 300);
+
+    window.addEventListener("resize", handleResize);
+
     return () => {
-      window.removeEventListener("resize", isDesktopView);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 

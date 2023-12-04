@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { FC, Fragment, useEffect, useState } from "react";
 import Header from "./components/Header/Header";
 import Routers from "./routers/Routers";
 import Footer from "./components/Footer/Footer";
@@ -14,16 +14,16 @@ import { useLocation } from "react-router-dom";
 
 import "./App.css";
 
-function App() {
+const App: FC = () => {
   const dispatch = useDispatch();
-  const [cartIsShown, setCartIsShown] = useState(false);
+  const [cartIsShown, setCartIsShown] = useState<boolean>(false);
   const location = useLocation();
 
   // 로그인 상태 감지 및 유지 로직
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        dispatch(login());
+        dispatch(login(user.uid));
       } else {
         dispatch(logout());
       }
@@ -59,6 +59,6 @@ function App() {
       <Footer />
     </Fragment>
   );
-}
+};
 
 export default App;

@@ -6,7 +6,7 @@ import Close from "../../assets/image/close.svg";
 import Overlay from "../UI/Overlay";
 
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../../redux/authSlice.js";
+import { logout } from "../../redux/authSlice";
 import { getAuth } from "firebase/auth";
 import { clearCart } from "../../redux/cartSlice";
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import classes from "./header.module.css";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { auth } from "../../firebase.config.js";
+import { auth } from "../../firebase.config.ts";
 
 //이미지
 import Cart from "../../assets/image/cart.svg";
@@ -17,7 +17,7 @@ import CloseWhite from "../../assets/image/close_white.svg";
 import Sidebar from "../Sidebar/Sidebar";
 
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../../redux/authSlice.js";
+import { logout } from "../../redux/authSlice";
 import { clearCart } from "../../redux/cartSlice";
 import shortid from "shortid";
 

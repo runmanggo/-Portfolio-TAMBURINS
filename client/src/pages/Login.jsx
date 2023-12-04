@@ -48,6 +48,9 @@ const Login = () => {
       const cartItems = await getCartItems(userCredential.user.uid);
       dispatch(setCartItems(cartItems));
 
+      // 로그인에 성공하면 로컬 스토리지 삭제
+      localStorage.clear();
+
       // 유저가 섹션을 닫지 않을 경우의 로직
       setTimeout(() => {
         dispatch(logout()); // 로그아웃 액션 디스패치

@@ -13,7 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchTitle } from "../services/fetchTitle";
 
 // 각 조건에 맞게 데이터 받아오기
-import { fetchItems } from "../services/fetchItems";
+import { fetchItems } from "../services/fetchItems.tsx";
 
 const Category = () => {
   const [activeImage, setActiveImage] = useState("");

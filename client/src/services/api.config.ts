@@ -1,6 +1,6 @@
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL: string = process.env.REACT_APP_BASE_URL || "";
 
-export const API = {
+export const API: { [key: string]: string } = {
   // 몽고디비 banner
   BANNERS: `${BASE_URL}/categories/banner`,
 
@@ -11,7 +11,7 @@ export const API = {
   GIFT: `${BASE_URL}/items/gift`,
   ITEMS_CTG: `${BASE_URL}/items/category`,
 
-  // 몽고디비 banner
+  // 몽고디비 mainCategory
   CATEGORIES: `${BASE_URL}/categories`,
 
   // 몽고디비 itemsDetail
