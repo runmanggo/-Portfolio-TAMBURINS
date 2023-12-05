@@ -3,7 +3,7 @@ import classes from "./filter.module.css";
 
 interface Props {
   title: string;
-  quantity: number;
+  quantity: number | undefined;
 }
 
 const Filter: FC<Props> = (props) => {

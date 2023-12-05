@@ -1,5 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { FC, useState, useRef, useEffect, ReactNode } from "react";
 import styled from "styled-components";
+
+// interface AccodianProps {
+//   $isOpen: boolean;
+//   height: number;
+//   title: string;
+//   children: ReactNode;
+// }
 
 const DetailInfoBox = styled.div`
   border-top: 1px solid #d5d5d5;
@@ -23,7 +30,11 @@ const DetailInfoButton = styled.button`
   cursor: pointer;
 `;
 
-const DetailInfoArrow = styled.div`
+interface IDetailInfoArrowProps {
+  $isOpen: boolean;
+}
+
+const DetailInfoArrow = styled.div<IDetailInfoArrowProps>`
   width: 25px;
   height: 25px;
   position: relative;
@@ -48,7 +59,12 @@ const DetailInfoArrow = styled.div`
   }
 `;
 
-const DetailInfoContent = styled.div`
+interface IDetailInfoContentProps {
+  $isOpen: boolean;
+  height: number;
+}
+
+const DetailInfoContent = styled.div<IDetailInfoContentProps>`
   max-height: ${(props) => (props.$isOpen ? props.height : 0)}px;
   transition: max-height 0.3s ease-in-out;
   overflow: hidden;
@@ -61,10 +77,15 @@ const AccordianContainer = styled.div`
   line-height: 1.5rem;
 `;
 
-function Accordion(props) {
-  const [isOpen, setIsOpen] = useState(false);
-  const contentRef = useRef(null);
-  const [height, setHeight] = useState(0);
+interface AccodianProps {
+  title: string;
+  children: ReactNode;
+}
+
+const Accordion: FC<AccodianProps> = (props) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const contentRef = useRef<HTMLDivElement | null>(null);
+  const [height, setHeight] = useState<number>(0);
 
   // 아코디언 내용을 동적으로 계산하므로 내용의 높이가 변경되도 반영되게
   useEffect(() => {
@@ -82,6 +103,6 @@ function Accordion(props) {
       </DetailInfoContent>
     </DetailInfoBox>
   );
-}
+};
 
 export default Accordion;

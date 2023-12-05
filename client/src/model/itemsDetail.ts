@@ -1,4 +1,5 @@
 export interface ItemsDetail {
+  [x: string]: any;
   _id: string;
   ctgId: number;
   itemId: number;
@@ -17,4 +18,10 @@ export interface ItemsDetail {
   detailBtnDesc: Array<string[] | string> | string;
   accordion1: Array<string[] | string> | string;
   accordion3: Array<string[] | string> | string;
+
+  // ItemDetail 컴포넌트
+  quantity: number;
+  totalPrice: number;
+  isSelected: boolean;
+  uid: any;
 }

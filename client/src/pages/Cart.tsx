@@ -1,5 +1,3 @@
-import React from "react";
-
 import { useSelector } from "react-redux";
 import classes from "../style/cart.module.css";
 import shortid from "shortid";
@@ -7,10 +5,12 @@ import shortid from "shortid";
 import CartItems from "../components/Cart/CartItems";
 import { NavLink } from "react-router-dom";
 
+import { RootState } from "model/rootState";
+
 const Cart = () => {
   // 카트슬라이스에서 item을 가져와서 카트에 상품이 변경될때마다 컴포넌트 자동 업데이트,
   // 사용자에게 최신의 카트 보여줄 수 있음
-  const cartItems = useSelector((state) => state.cart.items);
+  const cartItems = useSelector((state: RootState) => state.cart.items);
 
   const total = cartItems.reduce(
     (sum, item) => sum + (item.isSelected ? item.price * item.quantity : 0),

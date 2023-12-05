@@ -2,12 +2,23 @@ import React, { useEffect } from "react";
 import classes from "../style/signup.module.css";
 
 import { CommonBtn } from "../components/StyledComponents/commonBtn";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase.config";
+
+type FormData = {
+  emailId: string;
+  userEmail: string;
+  userPw: string;
+  username: string;
+  userHp: string;
+  birth: string;
+  email_domain: string;
+  userPwRe: string;
+};
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -18,9 +29,11 @@ const Signup = () => {
     watch,
     setValue,
     formState: { errors },
-  } = useForm({ mode: "onChange" });
+  } = useForm<FormData>({ mode: "onChange" });
 
-  const handleEmailDomainChange = (event) => {
+  const handleEmailDomainChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const selectedDomain = event.target.value;
     if (selectedDomain === "직접 입력") {
       setValue("userEmail", "");
@@ -37,7 +50,7 @@ const Signup = () => {
   }, [register]);
 
   // 회원가입 성공, 실패
-  const onSubmit = async (data) => {
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
     const { emailId, userEmail, userPw, username, userHp, birth } = data;
     const email = `${emailId}@${userEmail}`;
     const auth = getAuth();
@@ -64,7 +77,7 @@ const Signup = () => {
     navigate("/login");
   };
 
-  const getBorderColor = (error) => {
+  const getBorderColor = (error: any) => {
     return error ? "1px solid #FF6464" : "";
   };
 

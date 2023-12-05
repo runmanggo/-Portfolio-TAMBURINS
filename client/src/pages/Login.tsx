@@ -11,18 +11,25 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { auth, db } from "../firebase.config";
 
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
+
+import { CartItem } from "model/cartItem";
 
 //유저 카트에 담긴 상품 조회
-const getCartItems = async (uid) => {
+const getCartItems = async (uid: any): Promise<CartItem[]> => {
   const q = query(collection(db, "carts"), where("uid", "==", uid));
   const querySnapshot = await getDocs(q);
-  const cartItems = [];
+  const cartItems: CartItem[] = [];
   querySnapshot.forEach((doc) => {
-    cartItems.push(doc.data());
+    cartItems.push(doc.data() as CartItem);
   });
   return cartItems;
 };
+
+interface FormInputs {
+  userId: string;
+  userPw: string;
+}
 
 const Login = () => {
   // 리액트 훅 폼
@@ -30,13 +37,18 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: "onChange" });
+  } = useForm<FormInputs>({ mode: "onChange" });
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  interface LoginInfo {
+    userId: string;
+    userPw: string;
+  }
+
   //로그인
-  const onSubmit = async ({ userId, userPw }) => {
+  const onSubmit = async ({ userId, userPw }: LoginInfo): Promise<void> => {
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -63,7 +75,7 @@ const Login = () => {
     }
   };
   // 입력양식이 다를 경우 경고 역할
-  const getBorderColor = (error) => {
+  const getBorderColor = (error: any) => {
     return error ? "1px solid #FF6464" : "";
   };
 
@@ -94,7 +106,7 @@ const Login = () => {
                 name="userId"
                 id="userId"
                 className={classes.input}
-                maxLength="50"
+                maxLength={50}
               />
             </div>
             {errors.userId && (
@@ -134,7 +146,7 @@ const Login = () => {
                 autoComplete="off"
                 className={classes.input}
                 aria-required="true"
-                maxLength="50"
+                maxLength={50}
               />
             </div>
             {errors.userPw && (

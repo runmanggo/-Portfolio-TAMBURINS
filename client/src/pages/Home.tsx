@@ -7,9 +7,9 @@ import classes from "../style/home.module.css";
 import { NavLink } from "react-router-dom";
 
 const Home = () => {
-  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [isFixed, setIsFixed] = useState(false);
+  const [windowHeight, setWindowHeight] = useState<number>(window.innerHeight);
+  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
+  const [isFixed, setIsFixed] = useState<boolean>(false);
 
   // 사용자 창 사이즈와 메인 이미지와 동일하게 나오는 로직
   useEffect(() => {

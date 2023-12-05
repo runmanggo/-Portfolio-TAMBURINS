@@ -10,15 +10,22 @@ import Results from "../components/UI/Results";
 import { CtgLsitContainer } from "../components/StyledComponents/ctgLsitContainer";
 import { fetchProducts } from "../services/fetchProducts";
 
+import { MainItems } from "model/mainItems";
+
+interface Data {
+  products: MainItems[];
+  count: number | undefined;
+}
+
 const Search = () => {
   const [activeImage, setActiveImage] = useState("");
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const query = queryParams.get("query");
+  const query: string | null = queryParams.get("query");
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error } = useQuery<Data, Error>({
     queryKey: ["products", query],
-    queryFn: () => fetchProducts(query),
+    queryFn: () => fetchProducts(query as string),
   });
 
   const products = data?.products;
@@ -36,7 +43,7 @@ const Search = () => {
     <div>
       <Slider activeImage={activeImage} setActiveImage={setActiveImage} />
       <Filter title="검색 결과" quantity={count ? count : 0} />
-      {count > 0 ? (
+      {count && count > 0 ? (
         <CtgLsitContainer>
           {products?.map((item, index) =>
             item.itemId !== 602 ? (

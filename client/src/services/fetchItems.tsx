@@ -1,18 +1,18 @@
 import axios from "axios";
 import { API } from "./api.config";
-import { MainCtg } from "model/mainCtg";
+import { MainItems } from "model/mainItems";
 
 // Category 컴포넌트에 삽입
-export const fetchItems = async (category: string): Promise<MainCtg[]> => {
+export const fetchItems = async (category: string): Promise<MainItems[]> => {
   try {
     let response;
 
     if (category === "bestSellers") {
-      response = await axios.get<MainCtg[]>(API.BEST);
+      response = await axios.get<MainItems[]>(API.BEST);
     } else if (category === "giftSet") {
-      response = await axios.get<MainCtg[]>(API.GIFT);
+      response = await axios.get<MainItems[]>(API.GIFT);
     } else {
-      response = await axios.get<MainCtg[]>(API.ITEMS_CTG, {
+      response = await axios.get<MainItems[]>(API.ITEMS_CTG, {
         params: {
           category: category,
         },

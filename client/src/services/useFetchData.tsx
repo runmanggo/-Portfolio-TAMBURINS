@@ -1,18 +1,10 @@
 import { useCallback } from "react";
 import axios from "axios";
-import { Banner } from "../model/banner";
-import { MainCtg } from "model/mainCtg";
-import { ItemsDetail } from "model/itemsDetail";
-import { MainItems } from "model/mainItems";
 
 export const useFetchData = (url: string) => {
-  const fetchData = useCallback(async (): Promise<
-    Banner[] | MainCtg[] | ItemsDetail[] | MainItems[]
-  > => {
+  const fetchData = useCallback(async () => {
     try {
-      const response = await axios.get<
-        Banner[] | MainCtg[] | ItemsDetail[] | MainItems[]
-      >(url);
+      const response = await axios.get(url);
       return response.data;
     } catch (error: unknown) {
       if (error instanceof Error) {

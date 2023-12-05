@@ -24,8 +24,12 @@ import { doc, setDoc } from "firebase/firestore";
 import shortid from "shortid";
 import debounce from "lodash.debounce";
 
+import { ItemsDetail } from "model/itemsDetail";
+import { MainItems } from "model/mainItems";
+import { CartItem } from "model/cartItem";
+
 //랜덤 추천 상품을 위한 Fisher-Yates 셔플 알고리즘
-function shuffleArray(array) {
+function shuffleArray(array: any) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
@@ -33,10 +37,10 @@ function shuffleArray(array) {
   return array;
 }
 
-const ItemDetails = (props) => {
-  const [isShown, setIsShown] = useState(true);
+const ItemDetails = () => {
+  const [isShown, setIsShown] = useState<boolean>(true);
   const [randomScent, setRandomScent] = useState([]);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
 
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -46,7 +50,10 @@ const ItemDetails = (props) => {
     data: detail,
     isLoading: isLoadingDetail,
     error: detailError,
-  } = useQuery({ queryKey: ["detail", id], queryFn: () => fetchDetail(id) });
+  } = useQuery<ItemsDetail, Error>({
+    queryKey: ["detail", id],
+    queryFn: () => fetchDetail(Number(id)),
+  });
 
   const fetchScent = useFetchData(API.ITEMS);
   const {
@@ -89,7 +96,11 @@ const ItemDetails = (props) => {
   }
 
   // 상품 담았을시 파이어베이스로 저장되게
-  const handleAddToCart = async () => {
+  const handleAddToCart = async (detail: CartItem | undefined) => {
+    if (!detail) {
+      return;
+    }
+
     dispatch(addItemToCart(detail));
 
     const uid = auth.currentUser ? auth.currentUser.uid : getGuestId();
@@ -117,10 +128,20 @@ const ItemDetails = (props) => {
     }
     // 비회원인 경우 로컬 스토리지에 데이터를 저장
     else {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      let cartItems: any = localStorage.getItem("cart");
+      let cart = JSON.parse(cartItems) || [];
       cart.push(cartItem);
       localStorage.setItem("cart", JSON.stringify(cart));
     }
+  };
+
+  const handleClick = (detail: CartItem | undefined) => {
+    return async (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      if (detail) {
+        await handleAddToCart(detail);
+      }
+    };
   };
 
   // 화면 사이즈
@@ -313,7 +334,7 @@ const ItemDetails = (props) => {
 
               <CommonBtn
                 className={classes.cart__btn}
-                onClick={handleAddToCart}
+                onClick={handleClick(detail)}
               >
                 장바구니 담기
               </CommonBtn>
@@ -406,7 +427,7 @@ const ItemDetails = (props) => {
       {/* 랜덤 추천상품 */}
       <div className={classes.recommend}>
         <CtgLsitContainer>
-          {randomScent.map((item) => (
+          {randomScent.map((item: MainItems) => (
             <NavLink
               key={shortid.generate()}
               to={`/shop/${item.category}/${item.itemId}`}

@@ -9,16 +9,11 @@ import CartItems from "./CartItems";
 import Modal from "../UI/Modal";
 
 import { CartItem } from "model/cartItem";
+import { RootState } from "model/rootState";
 
 interface Props {
   show: boolean;
   closeCartHandler: () => void;
-}
-
-interface RootState {
-  cart: {
-    items: CartItem[];
-  };
 }
 
 const CartPopup: FC<Props> = (props) => {

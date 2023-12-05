@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
@@ -7,14 +7,23 @@ import classes from "./slider.module.css";
 
 import { useFetchData } from "../../services/useFetchData";
 import { API } from "../../services/api.config";
+import { MainCtg } from "model/mainCtg";
 
-const Slider = (props) => {
+interface Props {
+  setActiveImage: (id: string) => void;
+  activeImage: string;
+}
+
+const Slider: FC<Props> = (props) => {
   const fetchImages = useFetchData(API.CATEGORIES);
   const {
     data: images,
     isLoading,
     error,
-  } = useQuery({ queryKey: ["images"], queryFn: fetchImages });
+  } = useQuery<MainCtg[], Error>({
+    queryKey: ["images"],
+    queryFn: fetchImages,
+  });
 
   useEffect(() => {
     if (isLoading) return;
@@ -23,7 +32,7 @@ const Slider = (props) => {
     }
   }, [error, isLoading]);
 
-  const handleImageClick = (id) => {
+  const handleImageClick = (id: string) => {
     props.setActiveImage(id);
   };
 

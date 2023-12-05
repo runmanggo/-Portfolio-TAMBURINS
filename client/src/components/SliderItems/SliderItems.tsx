@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { FC, useEffect } from "react";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -10,17 +10,18 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchDetail } from "../../services/fetchDetail";
+import { ItemsDetail } from "model/itemsDetail";
 
 import shortid from "shortid";
 
-const SliderItems = () => {
-  const { id } = useParams();
+const SliderItems: FC = () => {
+  const { id } = useParams() as { id: number | undefined };
 
   const {
     data: detail,
     isLoading: isLoadingDetail,
     error: detailError,
-  } = useQuery({
+  } = useQuery<ItemsDetail, Error>({
     queryKey: ["detail", id],
     queryFn: () => fetchDetail(id),
   });
@@ -55,7 +56,7 @@ const SliderItems = () => {
                 ) : (
                   <img
                     src={`data:image/jpeg;base64,${mainImg}`}
-                    alt={`mainImg ${mainImg.itemId}`}
+                    alt={`mainImg ${detail.itemId}`}
                   />
                 )}
               </div>

@@ -16,6 +16,7 @@ import shortid from "shortid";
 
 type Props = {
   item: CartItem;
+  className?: string;
 };
 
 const CartItems: FC<Props> = (props) => {

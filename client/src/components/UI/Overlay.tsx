@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
 
 const OverlayBox = styled.div`
@@ -11,8 +11,12 @@ const OverlayBox = styled.div`
   z-index: 999;
 `;
 
-const Overlay = (props) => {
-  return <OverlayBox onClick={props.onClick}>{props.children}</OverlayBox>;
+interface overlayProps {
+  onClick: () => void;
+}
+
+const Overlay: FC<overlayProps> = (props) => {
+  return <OverlayBox onClick={props.onClick} />;
 };
 
 export default Overlay;

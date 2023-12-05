@@ -16,16 +16,21 @@ import { useFetchData } from "../services/useFetchData";
 
 import shortid from "shortid";
 
+import { MainItems } from "model/mainItems";
+
 const Shop = () => {
   // slider 해당 페이지 border 효과 주기 위해
-  const [activeImage, setActiveImage] = useState("");
+  const [activeImage, setActiveImage] = useState<string>("");
 
   const fetchAll = useFetchData(API.ALL);
   const {
     data: allItems,
     isLoading: isLoadingAllItems,
     error: allItemsError,
-  } = useQuery({ queryKey: ["allItems"], queryFn: fetchAll });
+  } = useQuery<MainItems[], Error>({
+    queryKey: ["allItems"],
+    queryFn: fetchAll,
+  });
 
   const fetchTitle = useFetchData(API.CATEGORIES);
   const {
@@ -70,12 +75,12 @@ const Shop = () => {
           {itemGroup.length > 0 &&
             categoryItems &&
             categoryItems.some(
-              (category) => category.ctgId === itemGroup[0].ctgId
+              (category: any) => category.ctgId === itemGroup[0].ctgId
             ) && (
               <NavLink
                 to={`/shop/${
                   categoryItems.find(
-                    (category) => category.ctgId === itemGroup[0].ctgId
+                    (category: any) => category.ctgId === itemGroup[0].ctgId
                   ).category
                 }`}
               >
@@ -83,7 +88,7 @@ const Shop = () => {
                   <AllBtn>
                     {
                       categoryItems.find(
-                        (category) => category.ctgId === itemGroup[0].ctgId
+                        (category: any) => category.ctgId === itemGroup[0].ctgId
                       ).sliderTitle
                     }
                     &nbsp;모두보기

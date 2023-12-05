@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 import styled from "styled-components";
 
 import { useQuery } from "@tanstack/react-query";
@@ -7,8 +7,10 @@ import { useFetchData } from "../../services/useFetchData";
 import { API } from "../../services/api.config";
 
 import { CtgLsitContainer } from "../StyledComponents/ctgLsitContainer";
-import ItemCard from "../../components/UI/ItemCard";
+import ItemCard from "./ItemCard";
 import Filter from "../Filter/Filter";
+
+import { MainItems } from "../../model/mainItems";
 
 const Container = styled.div`
   height: 70vh;
@@ -23,7 +25,7 @@ const InnerContainer = styled.div`
   color: var(--black);
 `;
 
-function shuffleArray(array) {
+function shuffleArray(array: any[]) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
@@ -31,8 +33,8 @@ function shuffleArray(array) {
   return array;
 }
 
-const Results = () => {
-  const [randomScent, setRandomScent] = useState([]);
+const Results: FC = () => {
+  const [randomScent, setRandomScent] = useState<MainItems[]>([]);
   const fetchScent = useFetchData(API.BEST);
   const {
     data: best,
@@ -54,7 +56,7 @@ const Results = () => {
       <Container>
         <InnerContainer> 찾으시는 검색결과가 없네요. </InnerContainer>
       </Container>
-      <Filter title="추천 상품" />
+      <Filter title="추천 상품" quantity={4} />
       <CtgLsitContainer>
         {randomScent.map((item) => (
           <NavLink key={item._id} to={`/shop/${item.category}/${item.itemId}`}>

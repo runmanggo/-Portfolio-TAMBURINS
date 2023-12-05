@@ -1,7 +1,11 @@
-import React from "react";
+import React, { FC, ReactNode } from "react";
 import styled from "styled-components";
 
-const ModalBox = styled.div`
+interface IModalBoxProps {
+  $show: boolean;
+}
+
+const ModalBox = styled.div<IModalBoxProps>`
   position: fixed;
   top: 70px;
   right: 50px;
@@ -21,8 +25,15 @@ const ModalBox = styled.div`
   }
 `;
 
-const Modal = (props) => {
-  const handleClickInside = (event) => {
+interface ModalProps {
+  show: boolean;
+  children: ReactNode;
+}
+
+const Modal: FC<ModalProps> = (props) => {
+  const handleClickInside = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
     event.stopPropagation();
   };
 

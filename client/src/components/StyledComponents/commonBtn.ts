@@ -1,7 +1,14 @@
 import styled from "styled-components";
 
 // 그 외 버튼
-export const CommonBtn = styled.button`
+
+interface ICommonBtnProps {
+  $background?: string;
+  $color?: string;
+  $height?: string;
+}
+
+export const CommonBtn = styled.button<ICommonBtnProps>`
   border: 1px solid var(--black);
   background: ${(props) => props.$background || "var(--black)"};
   color: ${(props) => props.$color || "var(--white)"};
