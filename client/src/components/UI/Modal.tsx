@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from "react";
+import React, { ReactNode } from "react";
 import styled from "styled-components";
 
 interface IModalBoxProps {
@@ -30,7 +30,7 @@ interface ModalProps {
   children: ReactNode;
 }
 
-const Modal: FC<ModalProps> = (props) => {
+const Modal = (props: ModalProps) => {
   const handleClickInside = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {

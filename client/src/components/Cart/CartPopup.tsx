@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import { NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -16,7 +16,7 @@ interface Props {
   closeCartHandler: () => void;
 }
 
-const CartPopup: FC<Props> = (props) => {
+const CartPopup = (props: Props) => {
   const cartItems = useSelector(
     (state: RootState) => state.cart.items as CartItem[]
   );

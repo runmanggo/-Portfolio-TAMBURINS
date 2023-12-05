@@ -1,4 +1,4 @@
-import { useState, useEffect, FC } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import { useQuery } from "@tanstack/react-query";
@@ -33,7 +33,7 @@ function shuffleArray(array: any[]) {
   return array;
 }
 
-const Results: FC = () => {
+const Results = () => {
   const [randomScent, setRandomScent] = useState<MainItems[]>([]);
   const fetchScent = useFetchData(API.BEST);
   const {

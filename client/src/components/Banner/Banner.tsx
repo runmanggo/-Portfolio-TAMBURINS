@@ -8,7 +8,7 @@ import { Banner as BannerData } from "model/banner";
 import classes from "./banner.module.css";
 import shortid from "shortid";
 
-const Banner: React.FC = () => {
+const Banner = () => {
   const { category } = useParams<{ category?: string }>();
 
   const {

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import classes from "../../style/itemCard.module.css";
 
 import { MainItems } from "model/mainItems";
@@ -7,7 +7,7 @@ interface Props {
   item: MainItems;
 }
 
-const ItemCard: FC<Props> = (props) => {
+const ItemCard = (props: Props) => {
   const item = props.item;
 
   return (

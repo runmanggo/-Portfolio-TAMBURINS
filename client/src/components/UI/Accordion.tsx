@@ -1,12 +1,5 @@
-import React, { FC, useState, useRef, useEffect, ReactNode } from "react";
+import React, { useState, useRef, useEffect, ReactNode } from "react";
 import styled from "styled-components";
-
-// interface AccodianProps {
-//   $isOpen: boolean;
-//   height: number;
-//   title: string;
-//   children: ReactNode;
-// }
 
 const DetailInfoBox = styled.div`
   border-top: 1px solid #d5d5d5;
@@ -82,7 +75,7 @@ interface AccodianProps {
   children: ReactNode;
 }
 
-const Accordion: FC<AccodianProps> = (props) => {
+const Accordion = (props: AccodianProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const contentRef = useRef<HTMLDivElement | null>(null);
   const [height, setHeight] = useState<number>(0);

@@ -18,7 +18,7 @@ interface Data {
 }
 
 const Search = () => {
-  const [activeImage, setActiveImage] = useState("");
+  const [activeImage, setActiveImage] = useState<string>("");
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const query: string | null = queryParams.get("query");

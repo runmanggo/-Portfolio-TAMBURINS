@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from "react";
+import React, { Fragment } from "react";
 import classes from "./sidebar.module.css";
 import { NavLink, useNavigate } from "react-router-dom";
 
@@ -17,7 +17,7 @@ interface Props {
   onClose: () => void;
 }
 
-const Sidebar: FC<Props> = (props) => {
+const Sidebar = (props: Props) => {
   const isLoggedIn = useSelector((state: RootState) => state.auth.loggedIn);
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 // 그 외 버튼
-
 interface ICommonBtnProps {
   $background?: string;
   $color?: string;

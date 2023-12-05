@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { useDispatch } from "react-redux";
 import classes from "./cartItems.module.css";
 import {
@@ -19,7 +18,7 @@ type Props = {
   className?: string;
 };
 
-const CartItems: FC<Props> = (props) => {
+const CartItems = (props: Props) => {
   const item = props.item;
   const dispatch = useDispatch();
 

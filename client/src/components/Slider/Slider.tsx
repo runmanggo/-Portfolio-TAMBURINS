@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
@@ -14,7 +14,7 @@ interface Props {
   activeImage: string;
 }
 
-const Slider: FC<Props> = (props) => {
+const Slider = (props: Props) => {
   const fetchImages = useFetchData(API.CATEGORIES);
   const {
     data: images,

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import classes from "./filter.module.css";
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
   quantity: number | undefined;
 }
 
-const Filter: FC<Props> = (props) => {
+const Filter = (props: Props) => {
   return (
     <div className={classes.filter}>
       <div className={classes.filter__container}>

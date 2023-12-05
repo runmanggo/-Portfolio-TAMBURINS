@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { useEffect } from "react";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -14,7 +14,7 @@ import { ItemsDetail } from "model/itemsDetail";
 
 import shortid from "shortid";
 
-const SliderItems: FC = () => {
+const SliderItems = () => {
   const { id } = useParams() as { id: number | undefined };
 
   const {

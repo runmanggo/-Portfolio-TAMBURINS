@@ -17,7 +17,7 @@ import { fetchItems } from "../services/fetchItems";
 import { MainItems } from "../model/mainItems";
 
 const Category = () => {
-  const [activeImage, setActiveImage] = useState("");
+  const [activeImage, setActiveImage] = useState<string>("");
   const { category } = useParams() as { category: string };
   const {
     data: title,

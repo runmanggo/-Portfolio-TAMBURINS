@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import classes from "./header.module.css";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase.config";
@@ -53,7 +53,7 @@ const left_link = [
   },
 ];
 
-const Header: FC<Props> = (props) => {
+const Header = (props: Props) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [isTransparent, setIsTransparent] = useState<boolean>(false);
   const [showSidebar, setShowSidebar] = useState<boolean>(false);

@@ -39,7 +39,7 @@ function shuffleArray(array: any) {
 
 const ItemDetails = () => {
   const [isShown, setIsShown] = useState<boolean>(true);
-  const [randomScent, setRandomScent] = useState([]);
+  const [randomScent, setRandomScent] = useState<MainItems[]>([]);
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
 
   const dispatch = useDispatch();
