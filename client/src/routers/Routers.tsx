@@ -10,7 +10,7 @@ import Signup from "../pages/Signup";
 import Login from "../pages/Login";
 import Search from "../pages/Search";
 
-const Routers: React.FC = () => {
+const Routers = () => {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/home" />} />

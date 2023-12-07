@@ -5,7 +5,11 @@ import { CommonBtn } from "../components/StyledComponents/commonBtn";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase.config";
 
@@ -61,6 +65,8 @@ const Signup = () => {
         email,
         userPw
       );
+
+      await signOut(auth);
 
       try {
         await setDoc(doc(db, "users", userCredential.user.uid), {
