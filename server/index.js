@@ -19,10 +19,16 @@ app.use(bodyParser.json());
 app.use(cors());
 
 //MongoDB 연결
-// 실서비스는 나중에
 const uri = process.env.MONGO_URI;
 
-mongoose.connect(uri);
+mongoose
+  .connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    dbName: "tamburinsDB",
+  })
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.log(err));
 
 // categoryRoutes 기본 주소 등록
 app.use("/categories", categoryRoutes);
