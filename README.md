@@ -47,7 +47,7 @@
 UI에 대한 깊은 관심을 가지고 있어, 스타일드 컴포넌트의 활용 가능성을 최대한 끌어올리고 싶었습니다. 그래서 이번 프로젝트에서는 스타일드 컴포넌트를 효과적으로 활용하기 위한 적용 기준을 설정하고 적용해보기로 결정하였습니다.
 
 
-####  3. 유효성 검사 with <img src="https://img.shields.io/badge/React Hook Form-EC5990?style=for-the-badge&logo=React Hook Form&logoColor=61DAFB"/>
+####  3. 유효성 검사 with <img src="https://img.shields.io/badge/reacthookform-EC5990?style=for-the-badge&logo=reacthookform&logoColor=61DAFB"/>
 
 로그인 및 회원가입 기능을 구현함에 있어서는 유효성 검사가 필수적인 요소입니다. <br/>
 비록 개발자로서 자신만의 세부적인 코드로 구현하는 방법이 가능하다 하더라도, 새로운 기술과 효율적인 기술이 존재한다면 이를 활용해보는 것이 좋다고 생각하게 되었습니다. <br/>이러한 고민 과정을 통해, "react hook form"기술을 알게 되어 적용해보기로 결정하였습니다.
