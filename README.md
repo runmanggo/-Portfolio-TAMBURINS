@@ -1,7 +1,7 @@
 # [Portfolio] TAMBURINS
 제가 좋아하는 브랜드인 "템버린즈" 웹사이트를 클론 코딩 해봤습니다 <br/>
 배포 : https://d3bjt2w4sdlfro.cloudfront.net
-<br/>(클라우드 타입에 서버 배포를 했는데, 느려서 로딩 속도에 문제가 있습니다. 양해부탁드립니다.)
+<br/><span style="font-size:13px">(서버 배포에 사용된 클라우드 타입이 느려, 로딩 속도에 약간의 지연이 발생할 수 있습니다. 이 점 양해 부탁드립니다.🙇🏻‍♀️)</span>
 
 ### <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Light%20Bulb.png" alt="Light Bulb" width="3%" />클론 코딩을 한 이유?
 처음 사이드 프로젝트를 진행하게 되면서, 즐겁게 무엇을 만들 수 있을까라는 고민을 하게 되었습니다. 많은 서비스들 중에 일상생활에서 쉽게 접할 수 있는 서비스를 따라해보고 싶어, 평소에 좋아하는 브랜드인 템버린즈 사이트를 클론하게 되었습니다.
